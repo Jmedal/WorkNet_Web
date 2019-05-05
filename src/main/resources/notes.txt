@@ -1,0 +1,21 @@
+application-dev  为测试配置
+application-prod 为正式配置
+
+
+datasource:
+    driver-class-name: com.mysql.jdbc.Driver   // mysql驱动
+    url: jdbc:mysql://127.0.0.1:3306/dbgirl?useSSL=false
+    username: root                             //数据库帐号
+    password: root                             //数据库密码
+  jpa:
+    hibernate:
+      ddl-auto: create
+      //配置jpa ddl-auto
+      //create：每次启动程序都会重新创建一个表
+      //update: 每次启动程序都会创建一个表结构，但是表里如果有数据，它不会删除数据
+      //create-drop: 每次启动程序都会重新创建一个表，程序停止时会把表删掉
+      //none: 什么都不做
+      //validtate: 每次启动程序都会验证类里面的属性和表结构是否一致，
+                 若不一致它就会报错
+    show-sql: true
+       //是否显示sql语句，方便查找错误

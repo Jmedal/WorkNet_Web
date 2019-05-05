@@ -1,0 +1,70 @@
+spring:
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/worknet?useSSL=false
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  #Redis配置
+  redis:
+    host: 192.168.145.132
+    port: 6379
+    timeout: 5000ms
+    cluster:
+      nodes: 192.168.211.134:7000,192.168.211.134:7001,192.168.211.134:7002
+      maxRedirects: 6
+    jedis:
+      pool:
+        max-active: 8
+        min-idle: 0
+        max-idle: 500
+        max-wait: 1ms
+
+
+# 配置mybatis-plus
+mybatis-plus:
+  # 配置扫描xml
+  # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
+  # 如果是放在resource目录 classpath:/mapper/*Mapper.xml
+  mapper-locations: classpath*:com/example/worknet/common/persistence/mapping/*Mapper.xml
+
+  # 实体扫描，多个package用逗号或者分号分隔
+  type-aliases-package: com.example.worknet.common.persistence.model
+
+  global-config:
+    id-type: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
+    #驼峰下划线转换
+    db-column-underline: true
+    #mp2.3+ 全局表前缀 mp_
+    #table-prefix: mp_
+    #数据库大写下划线转换
+    #capital-mode: true
+    # Sequence序列接口实现类配置
+    #key-generator: com.baomidou.mybatisplus.incrementer.OracleKeyGenerator
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #逻辑删除配置（下面3个配置）
+    logic-delete-value: 0
+    logic-not-delete-value: 1
+    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+    #自定义填充策略接口实现
+    #meta-object-handler: com.baomidou.springboot.MyMetaObjectHandler
+  configuration:
+    #配置返回数据库(column下划线命名&&返回java实体是驼峰命名)，自动匹配无需as（没开启这个，SQL需要写as： select user_id as userId）
+    map-underscore-to-camel-case: false
+    #配置的缓存的全局开关
+    cache-enabled: true
+    #配置JdbcTypeForNull, oracle数据库必须配置
+    #jdbc-type-for-null: 'null'
+    #延时加载的开关
+    lazyLoadingEnabled: true
+    #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
+    multipleResultSetsEnabled: true
+    #打印sql语句,调试用
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

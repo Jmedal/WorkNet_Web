@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.worknet.common.persistence.template.dao.ComanyContestApplyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.worknet.common.persistence.template.modal.ComanyContestApply">
+        <id column="id" property="id" />
+        <result column="contest_id" property="contestId" />
+        <result column="user_id" property="userId" />
+        <result column="permission" property="permission" />
+        <result column="sign_up_time" property="signUpTime" />
+    </resultMap>
+
+</mapper>
