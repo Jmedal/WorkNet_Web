@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.example.worknet.common.persistence.template.modal.Company">
         <id column="id" property="id" />
         <result column="user_id" property="userId" />
+        <result column="name" property="name" />
         <result column="introduction" property="introduction" />
         <result column="address" property="address" />
         <result column="registe_time" property="registeTime" />

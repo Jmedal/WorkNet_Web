@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en"
+	class="ace ace-card-on ace-tab-nav-on ace-main-nav-on ace-sidebar-on"
+	data-theme-color="#c0e3e7"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>我的项目</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link href="/personal/fonts/icomoon/style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/personal/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/edua-icons.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/owl.transitions.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/cubeportfolio.min.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/settings.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/bootsnav.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/style.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/loader.css">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Quicksand:400,700"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Pacifico"
+	rel="stylesheet">
+
+<!-- Icon Fonts -->
+
+
+<!-- Styles -->
+<link href="/personal/js/plugins/highlight/solarized-light.css" rel="stylesheet">
+
+<!-- Modernizer -->
+<script type="text/javascript" src="/personal/js/vendor/modernizr-3.3.1.min.js"></script>
+	<style>
+		div.info-item{
+			margin:30px 10px;
+		}
+		#joined-exam{
+			list-style: none;
+			transition: all .5s;
+		}
+		#joined-exam li{
+			float: left;
+			margin-left: 3%;
+			display: inline-list-item;
+			width: 20%;
+			padding:20px;
+		}
+		#joined-exam .logo-wrapper{
+			width: 120px;
+			height: 120px;
+			position:relative;
+			left: 50%;
+			margin-left: -60px;
+			-webkit-border-radius: 50%;
+			-moz-border-radius: 50%;
+			border-radius: 50%;
+		}
+		#joined-exam .logo-wrapper img{
+			width: 100%;
+			height: 100%;
+			-webkit-border-radius: 50%;
+			-moz-border-radius: 50%;
+			border-radius: 50%;
+		}
+		#joined-exam .logo-wrapper .exam-info{
+			transition: all .5s;
+			width:120px;
+			height:120px;
+			margin:0;
+			padding-top: 20px;
+			color:white;
+			text-align: center;
+			font-size: 0.8em;
+			-webkit-border-radius: 50%;
+			-moz-border-radius: 50%;
+			border-radius: 50%;
+			background: black;
+			position: absolute;
+			opacity: 0;
+		}
+		#joined-exam .logo-wrapper:hover .exam-info{
+			opacity: 0.7;
+		}
+		.exam-title{
+			text-align: center;
+		}
+		#progress{
+			transition: all .6s;
+		}
+		#progress-wrapper:hover #progress{
+			box-shadow: -3px 3px 5px inset #a0b3ff;
+			opacity: 0.6;
+		}
+		#progress-wrapper{
+			cursor: pointer;
+			float: right;
+			width:30%;
+			margin-right: 30px;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript" src="/personal/js/header.js"></script>
+
+	<div class="ace-wrapper">
+		<header id="ace-header"
+			class="ace-container-shift ace-logo-in ace-head-boxed ace-nav-right">
+			<div class="ace-head-inner">
+				<div class="ace-head-container ace-container">
+					<div class="ace-head-row"></div>
+				</div>
+				<!-- .ace-container -->
+			</div>
+			<!-- .ace-head-inner -->
+		</header>
+		 <!-- 头像部分 -->
+        <article id="ace-card" class="ace-card bg-primary">
+			<div class="ace-card-inner text-center">
+				<img class="avatar avatar-195" src="img/uploads/avatar/avatar-195x195.png" width="195" height="195" alt="">
+				<h1>昵称xxx</h1>
+				<p>就职方向：Java后端</p>
+			</div>
+
+			<footer class="ace-card-footer">
+				<p>天天向上</p>
+			</footer>
+		</article>
+		<div id="ace-content" class="ace-container-shift">
+			<div class="ace-container">
+				<div class="ace-paper-stock">
+					<main class="ace-paper clearfix" id="clearpadding">
+						<div class="ace-paper-cont clear-mrg">
+
+							<section class="section brd-btm">
+								<div class="container">
+									<div class="row">
+										<div class="col-sm-12 clear-mrg text-box">
+											<p class="text-right">
+												<img src="img/uploads/signature.png" alt="" width="40px">
+											</p>
+										</div>
+									</div>
+								</div>
+							</section>
+
+							<section class="section brd-btm wow fadeInDown" id="personal-info">
+								<div class="">
+									<div class="col-md-12">
+										<h2 class="heading heading_space">个人信息<span class="divider-left"></h2>
+									</div><!-- .col-sm-6 -->
+									<div class="">
+
+										<div class="info-item" style="padding-left: 3em;">
+											<i class="icon-user"></i>姓名：
+											<span id="realName"
+												  style="width: auto;display: inline;">
+												张大炮
+											</span>
+										</div>
+										<div class="info-item" style="padding-left: 3em;">
+											<i class="icon-number9"></i>年龄：
+											<span id="age"
+												  style="width: auto;display: inline;">
+												24
+											</span>
+										</div>
+										<div class="info-item" style="padding-left: 3em;">
+											<i class="icon-aperture"></i>职业：
+											<span id="role"
+												  style="width: auto;display: inline;">
+												学生
+											</span>
+										</div>
+										<div class="info-item" style="padding-left: 3em;">
+											<i class="icon-apple"></i>兴趣：
+											<span id="interest"
+												  style="width: auto;display: inline;">
+												敲代码
+											</span>
+										</div>
+									</div>
+								</div>
+							</section><!-- .section -->
+							<section class="section brd-btm wow fadeInDown" id="communication">
+								<div class="">
+									<div class="col-md-12 ">
+										<h2 class="heading heading_space">联络方式<span class="divider-left"></h2>
+									</div><!-- .col-sm-6 -->
+									<div class="info-item" style="padding-left: 3em;">
+										<i class="icon-phone"></i>手机：
+										<span id="phone"
+											  style="width: auto;display: inline;">
+												24
+											</span>
+									</div>
+									<div class="info-item" style="padding-left: 3em;">
+										<i class="icon-email"></i>邮箱：
+										<span id="email"
+											  style="width: auto;display: inline;">
+												12414@qq.com
+											</span>
+									</div>
+									<div class="info-item" style="padding-left: 3em;">
+										<i class="icon-email3"></i>Gits：
+										<span id="github"
+											  style="width: auto;display: inline;">
+												github.com/Dkkas
+											</span>
+									</div>
+								</div>
+							</section>
+
+							<section class=" wow fadeInDown section brd-btm" id="joined-courses" style="padding-top: 25px;padding-bottom: 10px;">
+								<div class="">
+									<div class="row">
+										<div class="col-md-12">
+											<h2 class="heading heading_space">学习的课程<span class="divider-left"></span></h2>
+											<div id="progress-wrapper" data-placement="left" data-content="1/10" class="progress progress-striped active margin10">
+												<div id="progress" class="progress-bar progress-bar-info"></div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<!--      分页获取，根据page,填充li即可-->
+										<div class="col-md-12">
+												<div style="float: left;width: 45%;margin-right:5%;display: inline-list-item;">
+													<div class="content_wrap">
+														<div class="image">
+															<img src="images/news1.jpg" alt="Edua" class="img-responsive border_radius">
+														</div>
+														<div class="news_box border_radius">
+															<h4><a href="myProject_details.html">4 Springtime Color Schemes to Try at Home</a></h4>
+															<ul class="commment">
+																<li><i class="icon-icons20"></i>June 6, 2016</li>
+																<li><i class="icon-comment"></i> 02</li>
+															</ul>
+															<p>We offer the most complete house Services in the country...</p>
+															<a href="myProject_details.html" class="readmore">Read More</a>
+														</div>
+													</div>
+												</div>
+												<div style="float: left;width: 45%;margin-right:5%;display: inline-list-item;">
+													<div class="content_wrap">
+														<div class="image">
+															<img src="images/news1.jpg" alt="Edua" class="img-responsive border_radius">
+														</div>
+														<div class="news_box border_radius">
+															<h4><a href="myProject_details.html">4 Springtime Color Schemes to Try at Home</a></h4>
+															<ul class="commment">
+																<li><i class="icon-icons20"></i>June 6, 2016</li>
+																<li><i class="icon-comment"></i> 02</li>
+															</ul>
+															<p>We offer the most complete house Services in the country...</p>
+															<a href="myProject_details.html" class="readmore">Read More</a>
+														</div>
+													</div>
+												</div>
+										</div>
+									</div>
+								</div>
+							</section>
+							<!--参加过的笔试-->
+							<section class=" wow fadeInDown section" id="exams-section" style="padding-top: 25px;">
+								<div class="">
+									<div class="row">
+										<div class="col-md-12 clear-mrg">
+											<h2 class="heading heading_space">参加的笔试<span class="divider-left"></span></h2>
+											<ul class="pagination" style="float: right;">
+												<li><span id="pp" class="btn" disabled="true" onclick="prv()">&laquo;</span></li>
+												<li><span id="nn" class="btn" onclick="nxt()">&raquo;</span></li>
+											</ul>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<ul id="joined-exam">
+											</ul>
+										</div>
+									</div>
+								</div>
+							</section>
+						</div>
+					<!-- .ace-paper-cont -->
+					</main>
+					<!-- .ace-paper -->
+				</div>
+				<!-- .ace-paper-stock -->
+
+			</div>
+			<!-- .ace-container -->
+		</div>
+		<!-- #ace-content -->
+
+
+		<script type="text/javascript" src="/personal/js/footer.js"></script>
+		<!-- Triangle Shapes -->
+		<svg id="ace-bg-shape-1" class="hidden-sm hidden-xs" height="519"
+			width="758">
+        <polygon points="0,455,693,352,173,0,92,0,0,71"
+				style="fill:#d2d2d2;stroke:purple;stroke-width:0; opacity: 0.5">
+    </svg>
+
+		<svg id="ace-bg-shape-2" class="hidden-sm hidden-xs" height="536"
+			width="633">
+        <polygon points="0,0,633,0,633,536"
+				style="fill:#c0e3e7;stroke:purple;stroke-width:0" />
+    </svg>
+	</div>
+	<!-- .ace-wrapper -->
+	<!-- Scripts -->
+	<script type="text/javascript" src="/personal/js/vendor/jquery-1.12.4.min.js"></script>
+
+
+	<!---<script type="text/javascript" src="http://ditu.google.cn/maps/api/js?key=AIzaSyDiwY_5J2Bkv2UgSeJa4NOKl6WUezSS9XA"></script>--->
+	<script type="text/javascript"
+		src="/personal/js/plugins/highlight/highlight.pack.js"></script>
+	<script type="text/javascript"
+		src="/personal/js/plugins/jquery.mCustomScrollbar.min.js"></script>
+	<script type="text/javascript" src="/personal/js/plugins/isotope.pkgd.min.js"></script>
+	<script type="text/javascript" src="/personal/js/plugins/progressbar.min.js"></script>
+	<script type="text/javascript" src="/personal/js/plugins/slick.min.js"></script>
+
+	<script type="text/javascript" src="/personal/js/options.js"></script>
+	<script type="text/javascript" src="/personal/js/main.js"></script>
+
+	<script src="/personal/js/jquery-2.2.3.js"></script>
+	<script src="/personal/js/bootstrap.min.js"></script>
+	<script src="/personal/js/bootsnav.js"></script>
+	<script src="/personal/js/jquery.appear.js"></script>
+	<script src="/personal/js/jquery-countTo.js"></script>
+	<script src="/personal/js/jquery.parallax-1.1.3.js"></script>
+	<script src="/personal/js/owl.carousel.min.js"></script>
+	<script src="/personal/js/jquery.cubeportfolio.min.js"></script>
+	<script src="/personal/js/jquery.themepunch.tools.min.js"></script>
+	<script src="/personal/js/jquery.themepunch.revolution.min.js"></script>
+	<script src="/personal/js/revolution.extension.layeranimation.min.js"></script>
+	<script src="/personal/js/revolution.extension.navigation.min.js"></script>
+	<script src="/personal/js/revolution.extension.parallax.min.js"></script>
+	<script src="/personal/js/revolution.extension.slideanims.min.js"></script>
+	<script src="/personal/js/revolution.extension.video.min.js"></script>
+	<script src="/personal/js/wow.min.js"></script>
+	<script src="/personal/js/functions.js"></script>
+<script>
+	let wpage = 1;
+	let t;
+	let maxWpage = 2;//ready的时候从后端获取
+	let $test = $('#progress');
+	let $pwrapper = $('#progress-wrapper');
+	let pager = {//对象
+		_maxPage:10,
+		_curPage:1,
+		get maxPage(){
+			return this._maxPage;
+		},
+		set maxPage(v){
+			this._maxPage = v;
+			setWidth();
+		},
+		set curPage(v){
+			this._curPage = v;
+			setWidth();
+		},
+		get curPage(){
+			return this._curPage;
+		}
+	};
+	let hoverPage = 1;
+	$pwrapper.on({
+		'mousemove':function (e) {
+			let xx = e.pageX-$(this).offset().left;
+			let width = $(this).width();
+			let page = Math.ceil(pager.maxPage*xx/width);
+			if(page<=0)
+				page = 1;
+			if(hoverPage!==page){
+				hoverPage = page;
+				$pwrapper.attr('data-content',hoverPage+"/"+pager.maxPage);
+				$pwrapper.popover('show');
+			}
+		},
+		'mousedown':function () {
+			pager.curPage = hoverPage;
+		},
+		'mouseleave':function () {
+			$pwrapper.popover('hide');
+		},
+		'mouseenter':function () {
+			$pwrapper.popover('show');
+		}
+	});
+	//设置进度条的宽度
+	function setWidth() {
+		$test.css('width',100*pager.curPage/pager.maxPage+"%");
+	}
+	function prv() {
+		if($(pp).attr('disabled')==null){
+			wpage = wpage-1;
+			console.log(wpage);
+			//刷新#joined-exam
+			refreshJoinedExam();
+			$(nn).removeAttr('disabled');
+			if(wpage===1){
+				$(pp).attr('disabled','disabled');
+			}
+		}
+	}
+	function nxt() {
+
+		if($(nn).attr('disabled')==null) {
+			wpage = wpage + 1;
+			console.log(wpage);
+			//刷新#joined-exam
+			refreshJoinedExam();
+			$(pp).removeAttr('disabled');
+			if (wpage === maxWpage) {
+				$(nn).attr('disabled', 'disabled');
+			}
+		}
+	}
+	//刷新参加过的笔试，通过wpage属性
+	function refreshJoinedExam() {
+		clearTimeout(t);
+		var $ul = $('#joined-exam');
+		var li = '<li class="wow fadeInDown">\n' +
+				'            <a href="#">\n' +
+				'              <div class="logo-wrapper">\n' +
+				'                <dl class="exam-info">\n' +
+				'                  <dd>共4道题</dd>\n' +
+				'                  <dd>44人参加</dd>\n' +
+				'                  <dd>2018-11-11</dd>\n' +
+				'                </dl>\n' +
+				'                <img  src="images/about.jpg" alt="">\n' +
+				'              </div>\n' +
+				'              <div class="exam-title">\n' +
+				'                <p>网易2019校招</p>\n' +
+				'              </div>\n' +
+				'            </a>\n' +
+				'          </li>';
+		var $li = $ul.children();
+		$li.each(function () {
+			$(this).fadeOut(300,function () {
+				$(this).remove();
+			});
+		});
+		setTimeout(function () {
+			var a = $(nn).attr('disabled');
+			var b = $(pp).attr('disabled');
+			$(nn).attr('disabled', 'disabled');
+			$(pp).attr('disabled', 'disabled');//防止乱序
+			function tmp(x,len) {
+				if(x<len){
+					t = setTimeout(function () {
+						$(li).appendTo($ul).hide().fadeIn(600,tmp(x+1,len));
+					},100);
+				}else{
+					if(a==null)
+						$(nn).removeAttr('disabled');
+					if(b==null)
+						$(pp).removeAttr('disabled');
+				}
+			}
+			if(wpage===1){
+				$(li).appendTo($ul).hide().fadeIn(600,tmp(1,8));
+			}else{
+				$(li).appendTo($ul).hide().fadeIn(600, tmp(1,5));
+			}
+		},300);
+		// $ul.empty();
+	}
+	$(document).ready(function () {
+		refreshJoinedExam();
+		setWidth();
+		$pwrapper.popover('show');
+	});
+</script>
+</body>
+</html>

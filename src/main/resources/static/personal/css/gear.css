@@ -1,0 +1,60 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	font-family: 'Microsoft Yahei', '微软雅黑', 'Hiragino Sans GB', Tahoma,
+		Helvetica, Arial, '宋体', nimbussansl, liberationsans, freesans, clean,
+		sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
+	height: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	background-color: #fff;
+	margin: 0;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center
+}
+section {
+	font-size: 30px;
+	width: 100%;
+	height: 40px;
+	margin-top: 0;
+	margin-left: 20px;
+}
+p {
+	padding-left: 6%;
+	font-size: 20px;
+	display: inline-block;
+}
+form {
+	margin-left: 20%;
+	margin-right: 20%;
+	margin-top: 20px;
+	border: 1px solid #d5d5d5;
+	box-shadow: 1px 2px 1px rgba(0,0,0,0.3);
+}
+.bt {
+	padding-top :10px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.blank {
+	float: right;
+	padding-right: 8%;
+}
+#ex1Slider .slider-selection {
+	background: #BABABA;
+}
+.slider.slider-horizontal .slider-track {
+	margin-top: -9px;
+}
+.slider.slider-horizontal {
+	width: 35px;
+	height: 18px;
+}
+.in:hover {
+	cursor: pointer;
+}

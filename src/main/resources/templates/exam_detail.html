@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>笔试详情</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/edua-icons.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="/css/owl.transitions.css">
+    <link rel="stylesheet" type="text/css" href="/css/cubeportfolio.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootsnav.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/loader.css">
+    <link rel="stylesheet" type="text/css" href="/css/button.css">
+
+
+</head>
+
+<body data-spy="scroll" data-target="#myScrollspy">
+
+<a href="#" class="scrollToTop"><i class="fa fa-angle-up"></i></a>
+<!--Loader-->
+<div class="loader">
+    <div class="bouncybox">
+        <div class="bouncy"></div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="/js/header.js"></script>
+
+<!--Search-->
+<div id="search">
+    <button type="button" class="close">×</button>
+    <form>
+        <input type="search" value="" placeholder="Search here...." required/>
+        <button type="submit" class="btn btn_common blue">Search</button>
+    </form>
+</div>
+
+<!--Page Header-->
+<section class="page_header padding-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 page-content">
+                <div class="page_nav">
+                    <span>你的位置:</span> <a href="index.html">首页</a> <span><i
+                        class="fa fa-angle-double-right"></i>笔试详情</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Page Header-->
+
+
+<!-- Courses -->
+<section id="course_all" class="padding-bottom-half padding-top-half">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="comment_box col-md-8">
+                <h3>笔试标题</h3>
+                <div class="bottom15"></div>
+                <h4>笔试日期：0000年00月00日</h4>
+                <div class="bottom15"></div>
+                <h4>开始时间：00：00：00</h4>
+                <div class="bottom15"></div>
+                <h4>结束时间：00：00：00</h4>
+                <div class="bottom15"></div>
+                <h4>题量：10道</h4>
+                <div class="bottom15"></div>
+                <h4>总分：100分</h4>
+                <div class="bottom15"></div>
+                <h4>距离开始时间：<div id="counting_time"></div></h4>
+                <div class="bottom15"></div>
+                <button class="btn btn-info" >报名笔试</button>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</section>
+<!-- Courses -->
+
+
+<script type="text/javascript" src="/js/footer.js"></script>
+
+
+<script src="/js/jquery-2.2.3.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootsnav.js"></script>
+<script src="/js/jquery.appear.js"></script>
+<script src="/js/jquery-countTo.js"></script>
+<script src="/js/jquery.parallax-1.1.3.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.cubeportfolio.min.js"></script>
+<script src="/js/jquery.themepunch.tools.min.js"></script>
+<script src="/js/jquery.themepunch.revolution.min.js"></script>
+<script src="/js/revolution.extension.layeranimation.min.js"></script>
+<script src="/js/revolution.extension.navigation.min.js"></script>
+<script src="/js/revolution.extension.parallax.min.js"></script>
+<script src="/js/revolution.extension.slideanims.min.js"></script>
+<script src="/js/revolution.extension.video.min.js"></script>
+<script src="/js/wow.min.js"></script>
+<script src="/js/functions.js"></script>
+
+<script type="text/javascript">
+    window.onload=clock;
+    function clock(){
+        var today=new Date(),//当前时间
+            h=today.getHours(),
+            m=today.getMinutes(),
+            s=today.getSeconds();
+        var stopTime=new Date("Feb 9 2020 00:00:00"),//结束时间
+            stopH=stopTime.getHours(),
+            stopM=stopTime.getMinutes(),
+            stopS=stopTime.getSeconds();
+        var rest_time=stopTime.getTime()-today.getTime(),//倒计时毫秒数
+            rest_day=parseInt(rest_time/(60*60*24*1000)),//转换为天
+            day=parseInt(rest_time)-parseInt(rest_day*60*60*24*1000),//除去天的毫秒数
+            rest_hour=parseInt(day/(60*60*1000)),//除去天的毫秒数转换成小时
+            hour=day-rest_hour*60*60*1000,//除去天、小时的毫秒数
+            rest_min=parseInt(hour/(60*1000)),//除去天的毫秒数转换成分钟
+            min=hour-rest_min*60*1000;//除去天、小时、分的毫秒数
+        sec=parseInt((rest_time-rest_day*60*60*24*1000-rest_hour*60*60*1000-rest_min*60*1000)/1000)//除去天、小时、分的毫秒数转化为秒
+        document.getElementById("counting_time").innerHTML=(rest_day+"天"+rest_hour+"小时"+rest_min+"分"+sec+"秒"+"<br>");
+        // setTimeout("clock()",500);
+        setTimeout(clock,500);
+    }
+</script>
+</body>
+</html>

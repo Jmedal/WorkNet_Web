@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>视频</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/edua-icons.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="/css/owl.transitions.css">
+    <link rel="stylesheet" type="text/css" href="/css/cubeportfolio.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootsnav.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/loader.css">
+    <link rel="stylesheet" type="text/css" href="/css/button.css">
+    <link rel="stylesheet" type="text/css" href="/video.js/dist/video-js.css">
+    <style>
+        #menu-wrapper{
+            float: left;
+            width: 30%;
+        }
+        #container{
+            min-height: 800px;
+        }
+        #menu{
+            height: 300px;
+        }
+        #video-index{
+            overflow-y:scroll;
+            height: 600px;
+        }
+        #video-wrapper{
+            width: 60%;
+            height: 600px;
+            float: right;
+        }
+        dt{
+           font-size: 0.8em;
+        }
+        .video-progress, .video-title,.video-length{
+            display: inline-block;
+            overflow-x:hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .video-progress{
+            width: 20%;
+        }
+        .video-title{
+            width: 60%;
+        }
+        .video-length{
+            width: 15%;
+        }
+        dd.video-item{
+            transition: all .2s;
+            padding:1px 6px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top:15px;
+        }
+        dd.video-item:hover{
+            background: #1b5d90;
+            color: #bee5ff;
+            opacity: .7;
+        }
+        dd.video-item:active{
+            box-shadow: -3px 3px 10px inset black;
+            opacity: 1;
+            padding-top: 2px;
+            padding-bottom: 0;
+        }
+        .here{
+            background: #004390;
+            color: #bee5ff;
+            opacity: .7;
+        }
+        .show-reply{
+            font-size: .8em;
+            transition:all .1s;
+            cursor: pointer;
+            padding:2px 4px;
+        }
+        .show-reply:hover{
+            color: #710000;
+        }
+        .reply-num::before{
+            content: '(';
+        }
+        .reply-num::after{
+            content: ')';
+        }
+        .comment-layer::before{
+            content: '#';
+        }
+        .reply-header{
+        }
+        .reply-body{
+        }
+        .reply-wrapper{
+            display: -webkit-box;
+            font-size: .8em;
+        }
+        .comment-send{
+            margin-top:30px;
+            font-size: .8em;
+        }
+        .reply-item{
+            margin: 15px 0 0 0;
+            padding-left: 0;
+        }
+        .reply-btn{
+            margin-left:30px;
+            padding:3px;
+            border-radius: 4px;
+        }
+        .reply-btn:hover{
+            background: #bebebe;
+            color: #e6ffff;
+            cursor: pointer;
+        }
+        .total-page{
+            font-size: .8em;
+        }
+        .total-page::before{
+            content: '共 ';
+        }
+        .total-page::after{
+            content: ' 页';
+        }
+        .page-off{
+            margin-left: 30px;
+            font-size: .8em;
+        }
+        .page-item{
+            padding: 2px 5px;
+            transition: all .2s;
+            cursor: pointer;
+            color:black;
+        }
+        .page-item:hover{
+            color: #1ec9ff;
+        }
+        .page-ellipsis::after{
+            content: '...';
+        }
+        .this-page{
+            color: #3a2fc9;
+            padding: 2px 5px;
+        }
+        .comment-item{
+            margin-bottom: 50px;
+            padding-bottom: 80px;
+            border-bottom: 1px solid #dfdfdf;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript" src="/js/header.js"></script>
+<div id="search">
+    <button type="button" class="close">×</button>
+    <form>
+        <input type="search" value="" placeholder="Search here...." required/>
+        <button type="submit" class="btn btn_common blue">Search</button>
+    </form>
+</div>
+
+<!--Page Header-->
+<section class="page_header padding-top">
+    <div class="container clearfix">
+        <div class="row">
+            <div class="col-md-12 page-content">
+                <div class="page_nav">
+                    <span>你的位置:</span> <a href="index.html">首页</a> <span><i
+                        class="fa fa-angle-double-right"></i><a href="course_detail.html">课程详情</a></span><span><i
+                        class="fa fa-angle-double-right"></i>视频</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Page Header-->
+<div id="container">
+    <section id="video_all"  class="padding-bottom-half padding-top-half col-md-10">
+        <div id="menu-wrapper" class="margin_left bottom20_clear">
+            <div class="bottom20"></div>
+            <div class="panel-group bottom20" id="menu">
+                <div>
+                    <div class="panel panel-default ">
+                        <div class="panel-heading ">
+                            <h4 class="panel-title">
+                                <a data-parent="#menu"
+                                   href="#video-index" class="">
+                                    <div>视频目录</div>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="video-index" class="panel-collapse ">
+                            <div class="panel-body">
+                                <dl>
+                                    <dt></dt>
+                                    <dt>
+                                        <div class="video-progress">进度</div>
+                                        <div class="video-title">标题</div>
+                                        <div class="video-length">时长</div>
+                                    </dt>
+                                    <dd class="video-item here" data-vno="1">
+                                        <div class="video-progress">0%</div>
+                                        <div class="video-title" title="1.1计算机概述">1.1 计算机概述</div>
+                                        <div class="video-length">17:15</div>
+                                    </dd>
+                                    <dd class="video-item" data-vno="1">
+                                        <div class="video-progress">65%</div>
+                                        <div class="video-title">1.2 计算机的发展与xx</div>
+                                        <div class="video-length">17:15</div>
+                                    </dd>
+                                    <dd class="video-item" data-vno="1">
+                                        <div class="video-progress">65%</div>
+                                        <div class="video-title">1.3 计算机的硬件和软件</div>
+                                        <div class="video-length">17:15</div>
+                                    </dd>
+                                    <dd class="video-item" data-vno="1">
+                                        <i class="icon-abacus"></i>&nbsp;第一章测试
+                                    </dd>
+                                    <dd class="video-item" data-vno="1">
+                                        <div class="video-progress">65%</div>
+                                        <div class="video-title" title="1.1计算机概述">2.1 计算机概述</div>
+                                        <div class="video-length">17:15</div>
+                                    </dd>
+                                    <dd class="video-item" data-vno="1">
+                                        <div class="video-progress">65%</div>
+                                        <div class="video-title">2.2 计算机的发展与xx</div>
+                                        <div class="video-length">17:15</div>
+                                    </dd>
+                                    <dd class="video-item" data-vno="1">
+                                        <div class="video-progress">65%</div>
+                                        <div class="video-title">2.3 计算机的硬件和软件</div>
+                                        <div class="video-length">17:15</div>
+                                    </dd>
+                                    <dd class="video-item" data-vno="1">
+                                        <i class="icon-abacus"></i>&nbsp;第二章测试</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="video-wrapper" class=" margin_right">
+            <video id="video" class="video-js vjs-default-skin" controls preload="auto"
+                   width="720" height="540"
+                   poster="/get/avatar/5" data-setup="{}">
+                    <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+                　　</video>
+        </div>
+    </section>
+    <section class="padding col-md-12">
+        <div class="col-md-10 col-md-offset-1">
+            <legend>讨论区</legend>
+        </div>
+        <div class="bottom20_clear"></div>
+        <div class="col-md-offset-1 col-md-10">
+            <div class="header">
+                <div class="row">
+                    <textarea id="my-comment" placeholder="输入评论" style="width: 80%;margin-left:10%;height:100px;"></textarea>
+                </div>
+                <div class="right row margin_right">
+                    <span class="btn btn-default">发表评论</span>
+                </div>
+            </div>
+            <div class="bottom20_clear"></div>
+            <hr>
+            <div class="body">
+                <ul class="comment-list">
+                    <li class="comment-item col-md-12">
+                        <div class="comment-header col-md-2">
+                            <img src="/get/avatar/4" alt="头像" width="90" height="90" class="img-circle">
+                        </div>
+                        <div class="comment-body col-md-10">
+                            <div class="user">
+                                张xx<input type="hidden" value="33">
+                            </div>
+                            <p class="comment-text">
+                                评论评论
+                            </p>
+                            <div class="comment-info">
+                                <input type="hidden" value="111" class="comment-id">
+                                <span class="comment-layer">1</span>
+                                <span class="comment-time">2019-01-14 16:01</span>
+                            </div>
+                            <div class="reply-box">
+                                <span class="show-reply">显示评论</span><span class="reply-num">3</span>
+                                <div class="reply" hidden>
+                                    <ul class="reply-list">
+                                        <li class="reply-item col-md-12">
+                                            <div class="reply-wrapper col-md-12">
+                                                <div class="reply-header col-md-1">
+                                                    <img src="/get/avatar/3" alt="头像" width="50" height="50" class="img-circle">
+                                                </div>
+                                                <div class="reply-body col-md-11">
+                                                    <span class="reply-nickname">李xx</span>
+                                                    <input type="hidden" value="10" class="reply-uid">
+                                                    <span class="reply-to">回复 张xx</span>
+                                                    <p class="col-md-12">回复的回复进行测试一下啦啦啦啦啦</p>
+                                                    <div class="reply-info ">
+                                                        <span class="reply-time ">2019-01-14 16:08</span>
+                                                        <span class="reply-btn">回复</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="reply-item col-md-12">
+                                            <div class="reply-wrapper col-md-12">
+                                                <div class="reply-header col-md-1">
+                                                    <img src="/get/avatar/5" alt="头像" width="50" height="50" class="img-circle">
+                                                </div>
+                                                <div class="reply-body col-md-11">
+                                                    <span class="reply-nickname">李xx</span>
+                                                    <input type="hidden" value="10" class="reply-uid">
+                                                    <span class="reply-to"></span>
+                                                    <p class="col-md-12">回复的回复进行测试一下啦啦啦啦啦</p>
+                                                    <div class="reply-info ">
+                                                        <span class="reply-time ">2019-01-14 16:08</span>
+                                                        <span class="reply-btn">回复</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="reply-item col-md-12">
+                                            <div class="reply-wrapper col-md-12">
+                                                <div class="reply-header col-md-1">
+                                                    <img src="/get/avatar/5" alt="头像" width="50" height="50" class="img-circle">
+                                                </div>
+                                                <div class="reply-body col-md-11">
+                                                    <span class="reply-nickname">李xx</span>
+                                                    <input type="hidden" value="10" class="reply-uid">
+                                                    <span class="reply-to"></span>
+                                                    <p class="col-md-12">回复的回复进行测试一下啦啦啦啦啦</p>
+                                                    <div class="reply-info ">
+                                                        <span class="reply-time ">2019-01-14 16:08</span>
+                                                        <span class="reply-btn">回复</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="paging-box">
+                                        <span class="total-page">55</span>
+                                    </div>
+                                    <div class="comment-send col-md-10 col-md-offset-1">
+                                        <input type="hidden" class="send-to" value="">
+                                        <textarea style="width: 100%;"></textarea>
+                                        <span class="btn btn-info send-comment">发送评论</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="comment-item col-md-12">
+                        <div class="comment-header col-md-2">
+                            <img src="/get/avatar/5" alt="头像" width="90" height="90" class="img-circle">
+                        </div>
+                        <div class="comment-body col-md-10">
+                            <div class="user">
+                                张xx<input type="hidden" value="33">
+                            </div>
+                            <p class="comment-text">
+                                评论评论
+                            </p>
+                            <div class="comment-info">
+                                <input type="hidden" value="111" class="comment-id">
+                                <span class="comment-layer">1</span>
+                                <span class="comment-time">2019-01-14 16:01</span>
+                            </div>
+                            <div class="reply-box">
+                                <span class="show-reply">显示评论</span><span class="reply-num">3</span>
+                                <div class="reply" hidden>
+                                    <ul class="reply-list">
+                                        <li class="reply-item col-md-12">
+                                            <div class="reply-wrapper col-md-12">
+                                                <div class="reply-header col-md-1">
+                                                    <img src="images/about.jpg" alt="头像" width="50" height="50" class="img-circle">
+                                                </div>
+                                                <div class="reply-body col-md-11">
+                                                    <span class="reply-nickname">李xx</span>
+                                                    <input type="hidden" value="10" class="reply-uid">
+                                                    <span class="reply-to">回复 张xx</span>
+                                                    <p class="col-md-12">回复的回复进行测试一下啦啦啦啦啦</p>
+                                                    <div class="reply-info ">
+                                                        <span class="reply-time ">2019-01-14 16:08</span>
+                                                        <span class="reply-btn">回复</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="reply-item col-md-12">
+                                            <div class="reply-wrapper col-md-12">
+                                                <div class="reply-header col-md-1">
+                                                    <img src="images/about.jpg" alt="头像" width="50" height="50" class="img-circle">
+                                                </div>
+                                                <div class="reply-body col-md-11">
+                                                    <span class="reply-nickname">李xx</span>
+                                                    <input type="hidden" value="10" class="reply-uid">
+                                                    <span class="reply-to"></span>
+                                                    <p class="col-md-12">回复的回复进行测试一下啦啦啦啦啦</p>
+                                                    <div class="reply-info ">
+                                                        <span class="reply-time ">2019-01-14 16:08</span>
+                                                        <span class="reply-btn">回复</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="reply-item col-md-12">
+                                            <div class="reply-wrapper col-md-12">
+                                                <div class="reply-header col-md-1">
+                                                    <img src="images/about.jpg" alt="头像" width="50" height="50" class="img-circle">
+                                                </div>
+                                                <div class="reply-body col-md-11">
+                                                    <span class="reply-nickname">李xx</span>
+                                                    <input type="hidden" value="10" class="reply-uid">
+                                                    <span class="reply-to"></span>
+                                                    <p class="col-md-12">回复的回复进行测试一下啦啦啦啦啦</p>
+                                                    <div class="reply-info ">
+                                                        <span class="reply-time ">2019-01-14 16:08</span>
+                                                        <span class="reply-btn">回复</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="paging-box">
+                                        <span class="total-page">55</span>
+                                    </div>
+                                    <div class="comment-send col-md-10 col-md-offset-1">
+                                        <input type="hidden" class="send-to" value="">
+                                        <textarea style="width: 100%;"></textarea>
+                                        <span class="btn btn-info send-comment">发送评论</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+<i class="clearfix"></i>
+<script type="text/javascript" src="/js/footer.js"></script>
+<script src="/js/jquery-2.2.3.js"></script>
+<script src="/video.js/dist/video.js"></script>
+<script>
+    let duration = 1;
+    let $prog = $('.here .video-progress');
+    let maxP = parseInt($prog.text());//记录当前视频的最大播放进度
+    let player = videojs('video',{
+        playbackRates: [0.5, 1, 1.25, 1.5, 2, 3]
+    },function () {
+        duration = this.duration();
+    });
+    player.on('timeupdate',function () {
+        let tmp = Math.ceil(100*this.currentTime()/duration);
+        if(isNaN(tmp))
+            duration = this.duration();
+        if(tmp>maxP){
+            $('.here .video-progress').text(tmp+'%');
+            //ajax发送给后台进度
+        }
+    });
+    //加载完所有评论之后再对按钮进行操作 important
+    function initBtn(){
+        $('.show-reply').on('click',function () {
+            if($(this).html()==='显示评论'){
+                $(this).html('隐藏评论');
+                $(this).siblings('div.reply').slideDown();
+            }
+            else{
+                $(this).html('显示评论');
+                $(this).siblings('div.reply').slideUp();
+            }
+        });
+        changeReplyBtn();
+        changePageBox();
+    }
+    initBtn();
+    //点击span页码改变reply的page，以及分页情况
+    //分页情况的改变要考虑当前页
+    function changeReplyPage($span) {
+        let $cur = $span.siblings('input.cur-page');
+        let page = $span.html();
+        let $ul = $span.parents('div.reply').find('ul.reply-list');
+        let thisUserId = $span.parents('div.comment-body').find('div.user input[type="hidden"]').val();
+        let $div = $span.parents('div.paging-box');
+        let questionId = $span.parents('.comment-body').find('input.comment-id').val();
+        //之后要记得改变当前页
+        console.log('页面跳转：'+$cur.val()+'->'+page);
+        $.ajax({
+            url:'/get/replies?page='+page+'&questionId='+questionId,
+            //此处error要改成success ! important
+            error:function (data) {
+                let list = [{
+                    replyId:'3',//这个回复本身的id
+                    userId:'41',//回复者的id
+                    //replyTo:'1',//回复对象的id，可以不用
+                    replyToUserId:'33',//回复对象的回复者id
+                    content:'测试回复1',//回复内容
+                    replyTime:'2019-04-30 11:23',//回复时间
+                    nickname:'张三',//回复者的昵称
+                    replyToNickname:'李四'//回复的对象的昵称
+                },{
+                    replyId:'3',//这个回复本身的id
+                    userId:'41',//回复者的id
+                    //replyTo:'1',//回复对象的id，可以不用
+                    replyToUserId:'33',//回复对象的回复者id
+                    content:'测试回复1',//回复内容
+                    replyTime:'2019-04-30 11:23',//回复时间
+                    nickname:'张三',//回复者的昵称
+                    replyToNickname:'李四'//回复的对象的昵称
+                },{
+                    replyId:'3',//这个回复本身的id
+                    userId:'41',//回复者的id
+                    //replyTo:'1',//回复对象的id，可以不用
+                    replyToUserId:'21',//回复对象的回复者id
+                    content:'测试回复1',//回复内容
+                    replyTime:'2019-04-30 11:23',//回复时间
+                    nickname:'张三',//回复者的昵称
+                    replyToNickname:'李四'//回复的对象的昵称
+                }];
+                $ul.empty();
+                for(let i = 0; i < list.length; i++){
+                    let item = list[i];
+                    let needToShowReply = '<span class="reply-to">回复 <span class="user">'+item.replyToNickname
+                        +'<input type="hidden" value="'+item.replyToUserId+'"></span></span>\n';
+                    if(item.replyToUserId===thisUserId)
+                        needToShowReply = '';//如果回复的对象就是楼主本身，就不显示
+                    let $li = $('\n' +
+'                                        <li class="reply-item col-md-12">\n' +
+'                                            <div class="reply-wrapper col-md-12">\n' +
+'                                                <div class="reply-header col-md-1">\n' +
+                            //此处是获取头像的路径！！
+'                                                    <img src="/get/avatar/'+item.userId+'" alt="" width="50" height="50" class="img-circle">\n' +
+'                                                </div>\n' +
+'                                                <div class="reply-body col-md-11">\n' +
+'                                           <span class="user"><span class="reply-nickname">'+item.nickname+'</span>'+
+                        '<input type="hidden" value="'+item.userId+'"></span>\n' +
+                            needToShowReply+
+'                                                    <p class="col-md-12">'+item.content+'</p>\n' +
+'                                                    <div class="reply-info ">\n' +
+'                                                        <span class="reply-time ">'+item.replyTime+'</span>\n' +
+                            '<input type="hidden" class="reply-id" value="'+item.replyId+'">'+//回复本身的id
+'                                                        <span class="reply-btn">回复</span>\n' +
+'                                                    </div>\n' +
+'                                                </div>\n' +
+'                                            </div>\n' +
+'                                        </li>');
+                    $ul.append($li);
+                }
+                changeReplyBtn($ul);
+                //修改页码box
+                changePageBox($div,page);
+            }
+        });
+    }
+    function changePageBox($div,curPage) {
+        if( $div === undefined){
+            //对每一个的页码都操作
+            $div = $('body');
+        }
+        if(curPage === undefined)
+            curPage = 1;
+        else curPage = parseInt(curPage);
+        $div.find('.total-page').each(function () {
+            let tot = $(this).html();
+            $(this).siblings().remove();
+            let $span = $('<span class="page-off"></span>');
+            $span.append('<input type="hidden" class="cur-page" value="'+curPage+'">');
+            if(tot>5){//要根据当前页来划分
+                if(curPage===1){
+                    $span.append('<span class="this-page">1</span>');
+                    $span.append('<span class="page-item">2</span>');
+                    $span.append('<span class="page-item">3</span>');
+                    $span.append('<span class="page-item">4</span>');
+                    $span.append('<span class="page-ellipsis"></span>');
+                    $span.append('<span class="page-item">'+tot+'</span>');
+                }
+                else{
+                    $span.append('<span class="page-item">1</span>');
+                    if(curPage<=3){
+                        for(let i = 2; i <= 4; i++){
+                            if(i===curPage)
+                                $span.append('<span class="this-page">'+i+'</span>');
+                            else
+                                $span.append('<span class="page-item">'+i+'</span>');
+                        }
+                        $span.append('<span class="page-ellipsis"></span>');
+                        $span.append('<span class="page-item">'+tot+'</span>');
+                    }else if(curPage<tot-1){
+                        $span.append('<span class="page-ellipsis"></span>');
+                        $span.append('<span class="page-item">'+(curPage-1)+'</span>');
+                        $span.append('<span class="this-page">'+(curPage)+'</span>');
+                        $span.append('<span class="page-item">'+(curPage+1)+'</span>');
+                        if(curPage+1<tot-1)
+                            $span.append('<span class="page-ellipsis"></span>');
+                        $span.append('<span class="page-item">'+tot+'</span>');
+                    }else if(curPage===tot-1){
+                        $span.append('<span class="page-item">2</span>');
+                        $span.append('<span class="page-ellipsis"></span>');
+                        $span.append('<span class="page-item">'+(curPage-1)+'</span>');
+                        $span.append('<span class="this-page">'+(curPage)+'</span>');
+                        $span.append('<span class="page-item">'+tot+'</span>');
+                    }else{
+                        $span.append('<span class="page-item">2</span>');
+                        $span.append('<span class="page-item">3</span>');
+                        $span.append('<span class="page-ellipsis"></span>');
+                        $span.append('<span class="page-item">'+(tot-1)+'</span>');
+                        $span.append('<span class="this-page">'+tot+'</span>');
+                    }
+                }
+            }else{
+                for(let i = 1; i <= tot; i++){
+                    if(i===curPage)
+                        $span.append('<span class="this-page">'+i+'</span>');
+                    else
+                        $span.append('<span class="page-item">'+i+'</span>');
+                }
+            }
+            $span.find('.page-item').on('click',function () {
+                changeReplyPage($(this));
+            });//完成初始化，点击就ajax获取
+            $(this).after($span);//添加节点
+        });
+    }
+    //用来针对ul回复新生成的btn事件管理
+    function changeReplyBtn($ul) {
+        if( $ul === undefined){
+            $ul = $('body');
+        }
+        $ul.find('.reply-btn').on('click',function () {
+            let $div = $(this).parents('div.reply');
+            let $$div = $div.find('div.comment-send');
+            let nickname = $(this).parents('div.reply-body').find('span.reply-nickname').html();
+            let uid = $(this).parents('div.reply-body').find('input.reply-uid').val();//获取uid
+            let $txt = $$div.find('textarea');
+            $txt.empty();
+            $txt.attr('placeholder','回复 '+nickname);//出现回复字样
+            $txt.focus();
+            $$div.find('input.send-to').val(uid);//记录uid
+        });
+    }
+</script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootsnav.js"></script>
+<script src="/js/jquery.appear.js"></script>
+<script src="/js/jquery-countTo.js"></script>
+<script src="/js/jquery.parallax-1.1.3.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.cubeportfolio.min.js"></script>
+<script src="/js/jquery.themepunch.tools.min.js"></script>
+<script src="/js/jquery.themepunch.revolution.min.js"></script>
+<script src="/js/revolution.extension.layeranimation.min.js"></script>
+<script src="/js/revolution.extension.navigation.min.js"></script>
+<script src="/js/revolution.extension.parallax.min.js"></script>
+<script src="/js/revolution.extension.slideanims.min.js"></script>
+<script src="/js/revolution.extension.video.min.js"></script>
+<script src="/js/wow.min.js"></script>
+<script src="/js/functions.js"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
+import java.util.HashMap;
 
 /**
  * <p>
@@ -20,5 +20,5 @@ import java.util.Map;
 public interface UserMapper extends BaseMapper<User> {
 
     @Select("select * from sys_user where id=#{id}")
-    Map<String,String> getUserInfo(@Param("id") Long id);
+    HashMap<String,Object> getUserInfo(@Param("id") Long id);
 }

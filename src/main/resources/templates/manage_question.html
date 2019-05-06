@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>章节测试</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/edua-icons.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="/css/owl.transitions.css">
+    <link rel="stylesheet" type="text/css" href="/css/cubeportfolio.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootsnav.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/loader.css">
+    <link rel="stylesheet" type="text/css" href="/css/button.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-select.css">
+    <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.css" rel="stylesheet">
+    <style>
+        .question-title{
+            margin-left: 30px;
+            margin-bottom: 70px;
+        }
+        .question-option li{
+            margin-bottom: 10px;
+        }
+        .question-option li input{
+            border-radius: 20px;
+            padding-left: 10px;
+        }
+        .question-option-item span{
+            margin: 0 10px;
+            padding:2px 5px;
+        }
+        .question-option-item span:hover{
+            background: #ffe3ad;
+        }
+        .question-header{
+            width: 100% ;
+            border-radius: 20px;
+            padding: 10px;
+            min-height: 100px;
+        }
+        .question-item{
+            padding:20px 50px;
+            border: 2px solid #adafb3;
+            margin-bottom: 20px;
+            border-radius: 20px;
+        }
+        .left-nav span{
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript" src="/js/header.js"></script>
+<div id="search">
+    <button type="button" class="close">×</button>
+    <form>
+        <input type="search" value="" placeholder="Search here...." required/>
+        <button type="submit" class="btn btn_common blue">Search</button>
+    </form>
+</div>
+<section class="page_header padding-top">
+    <div class="container clearfix">
+        <div class="row">
+            <div class="col-md-12 page-content">
+                <div class="page_nav">
+                    <span>你的位置:</span> <a href="index.html">首页</a>
+                    <span><i class="fa fa-angle-double-right"></i><a href="change_course.html">课程管理</a></span>
+                    <span><i class="fa fa-angle-double-right"></i>章节测试</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="padding">
+<!--    表单路径需确认 要改路径！ important-->
+    <form id="question-form" action="/test" method="post">
+        <div class="container">
+            <div class="question-title row">
+                <label for="chapter-selector">选定章节:</label>
+                <select id="chapter-selector" class="selectpicker" name="chapterId">
+                </select>
+                <span class='margin_left'>题目总数：<span class="question-num">0</span>
+                    <input type="hidden" value="0" name="q_num">
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-md-2 col-md-offset-1 left-nav">
+            <span class="btn btn-default single-choice-add">
+                添加选择题
+                    <input type="radio" checked>
+            </span>
+            <span class="btn btn-default single-choice-remove">
+                删除选择题
+                <input type="radio" checked>
+            </span>
+            <span class="btn btn-success submit-form">提交所有修改</span>
+        </div>
+        <div class="col-md-8">
+            <div class="question-container">
+                <ul class="question-list">
+                    <!--                    <li class="question-item col-md-11">-->
+                    <!--                        <div class="question-menu col-md-2">-->
+                    <!--                            <span class="q_title">Q1</span>-->
+                    <!--                            <span class="btn btn-default q_add_opt">添加选项</span>-->
+                    <!--                            <span class="btn btn-default q_del_opt">删除选项</span>-->
+                    <!--                            <span class="btn btn-default q_del">删除问题</span>-->
+                    <!--                            <input type="hidden" value="q1">-->
+                    <!--                        </div>-->
+                    <!--                        <div class="col-md-9">-->
+                    <!--                            <textarea class="question-header" contenteditable="true" placeholder="输入题目"></textarea>-->
+                    <!--                            <div class="question-body">-->
+                    <!--                                <ul class="question-option">-->
+                    <!--                                    <li class="question-option-item">-->
+                    <!--                                        <input type="radio" value="1" name="q1">-->
+                    <!--                                        <span contenteditable="true">选项1</span>-->
+                    <!--                                    </li>-->
+                    <!--                                    <li class="question-option-item">-->
+                    <!--                                        <input type="radio" value="2" name="q1">-->
+                    <!--                                        <span contenteditable="true">选项2</span>-->
+                    <!--                                    </li>-->
+                    <!--                                    <li class="question-option-item">-->
+                    <!--                                        <input type="radio" value="3" name="q1">-->
+                    <!--                                        <span contenteditable="true">选项3</span>-->
+                    <!--                                    </li>-->
+                    <!--                                    <li class="question-option-item">-->
+                    <!--                                        <input type="radio" value="4" name="q1">-->
+                    <!--                                        <span contenteditable="true">选项4</span>-->
+                    <!--                                    </li>-->
+                    <!--                                    <li class="question-option-item">-->
+                    <!--                                        <input type="radio" value="5" name="q1">-->
+                    <!--                                        <span contenteditable="true">选项5</span>-->
+                    <!--                                    </li>-->
+                    <!--                                </ul>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+    </form>
+</section>
+
+
+<i class="clearfix"></i>
+<script type="text/javascript" src="/js/footer.js"></script>
+
+<script src="/js/jquery-2.2.3.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-select.js"></script>
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+    let $ul = $('.question-list');
+    let num = {
+        _count:0,
+        get count(){return this._count},
+        set count(v){
+            this._count = v;
+            $('.question-num').html(this._count);
+            $('input[name="q_num"]').val(this._count);
+        }
+    };
+    //考虑到实现难度，建议每一次提交修改都把之前的所有题库删除，然后当做一次全新的添加。
+    //具体复杂度很高，但是只是学校作业，所以没所谓
+    $('.submit-form').on('click',function () {
+        let $form = $('#question-form');
+        //检查表单是否填写完成！
+        $form.submit();
+    });
+    $('.single-choice-remove').on('click',function () {
+        if(num.count===0){
+            toastr.warning('没有可以删除的问题！');
+        }else {
+            num.count = num.count-1;
+            $ul.find('li.question-item:last').remove();
+        }
+    });
+    //添加选择题
+    $('.single-choice-add').on('click',function () {
+       // console.log('添加选择题');
+        num.count = num.count+1;
+        let $li = getLi({
+            q_order:num.count,
+            q_value:"",
+            opt_num:1
+        });
+        let $$li = getLiOpt({
+            q_order:num.count,
+            opt_order:1,
+            opt_value:"",
+            q_ans:1
+        });
+        $li.find('.question-option').append($$li);//为问题添加li
+        initBtn($li);
+       $ul.append($li);
+    });
+    //参数化获取节点
+    //q_order:这是第几个问题
+    //q_value:这个问题的标题内容
+    //opt_num:有多少个选项
+    function getLi(opt) {
+        return $('                    <li class="question-item col-md-11">\n' +
+            '                        <div class="question-menu col-md-2">\n' +
+            '                            <span class="q_title">Q'+opt.q_order+'</span>\n' +
+            '                            <span class="btn btn-default q_add_opt">添加选项</span>\n' +
+            '                            <span class="btn btn-default q_del_opt">删除选项</span>\n' +
+            '                            <input type="hidden" class="q_prefix" value="'+opt.q_order+'">\n' +
+            '                            <input type="hidden" name="q'+opt.q_order+'_opt_num" value="'+opt.opt_num+'">\n' +
+            '                        </div>\n' +
+            '                        <div class="col-md-9">\n' +
+            '                            <textarea name="q'+opt.q_order+'_title" class="question-header" contenteditable="true" placeholder="输入题目">'+opt.q_value+'</textarea>\n' +
+            '                            <div class="question-body">\n' +
+            '                                <ul class="question-option">\n' +
+            '                                </ul>\n' +
+            '                            </div>\n' +
+            '                        </div>\n' +
+            '                    </li>');
+    }
+
+    //参数化获取选项节点，获取完之后要添加在问题的question-option类的ul上
+    //默认第一个选项是正确答案，除非指定q_ans
+    //q_order:这是第几个问题
+    //opt_order:这是第几个选项
+    //opt_value:这个选项的内容
+    //q_ans，正确答案的选项位置
+    function  getLiOpt(opt) {
+        let checked = opt.opt_order===opt.q_ans?'checked':'';
+        return $(
+            '                                    <li class="question-option-item">\n' +
+            '                                        <input type="radio" value="'+opt.opt_order+'" name="q'+opt.q_order+'_ans" '+checked+'>\n' +
+            '                                        <input type="text" name="q'+opt.q_order+'_'+opt.opt_order+'"' +
+            ' placeholder="选项'+opt.opt_order+'" value="'+opt.opt_value+'">\n' +
+            '                                    </li>\n');
+    }
+    //每次添加题目之后都要初始化其中的按钮
+    function initBtn($li){
+        //添加选项
+        $li.find('.q_add_opt').click(function () {
+            let val = $(this).siblings('input[class="q_prefix"]').val();
+            let optNum = $li.find('ul li').length+1;
+            let $$li = getLiOpt({
+                q_order:val,
+                opt_order:optNum,
+                opt_value:""
+            });
+            $li.find('.question-option').append($$li);
+            $li.find('input[name="'+val+'_opt_num"]').val(optNum);
+            // console.log('测试1！！'+val);
+        });
+        //删除最后的选项，如果只剩一个了就不删除
+        $li.find('.q_del_opt').on('click',function () {
+            let optNum = $li.find('ul li').length;
+            let val = $(this).siblings('input[class="q_prefix"]').val();
+            if(optNum===1){
+                toastr.warning('只有最后一个选项了！');
+            }else {
+                $li.find('ul li:last').remove();
+                optNum -= 1;
+            }
+            $li.find('input[name="q'+val+'_opt_num"]').val(optNum);
+        });
+    }
+    $(document).ready(function () {
+       $.ajax({
+           //路径要修改，important
+           url:'/teacher/course/getMainChapters',
+           //注意这里的error要修改！！important
+           error:function (data) {
+               let $select = $('#chapter-selector');
+               //填充select,要改！！important
+               $select.append('\n' +
+                   '                    <option value="111" selected>1 计算机原理</option>\n' +
+                   '                    <option value="112">2 计算机原理</option>\n' +
+                   '                    <option value="113">3 计算机原理</option>\n' +
+                   '                    <option value="114">4 计算机原理</option>');
+               //变化一次就向后台获取信息，并且在前端显示出本章本来有的选择题
+               $select.on('change',getQuestionDetail);
+               function getQuestionDetail(chapterIndex) {
+                   let idx = 0;
+                   if(typeof chapterIndex!=='object')//保证调用的时候是id
+                       idx = chapterIndex;
+                   else
+                       idx = $(this).val();
+                   // console.log('index:'+idx);
+                   $.ajax({
+                       //路径修改！important
+                       url:'/teacher/course/getQuestion/'+idx,
+                       //error改为success，并且和后端协调好数据类型！！important
+                       error:function (data) {
+                           //假设获取的是list
+                           $ul.empty();//先清空
+                           let list = [{
+                               q_order:1,
+                               q_value:'第一个选择题',
+                               q_ans:2,
+                               opt_num:2,
+                               opt:[{
+                                   opt_order:1,
+                                   opt_value:'第一个问题的第一个选项'
+                               },{
+                                   opt_order:2,
+                                   opt_value:'第一个问题的第2个选项'}]
+                           },{
+                               q_order:2,
+                               q_value:'第2个选择题',
+                               q_ans:1,
+                               opt_num:2,
+                               opt:[{
+                                   opt_order:1,
+                                   opt_value:'第2个问题的第一个选项'
+                               },{
+                                   opt_order:2,
+                                   opt_value:'第2个问题的第2个选项'}]
+                           }];//两个问题，每个问题2个选项
+                           num.count = list.length;
+                           for(let i = 0; i < list.length; i++){
+                               let opt1 = list[i];
+                               // console.log(opt1);
+                               let $li = getLi(opt1);
+                               let q_ans = opt1.q_ans;
+                               let q_order = opt1.q_order;
+                               let opt_num = opt1.opt_num;
+                               for(let j = 0; j < opt_num; j++){
+                                   let opt2 = {};
+                                   Object.assign(opt2,opt1.opt[j],{q_ans:q_ans,q_order:q_order});
+                                   // console.log(opt2);
+                                   let $$li = getLiOpt(opt2);
+                                   $li.find('.question-option').append($$li);
+                               }
+                               initBtn($li);
+                               $ul.append($li);
+                           }
+                       }
+                   });
+               }
+               getQuestionDetail($select.val());
+           }
+       }) ;
+    });
+</script>
+<script src="/js/fileinput.js"></script>
+<script src="/js/bootsnav.js"></script>
+<script src="/js/jquery.appear.js"></script>
+<script src="/js/jquery-countTo.js"></script>
+<script src="/js/jquery.parallax-1.1.3.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.cubeportfolio.min.js"></script>
+<script src="/js/jquery.themepunch.tools.min.js"></script>
+<script src="/js/jquery.themepunch.revolution.min.js"></script>
+<script src="/js/revolution.extension.layeranimation.min.js"></script>
+<script src="/js/revolution.extension.navigation.min.js"></script>
+<script src="/js/revolution.extension.parallax.min.js"></script>
+<script src="/js/revolution.extension.slideanims.min.js"></script>
+<script src="/js/revolution.extension.video.min.js"></script>
+<script src="/js/wow.min.js"></script>
+</body>
+</html>

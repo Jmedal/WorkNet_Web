@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh"
+	class="ace ace-card-on ace-tab-nav-on ace-main-nav-on ace-sidebar-on"
+	data-theme-color="#c0e3e7">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>消息</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link href="/personal/fonts/icomoon/style.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/personal/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/edua-icons.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/owl.transitions.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/cubeportfolio.min.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/settings.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/bootsnav.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/personal/css/loader.css">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Quicksand:400,700"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Pacifico"
+	rel="stylesheet">
+
+<!-- Icon Fonts -->
+
+<!-- Styles -->
+<link href="/personal/js/plugins/highlight/solarized-light.css" rel="stylesheet">
+<link href="/personal/style.css" rel="stylesheet">
+
+<!-- Modernizer -->
+<script type="text/javascript" src="/personal/js/vendor/modernizr-3.3.1.min.js"></script>
+	<style>
+		#header-target::before{
+			content: '目标：';
+		}
+		#avatar-mask{
+			transition: all .4s;
+		}
+		#avatar-mask *{
+			cursor: pointer;
+		}
+		#avatar-mask i{
+			position: absolute;
+			opacity: 0;
+			transition: all .4s;
+			font-size: 60px;
+			top:50%;
+			left: 50%;
+			margin-left: -30px;
+			margin-top:-30px;
+		}
+		#avatar-mask:hover{
+			opacity: 0.6;
+			transform: scale(1.03);
+		}
+		#avatar-mask:hover i{
+			opacity: 1;
+		}
+		#signature{
+			transition: all .6s;
+			border:none;
+			color:black;
+			padding: 5px 15px;
+			-webkit-border-radius: 50px;
+			-moz-border-radius: 50px;
+			border-radius: 50px;
+		}
+		#signature input{
+			text-align: center;
+		}
+		#signature:hover{
+			box-shadow: 1px 1px 5px #888888 inset;
+			opacity: 0.5;
+			background: #effcff;
+		}
+		#signature input{
+			background: none;
+			border:none;
+		}
+		#signature.chosen{
+			box-shadow: 1px 1px 5px #888888 inset;
+			opacity: 1;
+			background: #effcff;
+		}
+	</style>
+</head>
+
+
+
+<body>
+	<script type="text/javascript" src="/personal/js/header.js"></script>
+
+	<div class="ace-wrapper">
+		<header id="ace-header"
+			class="ace-container-shift ace-logo-in ace-head-boxed ace-nav-right">
+			<div class="ace-head-inner">
+				<div class="ace-head-container ace-container">
+					<div class="ace-head-row"></div>
+				</div>
+				<!-- .ace-container -->
+			</div>
+			<!-- .ace-head-inner -->
+		</header>
+		 <!-- 头像部分 -->
+        <article id="ace-card" class="ace-card bg-primary">
+			<div class="ace-card-inner text-center">
+				<div style="position: relative;width: 195px;height:195px;margin: 5px auto;border-radius: 50%;">
+
+					<div id="avatar-mask" class="avatar avatar-195">
+						<i class="ace-icon ace-icon-camera center-block"></i>
+						<img src="" alt="" id="avatar_img"
+							 class="avatar avatar-195"
+							 width="195" height="195"/>
+						<input type="file" id="avatar_file" name="avatar_file"
+							   accept="image/jpg,image/png,image/gif"
+							   style="width: 100%;height:100%;opacity: 0;position: absolute;left:0;top: 0;"/>
+					</div>
+				</div>
+				<h1 id="header-nickname">昵称xxx</h1>
+				<p id="header-target">去选择一个目标职业吧！</p>
+			</div>
+
+			<footer class="ace-card-footer">
+				<div id="signature">
+					<label>
+						<input placeholder="点击编辑签名" maxlength="10" id="header-signature"/>
+					</label>
+				</div>
+			</footer>
+		</article>		<!-- #ace-card -->
+
+		<div id="ace-content" class="ace-container-shift">
+			<div class="ace-container">
+
+
+				<div id="ace-nav-wrap" class="hidden-sm hidden-xs">
+					<div class="ace-nav-cont">
+						<!--<script type="text/javascript" src="js/perInfo.js"></script>-->
+						<div id='ace-nav-scroll'>
+						<nav id='ace-nav' class='ace-nav'>
+							<ul class='clear-list nav nav-tabs vertical-tab'>
+								<li class="active" data-href="indexInner" data-height="1050px">
+									<a data-tooltip='Home'>
+										<span class='ace-icon ace-icon-user'></span>
+									</a>
+								</li>
+								<li data-href="myProjectInner"  data-height="1030px">
+									<a data-tooltip='My Experience'>
+										<span class='ace-icon ace-icon-experience'></span>
+									</a>
+								</li>
+								<li data-href="myMsgInner" data-height="600px">
+									<a data-tooltip='Messages'>
+										<span class='ace-icon ace-icon-contact'></span>
+									</a>
+								</li>
+								<li data-href="gearInner" data-height="500px">
+									<a data-tooltip='Gears'>
+										<span class='ace-icon ace-icon-gear'></span>
+									</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+						<div id="ace-nav-tools" class="hidden">
+							<span class="ace-icon ace-icon-dots-three-horizontal"></span>
+
+							<button id="ace-nav-arrow" class="clear-btn">
+								<span class="ace-icon ace-icon-chevron-thin-down"></span>
+							</button>
+						</div>
+					</div>
+					<div class="ace-nav-btm"></div>
+				</div>
+				<!-- .ace-nav-wrap -->
+
+				<div class="ace-paper-stock">
+					<main class="ace-paper clearfix" id="clearpadding">
+					<div class="ace-paper-cont clear-mrg">
+						<!-- START: PAGE CONTENT -->
+							<iframe id="main-iframe" src="/personal/indexInner" width="100%" height="1050px"
+									frameborder="0/0" scrolling="no">
+							</iframe>
+						<!-- .padd-box -->
+						<!-- END: PAGE CONTENT -->
+					</div>
+					<!-- .ace-paper-cont -->
+					</main>
+					<!-- .ace-paper -->
+				</div>
+				<!-- .ace-paper-stock -->
+
+			</div>
+			<!-- .ace-container -->
+		</div>
+		<!-- #ace-content -->
+
+
+
+
+		<script type="text/javascript" src="/personal/js/footer.js"></script>
+		<!-- Triangle Shapes -->
+		<svg id="ace-bg-shape-1" class="hidden-sm hidden-xs" height="519"
+			width="758">
+        <polygon points="0,455,693,352,173,0,92,0,0,71"
+				style="fill:#d2d2d2;stroke:purple;stroke-width:0; opacity: 0.5" />
+    </svg>
+
+		<svg id="ace-bg-shape-2" class="hidden-sm hidden-xs" height="536"
+			width="633">
+        <polygon points="0,0,633,0,633,536"
+				style="fill:#c0e3e7;stroke:purple;stroke-width:0" />
+    </svg>
+	</div>
+	<!-- .ace-wrapper -->
+	<!-- Scripts -->
+	<script type="text/javascript" src="/personal/js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	<script>
+		function showToastrMsg(code){
+            if(code==='00')
+                toastr.success('修改成功');
+            else
+                toastr.error('未知错误，修改失败');
+		}
+        $(document).ready(function () {
+            var $li = $('#ace-nav li');
+            $li.click(	function () {
+                $(this).siblings().each(function () {
+                    $(this).removeClass("active");//移除active
+                });
+                $(this).addClass('active');//保证自己为激活状态
+				var temp = $('#main-iframe');
+				var href = window.location.href;
+				var len = href.lastIndexOf("#");
+				if(len>0){
+				    href = href.substring(0,len)+'#'+$(this).attr('data-href');
+				}else {
+				    href = href+'#'+$(this).attr('data-href');
+				}
+				window.location.href = href;
+                temp.attr('src','/personal/'+$(this).attr('data-href'));//修改iframe
+                temp.attr('height',$(this).attr('data-height'));//修改iframe
+            });
+            var httpHref = window.location.href;
+            var lastLen = httpHref.lastIndexOf("#");
+            if(lastLen>0){
+                var temp = httpHref.substring(lastLen+1);
+                $li.each(function () {
+                    if($(this).attr('data-href')===temp){
+                        $(this).click();
+                        return false;
+                    }
+                });
+            }
+            $.get('/personal/get/basicInfoAndCom',{},function (data) {
+				data = JSON.parse(data);
+                // console.log(data);
+				if(data.errorCode==='00'){
+				    let obj = data.returnObject;
+				    $('#header-nickname').html(obj.nickname);
+				    $('#header-signature').val(obj.signature);
+				    $('#header-target').text(obj.target);
+				    $('#avatar_img').attr('src','/get/avatar/'+obj.uid);
+				}
+            });
+        });
+		$('#avatar_file').change(function () {
+			// 获取上传文件对象
+			var file = $(this)[0].files[0];
+			// 读取文件URL
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+            var formData = new FormData();
+            // console.log(file.name);
+            formData.append("avatar",file);
+            formData.append("fileName",file.name);
+			// 阅读文件完成后触发的事件
+			reader.onload = function () {
+                let res = this.result;
+                $.ajax({
+					url:'/personal/change/myAvatar',
+                    type: 'POST',
+                    processData: false,
+					data:formData,
+                    contentType: false,
+					success:function (msg) {
+                        msg = JSON.parse(msg);
+                        if(msg.errorCode==='00'){
+                            $("#avatar_img").attr("src", res);
+                            toastr.success('修改成功');
+                        }else{
+                            toastr.error('未知错误，修改失败');
+                        }
+                    },
+					error:function (data) {
+						console.log(data);
+                    }
+				});
+			}
+		});
+		var $sig = $('#signature');
+		var $inp = $('#header-signature');
+		$inp.click(function () {
+			$sig.attr('type','text');
+			$sig.addClass('chosen');
+			$(this).select();
+		});
+		$inp.blur(function () {
+			$sig.attr('type','');
+			$sig.removeClass('chosen');
+			$.post('/personal/change/signature',{signature:$inp.val()},function (data) {
+			    data = JSON.parse(data);
+                showToastrMsg(data.errorCode);
+            })
+		});
+	</script>
+
+
+	<!---<script type="text/javascript" src="http://ditu.google.cn/maps/api/js?key=AIzaSyDiwY_5J2Bkv2UgSeJa4NOKl6WUezSS9XA"></script>--->
+	<script type="text/javascript"
+		src="/personal/js/plugins/highlight/highlight.pack.js"></script>
+	<script type="text/javascript"
+		src="/personal/js/plugins/jquery.mCustomScrollbar.min.js"></script>
+	<script type="text/javascript" src="/personal/js/plugins/isotope.pkgd.min.js"></script>
+	<script type="text/javascript" src="/personal/js/plugins/progressbar.min.js"></script>
+	<script type="text/javascript" src="/personal/js/plugins/slick.min.js"></script>
+
+	<script type="text/javascript" src="/personal/js/options.js"></script>
+	<script type="text/javascript" src="/personal/js/main.js"></script>
+
+	<script src="/personal/js/jquery-2.2.3.js"></script>
+	<script src="/personal/js/bootstrap.min.js"></script>
+	<script src="/personal/js/bootsnav.js"></script>
+	<script src="/personal/js/jquery.appear.js"></script>
+	<script src="/personal/js/jquery-countTo.js"></script>
+	<script src="/personal/js/jquery.parallax-1.1.3.js"></script>
+	<script src="/personal/js/owl.carousel.min.js"></script>
+	<script src="/personal/js/jquery.cubeportfolio.min.js"></script>
+	<script src="/personal/js/jquery.themepunch.tools.min.js"></script>
+	<script src="/personal/js/jquery.themepunch.revolution.min.js"></script>
+	<script src="/personal/js/revolution.extension.layeranimation.min.js"></script>
+	<script src="/personal/js/revolution.extension.navigation.min.js"></script>
+	<script src="/personal/js/revolution.extension.parallax.min.js"></script>
+	<script src="/personal/js/revolution.extension.slideanims.min.js"></script>
+	<script src="/personal/js/revolution.extension.video.min.js"></script>
+	<script src="/personal/js/wow.min.js"></script>
+	<script src="/personal/js/functions.js"></script>
+
+
+</body>
+</html>

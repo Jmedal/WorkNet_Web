@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="/personal/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/edua-icons.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/owl.transitions.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/cubeportfolio.min.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/settings.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/bootsnav.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/style.css">
+<link rel="stylesheet" type="text/css" href="/personal/css/loader.css">
+
+<link rel="icon" href="/personal/images/favicon.png">
+<style>
+  #joined-exam{
+    list-style: none;
+    transition: all .5s;
+  }
+  #joined-exam li{
+    float: left;
+    margin-left: 3%;
+    display: inline-list-item;
+    width: 20%;
+    padding:20px;
+  }
+  #joined-exam .logo-wrapper{
+    width: 120px;
+    height: 120px;
+    position:relative;
+    left: 50%;
+    margin-left: -60px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+  }
+  #joined-exam .logo-wrapper img{
+    width: 100%;
+    height: 100%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+  }
+  #joined-exam .logo-wrapper .exam-info{
+    transition: all .5s;
+    width:120px;
+    height:120px;
+    padding: 20px;
+    color:white;
+    text-align: center;
+    font-size: 0.8em;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background: black;
+    position: absolute;
+    opacity: 0;
+  }
+  #joined-exam .logo-wrapper:hover .exam-info{
+    opacity: 0.7;
+  }
+  .exam-title{
+   text-align: center;
+  }
+  .exam-title p{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+  }
+  #progress{
+    transition: all .6s;
+  }
+  #progress-wrapper:hover #progress{
+    box-shadow: -3px 3px 5px inset #a0b3ff;
+    opacity: 0.6;
+  }
+  #progress-wrapper{
+    cursor: pointer;
+    float: right;
+    width:30%;
+    margin-right: 30px;
+  }
+</style>
+  <title></title>
+<body>
+<!--学习过的课程-->
+<section id="joined-courses" style="padding-top: 25px;padding-bottom: 10px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 wow fadeInDown">
+       <h2 class="heading heading_space">我学习的课程<span class="divider-left"></span></h2>
+<!--        <label for="page"></label><input type="number" class="margin10" id="page" value="1" min = "1">-->
+        <div id="progress-wrapper" data-placement="left" data-content="1/10" class="progress progress-striped active margin10">
+          <div id="progress" class="progress-bar progress-bar-info"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+<!--      分页获取，根据page,填充li即可-->
+      <div class="col-md-12">
+        <ul id="courses-ul">
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!--参加过的笔试-->
+<section id="exams-section" style="padding-top: 25px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 wow fadeInDown">
+       <h2 class="heading heading_space">我参加的笔试<span class="divider-left"></span></h2>
+          <div  style="float: right;">
+          <span><span id="curPage">--</span>/<span id="maxPage">--</span> </span>
+        <ul class="pagination">
+          <li><span id="pp" class="btn" disabled="true" onclick="prv()">&laquo;</span></li>
+          <li><span id="nn" class="btn" onclick="nxt()">&raquo;</span></li>
+        </ul>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+          <ul id="joined-exam">
+          </ul>
+        </div>
+    </div>
+  </div>
+</section>
+<script src="/personal/js/jquery-2.2.3.js"></script>
+<script>
+  let wpage = 1;
+  let maxWpage = 2;//ready的时候从后端获取
+  let $test = $('#progress');
+  let $pwrapper = $('#progress-wrapper');
+  let $ul = $('#courses-ul');
+  let pager = {//对象
+    _maxPage:10,
+    _curPage:1,
+    get maxPage(){
+      return this._maxPage;
+    },
+    set maxPage(v){
+      this._maxPage = v;
+      setWidth();
+    },
+    set curPage(v){
+      this._curPage = v;
+      $.get('/personal/get/myCourse',{page:this._curPage},function (data) {
+          data = JSON.parse(data);
+          if(data.errorCode==='00'){
+              let obj = data.returnObject;
+              $ul.fadeOut(function () {
+                  $ul.empty();
+                  for(let i = 0; i < obj.length; i++){
+                      let item = obj[i];
+                      $ul.append('\n' +
+                          '          <li style="float: left;width: 45%;margin-right:5%;display: inline-list-item;">\n' +
+                          '            <div class="content_wrap">\n' +
+                          '              <div class="image">\n' +
+                          '                <img src="/get/course/view/'+item.cid+'" alt="课程" class="img-responsive border_radius" width="100%">\n' +
+                          '              </div>\n' +
+                          '              <div class="news_box border_radius">\n' +
+                          '                <h4><a href="/course/'+item.cid+'/" target="_blank">'+item.title+'</a></h4>\n' +
+                          '                <ul class="commment">\n' +
+                          '                  <li title="报名课程时间"><i class="icon-icons20"></i>'+item.startTime+'</li>\n' +
+                          '                  <li title="课程平均打分"><i class="icon-star"></i>'+item.avgStar+'</li>\n' +
+                          '                </ul>\n' +
+                          '                <p>'+item.abstract+'</p>\n' +
+                          '                <a href="/course/'+item.cid+'/" class="readmore" target="_blank">了解详情</a>\n' +
+                          '              </div>\n' +
+                          '            </div>\n' +
+                          '          </li>')
+                  }
+                  $ul.fadeIn();
+              });
+          }
+      });
+      setWidth();
+    },
+    get curPage(){
+      return this._curPage;
+    }
+  };
+  let hoverPage = 1;
+  let $pp = $('#pp');
+  let $nn = $('#nn');
+  $pwrapper.on({
+    'mousemove':function (e) {
+      let xx = e.pageX-$(this).offset().left;
+      let width = $(this).width();
+      let page = Math.ceil(pager.maxPage*xx/width);
+      if(page<=0)
+        page = 1;
+      if(hoverPage!==page){
+        hoverPage = page;
+        $pwrapper.attr('data-content',hoverPage+"/"+pager.maxPage);
+        $pwrapper.popover('show');
+      }
+    },
+    'mousedown':function () {
+      pager.curPage = hoverPage;
+    },
+    'mouseleave':function () {
+      $pwrapper.popover('hide');
+    },
+    'mouseenter':function () {
+      $pwrapper.popover('show');
+    }
+  });
+  //设置进度条的宽度
+  function setWidth() {
+    $test.css('width',100*pager.curPage/pager.maxPage+"%");
+  }
+  function prv() {
+    if($pp.attr('disabled')==null){
+      wpage = wpage-1;
+      //刷新#joined-exam
+      refreshJoinedExam();
+      $nn.removeAttr('disabled');
+      if(wpage===1){
+        $pp.attr('disabled','disabled');
+      }
+    }
+  }
+  function nxt() {
+
+    if($nn.attr('disabled')==null) {
+      wpage = wpage + 1;
+      //刷新#joined-exam
+      refreshJoinedExam();
+      $pp.removeAttr('disabled');
+      if (wpage === maxWpage) {
+        $nn.attr('disabled', 'disabled');
+      }
+    }
+  }
+  //刷新参加过的笔试，通过wpage属性
+  function refreshJoinedExam() {
+    var $ul = $('#joined-exam');
+    let $li = $ul.children();
+    $li.each(function () {
+        $(this).fadeOut(300,function () {
+            $(this).remove();
+        })
+    });
+    setTimeout(function () {
+      var a = $nn.attr('disabled');
+      var b = $pp.attr('disabled');
+      $nn.attr('disabled', 'disabled');
+      $pp.attr('disabled', 'disabled');//防止乱序
+      function tmp(x,list) {
+        if(x<list.length){
+          setTimeout(function () {
+              let $$li =$(' <li class="wow fadeInDown">\n' +
+                  '            <a href="/exam/'+list[x].cid+'/" target="_blank">\n' +
+                  '              <div class="logo-wrapper">\n' +
+                  '                <dl class="exam-info">\n' +
+                  '                  <dd>共'+list[x].questionNum+'道题</dd>\n' +
+                  '                  <dd>'+list[x].joinNum+'人参加</dd>\n' +
+                  '                  <dd>'+list[x].startTime+'</dd>\n' +
+                  '                </dl>\n' +
+                  '                <img  src="/get/company/logo/'+list[x].companyId+'" alt="">\n' +
+                  '              </div>\n' +
+                  '              <div class="exam-title">\n' +
+                  '                <p>'+list[x].title+'</p>\n' +
+                  '              </div>\n' +
+                  '            </a>\n' +
+                  '          </li>');
+            $$li.appendTo($ul).hide().fadeIn(200,tmp(x+1,list));
+          },30);
+        }else{
+          if(a==null)
+            $nn.removeAttr('disabled');
+          if(b==null)
+            $pp.removeAttr('disabled');
+        }
+      }
+      $.get('/personal/get/myContest',{page:wpage},function (data) {
+          data = JSON.parse(data);
+          if(data.errorCode==='00'){
+              let obj = data.returnObject;
+              maxWpage = obj.maxPage;
+              $('#curPage').html(wpage);
+              $('#maxPage').html(maxWpage);
+              tmp(0,obj.list);
+          }
+      });
+    },300);
+  }
+  $(document).ready(function () {
+    pager.curPage = 1;
+    refreshJoinedExam();
+    setWidth();
+    $pwrapper.popover('show');
+  });
+</script>
+<script src="/personal/js/bootstrap.min.js"></script>
+<script src="/personal/js/bootsnav.js"></script>
+<script src="/personal/js/jquery.appear.js"></script>
+<script src="/personal/js/jquery-countTo.js"></script>
+<script src="/personal/js/jquery.parallax-1.1.3.js"></script>
+<script src="/personal/js/owl.carousel.min.js"></script>
+<script src="/personal/js/jquery.cubeportfolio.min.js"></script>
+<script src="/personal/js/jquery.themepunch.tools.min.js"></script>
+<script src="/personal/js/jquery.themepunch.revolution.min.js"></script>
+<script src="/personal/js/revolution.extension.layeranimation.min.js"></script>
+<script src="/personal/js/revolution.extension.navigation.min.js"></script>
+<script src="/personal/js/revolution.extension.parallax.min.js"></script>
+<script src="/personal/js/revolution.extension.slideanims.min.js"></script>
+<script src="/personal/js/revolution.extension.video.min.js"></script>
+<script src="/personal/js/wow.min.js"></script>
+<script src="/personal/js/functions.js"></script>
+</body>
+</html>

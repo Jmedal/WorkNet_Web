@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>我的消息</title>
+<link rel="stylesheet" href="/personal/css/myMsg.css" />
+
+</head>
+<body>
+<header>
+	<ul id="menu">
+		<li data-href="myMsg_reply" class="here"><a>回复我的</a></li>
+		<li data-href="myMsg_write"><a>笔试通知</a></li>
+		<li data-href="myMsg_system"><a>系统通知</a></li>
+	</ul>
+</header>
+<br>
+<iframe id="msg-iframe" src="/personal/myMsg_reply" width="100%" height="1000px" frameborder="0">
+
+</iframe>
+<script type="text/javascript" src="/personal/js/vendor/jquery-1.12.4.min.js"></script>
+<script>
+	$(document).ready(function () {
+		$('#menu li').click(function () {
+			$(this).siblings().each(function () {
+				$(this).removeClass("here");//移除active
+			});
+			$(this).addClass('here');//保证自己为激活状态
+			var temp = $('#msg-iframe');
+			temp.attr('src','/personal/'+$(this).attr('data-href'));//修改iframe
+        });
+    });
+</script>
+</body>
+</html>

@@ -24,7 +24,7 @@ public class CodeGeneration {
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        gc.setOutputDir("C:\\Users\\Medal姜总\\Desktop\\worknet\\src\\main\\java");
+        gc.setOutputDir("C:\\Users\\Medal姜总\\Desktop\\worknet\\worknet\\src\\main\\java");
         gc.setFileOverride(true);
         gc.setActiveRecord(false);// 不需要ActiveRecord特性的请改为false
         gc.setEnableCache(false);// XML 二级缓存
@@ -53,38 +53,8 @@ public class CodeGeneration {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setTablePrefix(new String[] { "sys_" });// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[] {"sys_user",
-                "sys_curriculum",
-                "sys_course_video",
-                "sys_course",
-                "sys_course_comment",
-                "sys_curriculum_tree",
-                "sys_administrator",
-                "sys_curriculum_course",
-                "sys_teacher_info",
-                "sys_company",
-                "sys_video_discussion",
-                "sys_video_watched",
-                "sys_course_click",
-                "sys_course_index",
-                "sys_course_studied",
-                "sys_course_contest_option",
-                "sys_course_contest_question",
-                "sys_course_contest_score",
-                "sys_course_contest_user_answer",
-                "sys_company_contest",
-                "sys_company_contest_choice_option",
-                "sys_company_contest_question",
-                "sys_company_contest_result",
-                "sys_comany_contest_apply",
-                "sys_course_contest",
-                "sys_course_contest_result",
-                "sys_learner_info",
-                "sys_professtion",
-                "sys_profession_type",
-                "sys_course_recommend",
-                "sys_message"}); // 需要生成的表
-//                "sys_user",
+        strategy.setInclude(new String[] {}); // 需要生成的表
+//        "sys_user",
 //                "sys_curriculum",
 //                "sys_course_video",
 //                "sys_course",

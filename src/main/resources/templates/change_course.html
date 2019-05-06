@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+        <html lang="zh">
+        <head>
+            <meta charset="UTF-8">
+            <title>课程管理</title>
+            <link rel="stylesheet" type="text/css" href="/personal/css/style.css">
+            <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+            <link rel="stylesheet" type="text/css" href="/css/edua-icons.css">
+            <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+            <link rel="stylesheet" type="text/css" href="/css/owl.carousel.css">
+            <link rel="stylesheet" type="text/css" href="/css/owl.transitions.css">
+            <link rel="stylesheet" type="text/css" href="/css/cubeportfolio.min.css">
+            <link rel="stylesheet" type="text/css" href="/css/settings.css">
+            <link rel="stylesheet" type="text/css" href="/css/bootsnav.css">
+            <link rel="stylesheet" type="text/css" href="/css/style.css">
+            <link rel="stylesheet" type="text/css" href="/css/loader.css">
+            <link rel="stylesheet" type="text/css" href="/css/button.css">
+            <link rel="stylesheet" type="text/css" href="/css/bootstrap-select.css">
+            <link rel="stylesheet" type="text/css" href="/css/fileinput-rtl.css">
+            <link rel="stylesheet" type="text/css" href="/css/fileinput.css">
+            <link rel="stylesheet" href="/css/jquery.treeview.css" />
+            <style>
+                #course-abstract{
+                    width: 100%;
+                    height: 300px;
+                }
+                #course-index{
+                    width: 80%;
+                    height: 500px;
+                    margin:20px 10%;
+                }
+                .paper {
+                    position:relative;
+                    width:200px;
+                    height:250px;
+                    background:#fff;
+                    border:1px solid #eee;
+                    float:left;
+                    margin:10px;
+                    box-shadow:0 0 5px rgba(0,0,0,0.27),0 0 20px  rgba(0,0,0,.1) inset;
+                    overflow-y: scroll;
+                }
+                .paper::after,.paper::before {
+                    content:'';
+                    position:absolute;
+                    bottom:6px;
+                    width:100px;
+                    height:1px;
+                    z-index:-1;
+                    box-shadow:0 2px 12px 5px rgba(0,0,0,.3);
+                }
+                .paper::after {
+                    left:4px;
+                    transform:rotate(-6deg);
+                }
+                .paper::before {
+                    right:4px;
+                    transform:rotate(6deg);
+                }
+                .image-wrapper{
+                    width: 400px;
+                    height: 300px;
+                }
+            </style>
+        </head>
+<body>
+<script type="text/javascript" src="/js/header.js"></script>
+<div id="search">
+    <button type="button" class="close">×</button>
+    <form>
+        <input type="search" value="" placeholder="Search here...." required/>
+        <button type="submit" class="btn btn_common blue">Search</button>
+    </form>
+</div>
+<section class="page_header padding-top">
+    <div class="container clearfix">
+        <div class="row">
+            <div class="col-md-12 page-content">
+                <div class="page_nav">
+                    <span>你的位置:</span> <a href="index.html">首页</a>
+                    <span><i class="fa fa-angle-double-right"></i>课程管理</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="padding">
+    <div class="container">
+        <form class="form-horizontal">
+            <fieldset>
+                <div id="legend" class="">
+                    <legend class="">修改课程</legend>
+                </div>
+                <div data-order="1" class="row col-md-offset-1 fadeInDown">
+                    <div class="control-group col-md-5">
+                        <!-- Text input-->
+                        <label for="course-name" class="control-label">课程名称</label>
+                        <div class="controls">
+                            <input id="course-name" type="text" placeholder="name" value="计算机组成原理">
+                            <p class="help-block">请修改课程的名字</p>
+                        </div>
+                    </div>
+                    <div class="control-group col-md-5">
+                        <!-- Select Basic -->
+                        <label for="course-field" class="control-label">课程分类</label>
+                        <div class="controls">
+                            <select id="course-field" class="selectpicker form-control"
+                                    data-live-search="true" title="请输入搜索关键字">
+                                <option value="计算机原理" selected>计算机原理</option>
+                                <option>计算机组成</option>
+                                <option>java web</option>
+                                <option>计算机组成</option>
+                                <option>java web</option>
+                                <option>计算机组成</option>
+                                <option>java web</option>
+                                <option>计算机组成</option>
+                                <option>java web</option>
+                                <option>计算机组成</option>
+                                <option>java web</option>
+                                <option>计算机组成</option>
+                                <option>java web</option>
+                                <option>计算机组成</option>
+                                <option>java web</option>
+                                <option>计算机组成</option>
+                                <option>java web</option>
+                                <option>计算机组成</option>
+                                <option>java web</option>
+                                <option>计算机组成</option>
+                                <option>java web</option>
+                                <option>计算机组成</option>
+                                <option>java web</option>
+                                <option>计算机组成</option>
+                                <option>java web</option>
+                                <option>计算机组成</option>
+                                <option>java web</option>
+                            </select>
+                            <p class="help-block">请选定课程分类</p>
+                        </div>
+                    </div>
+                    <div class="control-group col-md-10 margin_top">
+                        <div class="">
+                            <label for="course-image" class="control-label">课程预览图片</label>
+                            <div class="image-wrapper">
+                                <img src="/get/course/image/1" alt="课程封面">
+                            </div>
+                            <input id="course-image" name="course-image" type="file" accept="image/*">
+                            <p class="help-block">请上传课程图片</p>
+                        </div>
+                    </div>
+                </div>
+                <div data-order="2" class="row col-md-offset-1 fadeInDown">
+                    <div class="control-group col-md-10">
+                        <!-- Text input-->
+                        <label for="course-abstract" class="control-label">课程简介</label>
+                        <div class="controls">
+                            <textarea id="course-abstract">这是一门计算机组成原理课程，我来讲课</textarea>
+                            <p class="help-block">请修改课程简介</p>
+                        </div>
+                    </div>
+                </div>
+                <div data-order="3" class="row col-md-offset-1 fadeInDown">
+                    <div class="control-group col-md-10">
+                        <!-- Text input-->
+                        <label for="course-index" class="control-label">课程目录
+                            <span class="btn btn-default"><a href="manage_question.html">管理章节测试</a> </span>
+                            <span class="btn btn-default"><a href="upload_video.html">管理课程视频</a> </span>
+                        </label>
+                        <div class="controls">
+                            <div id="course-index" class="paper">
+                                <div id="course-index-edit" class="col-md-6" style="height: 90%">
+                                    输入目录：<span class="btn btn-success view-index">显示预览</span>
+                                    <label for="index-input"></label>
+<textarea id="index-input"
+style="width: 100%;height: 100%;">1 计算机
+1.1 啦啦啦
+1.1.1 哈哈哈
+1.1.2 lkasf
+1.2 ff
+1.3 gg
+2 第二章
+2.1 fff
+2.2 发发发
+2.3 嘎嘎嘎
+3 发顺丰的
+3.1 啦啦啦
+</textarea>
+                                </div>
+                                <div id="course-index-view" class="col-md-6" style="height: 90%">
+                                    预览效果：
+                                    <ul id="index-view-wrapper" class="filetree">
+                                        <!--                                        <li><span class="folder">1 计算机组成原理</span>-->
+                                        <!--                                            <ul>-->
+                                        <!--                                                <li><span class="file">1.1 计算机概论</span></li>-->
+                                        <!--                                            </ul>-->
+                                        <!--                                        </li>-->
+                                        <!--                                        <li><span class="folder">2 计算机组成</span>-->
+                                        <!--                                            <ul>-->
+                                        <!--                                                <li><span class="file">2.1 硬件</span></li>-->
+                                        <!--                                                <li><span class="file">小测试</span></li>-->
+                                        <!--                                                <li><span class="file">2.2 软件</span></li>-->
+                                        <!--                                            </ul>-->
+                                        <!--                                        </li>-->
+                                    </ul>
+                                </div>
+                            </div>
+                            <p class="help-block">请修改课程目录</p>
+                        </div>
+                    </div>
+                </div>
+                <span class="btn btn-success col-md-offset-9">提交修改</span>
+            </fieldset>
+        </form>
+    </div>
+</section>
+
+<i class="clearfix"></i>
+<script type="text/javascript" src="/js/footer.js"></script>
+
+<script src="/js/jquery-2.2.3.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-select.js"></script>
+<script src="/js/bootstrap-contextmenu.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.js"></script>
+<script src="/js/jquery.treeview.js"></script>
+<script src="/js/fileinput.js"></script>
+<script>
+    let root = {};
+    let $txt =$('#index-input');
+    let $ul = $('#index-view-wrapper');
+    let $view = $('.view-index');
+    $view.on('click',function () {
+        root = {};
+        let arr = $txt.val().split(/\n/);
+        for(let i = 0; i < arr.length; i++)
+            solve(arr[i]);
+        showView();
+        // console.log(JSON.stringify(root));
+    });
+    function solve(str){
+        let arr = str.split(/\s/);//空格分离
+        let head = arr[0].split(/\./);//序号分离.
+        // let title = arr[1];//标题
+        let temp = root;
+        for(let i = 0; i < head.length; i++){
+            if(temp[head[i]] === undefined){
+                temp[head[i]] = {};
+            }
+            temp = temp[head[i]];//比如head本身是1.2.1，则temp = root->root.1->root.1.2->root.1.2.1
+        }
+        temp.title = str;
+    }
+    function showView(){
+        $ul.empty();
+        for(let key in root){
+            let val = root[key];
+            let $li = $('<li><span class="folder">'+val.title+'</span></li>');
+            if(dfs($li, val)===0) {
+                $li = $('<li><span class="file">'+val.title+'</span></li>');
+            }
+            $ul.append($li);
+        }
+        $ul.treeview();
+    }
+    function dfs($li, node){//dfs生成
+        let flag = 0;
+        for(let key in node){
+            if(!isNaN(key)){
+                let $ul = $('<ul></ul>');
+                let val = node[key];
+                let $$li = $('<li><span class="folder">'+val.title+'</span></li>');
+                let tmp = dfs($$li,val);
+                if(tmp===0){
+                    $$li = $('<li><span class="file">'+val.title+'</span></li>');
+                }
+                $ul.append($$li);
+                $li.append($ul);
+                flag = 1;
+            }
+        }
+        return flag;
+    }
+
+    $("#course-image").fileinput({
+        theme: 'fas',
+        uploadUrl: '/course/upload/image'
+    }).on('filepreupload', function(event, data, previewId, index) {
+
+    });
+    $view.click();
+</script>
+
+<script src="/js/bootsnav.js"></script>
+<script src="/js/jquery.appear.js"></script>
+<script src="/js/jquery-countTo.js"></script>
+<script src="/js/jquery.parallax-1.1.3.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.cubeportfolio.min.js"></script>
+<script src="/js/jquery.themepunch.tools.min.js"></script>
+<script src="/js/jquery.themepunch.revolution.min.js"></script>
+<script src="/js/revolution.extension.layeranimation.min.js"></script>
+<script src="/js/revolution.extension.navigation.min.js"></script>
+<script src="/js/revolution.extension.parallax.min.js"></script>
+<script src="/js/revolution.extension.slideanims.min.js"></script>
+<script src="/js/revolution.extension.video.min.js"></script>
+<script src="/js/wow.min.js"></script>
+</body>
+</html>

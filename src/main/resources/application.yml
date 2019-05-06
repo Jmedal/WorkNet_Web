@@ -11,6 +11,7 @@ spring:
       ddl-auto: update
     show-sql: true
 
+
   #Redis配置
   redis:
     host: 192.168.145.132
@@ -25,6 +26,14 @@ spring:
         min-idle: 0
         max-idle: 500
         max-wait: 1ms
+
+  #thymeleaf配置
+  thymeleaf:
+    encoding: UTF-8
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
 
 
 # 配置mybatis-plus

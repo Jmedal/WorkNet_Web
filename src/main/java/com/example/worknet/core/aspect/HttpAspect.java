@@ -22,7 +22,7 @@ public class HttpAspect {
      */
     private final static Logger logger = LoggerFactory.getLogger(HttpAspect.class);
 
-    @Pointcut("execution(public * com.example.worknet.common.persistence.controller.*.*(..))")
+    @Pointcut("execution(public * com.example.worknet.common.persistence.affair.user.controller.*.*(..))")
     public void log(){
 
     }

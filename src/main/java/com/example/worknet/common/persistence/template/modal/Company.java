@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author YunJieJiang123
- * @since 2019-04-27
+ * @since 2019-05-06
  */
 @TableName("sys_company")
 public class Company implements Serializable {
@@ -28,11 +28,15 @@ public class Company implements Serializable {
     @TableField("user_id")
     private Long userId;
     /**
+     * 公司名称
+     */
+    private String name;
+    /**
      * 公司简介
      */
     private String introduction;
     /**
-     * 公司名称
+     * 公司地址
      */
     private String address;
     /**
@@ -56,6 +60,14 @@ public class Company implements Serializable {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getIntroduction() {
@@ -87,6 +99,7 @@ public class Company implements Serializable {
         return "Company{" +
         ", id=" + id +
         ", userId=" + userId +
+        ", name=" + name +
         ", introduction=" + introduction +
         ", address=" + address +
         ", registeTime=" + registeTime +

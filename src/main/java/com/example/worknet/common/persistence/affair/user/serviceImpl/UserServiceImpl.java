@@ -2,9 +2,11 @@ package com.example.worknet.common.persistence.affair.user.serviceImpl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.example.worknet.common.constant.Const;
+import com.example.worknet.common.persistence.affair.user.serivce.CompanyService;
 import com.example.worknet.common.persistence.affair.user.serivce.LearnerInfoService;
 import com.example.worknet.common.persistence.affair.user.serivce.TeacherInfoService;
 import com.example.worknet.common.persistence.affair.user.serivce.UserService;
+import com.example.worknet.common.persistence.template.modal.Company;
 import com.example.worknet.common.persistence.template.modal.LearnerInfo;
 import com.example.worknet.common.persistence.template.modal.TeacherInfo;
 import com.example.worknet.common.persistence.template.modal.User;
@@ -12,6 +14,7 @@ import com.example.worknet.common.persistence.template.dao.UserMapper;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.example.worknet.core.utils.FileToolsUtil;
+import com.example.worknet.core.utils.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -19,8 +22,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * <p>
@@ -68,8 +72,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      * @return
      */
     @Override
-    public Map<String,String> getUserInfo(Long id){
+    public HashMap<String,Object> getUserInfo(Long id){
         return userMapper.getUserInfo(id);
+    }
+
+    /**
+     * 获取用户昵称
+     * @param id
+     * @return
+     */
+    @Override
+    public String getNickname(Long id) {
+        int role = userService.selectById(id).getRole();
+        switch (role){
+            case 3:
+                return learnerInfoService.selectOne(new EntityWrapper<LearnerInfo>().eq("user_id",id)).getNickname();
+            case 2:
+                return teacherInfoService.selectOne(new EntityWrapper<TeacherInfo>().eq("user_id",id)).getRealname();
+            case 1:
+                return companyService.selectOne(new EntityWrapper<Company>().eq("user_id",id)).getName();
+            default:
+                return null;
+        }
     }
 
     /**
@@ -79,7 +103,31 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public boolean userRegister(User user) {
-        return  userService.insert(user);
+        int role=user.getRole();
+        if(role == 0)
+            return false;
+        userService.insert(user);
+        user = userService.selectOne(new EntityWrapper<User>().eq("account",user.getAccount()));
+        switch (role){
+            case 3:
+                LearnerInfo learnerInfo = new LearnerInfo();
+                learnerInfo.setUserId(user.getId());
+                learnerInfo.setNickname(RandomString.getRandomString(6));
+                learnerInfoService.insert(learnerInfo);
+                return true;
+            case 2:
+                TeacherInfo teacherInfo = new TeacherInfo();
+                teacherInfo.setUserId(user.getId());
+                teacherInfoService.insert(teacherInfo);
+                return true;
+            case 1:
+                Company company = new Company();
+                company.setUserId(user.getId());
+                companyService.insert(company);
+                return true;
+            default:
+                return false;
+        }
     }
 
     /**
@@ -181,6 +229,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private LearnerInfoService learnerInfoService;
+
+    @Autowired
+    private CompanyService companyService;
 
     @Autowired
     private final ResourceLoader resourceLoader;
