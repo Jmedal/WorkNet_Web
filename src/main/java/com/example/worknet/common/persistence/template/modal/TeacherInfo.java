@@ -1,9 +1,10 @@
 package com.example.worknet.common.persistence.template.modal;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 
 /**
@@ -12,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author YunJieJiang123
- * @since 2019-04-27
+ * @since 2019-05-07
  */
 @TableName("sys_teacher_info")
 public class TeacherInfo implements Serializable {
@@ -33,6 +34,14 @@ public class TeacherInfo implements Serializable {
      * 真实姓名
      */
     private String realname;
+    /**
+     * 性别
+     */
+    private String sex;
+    /**
+     * 年龄
+     */
+    private Integer age;
     /**
      * 身份证号
      */
@@ -81,6 +90,22 @@ public class TeacherInfo implements Serializable {
 
     public void setRealname(String realname) {
         this.realname = realname;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public String getIdentity() {
@@ -137,6 +162,8 @@ public class TeacherInfo implements Serializable {
         ", id=" + id +
         ", userId=" + userId +
         ", realname=" + realname +
+        ", sex=" + sex +
+        ", age=" + age +
         ", identity=" + identity +
         ", phone=" + phone +
         ", email=" + email +

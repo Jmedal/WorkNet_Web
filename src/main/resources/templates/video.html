@@ -16,20 +16,67 @@
     <link rel="stylesheet" type="text/css" href="/css/loader.css">
     <link rel="stylesheet" type="text/css" href="/css/button.css">
     <link rel="stylesheet" type="text/css" href="/video.js/dist/video-js.css">
+    <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.css" rel="stylesheet">
     <style>
+        .total-page-wrapper .total-page{
+            font-size: 1em;
+        }
+        .total-page-wrapper .total-page::before{
+            content: '共 ';
+        }
+        .total-page-wrapper .total-page::after{
+            content: ' 页';
+        }
+        .total-page-wrapper .page-off{
+            margin-left: 30px;
+        }
+        .total-page-wrapper .page-item{
+            padding: 2px 5px;
+            margin:10px;
+            transition: all .2s;
+            cursor: pointer;
+            color:black;
+        }
+        .total-page-wrapper .page-item:hover{
+            color: #1ec9ff;
+        }
+        .total-page-wrapper .page-ellipsis::after{
+            content: '...';
+        }
+        .total-page-wrapper .this-page{
+            margin:10px;
+            color: #c2ebf0;
+            padding: 2px 5px;
+            background: #51514f;
+        }
+        .total-page-wrapper .paging-box{
+            margin: 80px 30px;
+        }
         #menu-wrapper{
             float: left;
-            width: 30%;
+            width: 35%;
+            font-size:.9em;
         }
         #container{
             min-height: 800px;
         }
         #menu{
-            height: 300px;
+            height: 600px;
+            overflow-y: scroll;
         }
         #video-index{
             overflow-y:scroll;
             height: 600px;
+        }
+        .reply-to-question{
+            margin-left:30px;
+            padding:3px;
+            border-radius: 4px;
+        }
+        .reply-to-question:hover{
+            background: #bebebe;
+            color: #e6ffff;
+            cursor: pointer;
         }
         #video-wrapper{
             width: 60%;
@@ -184,79 +231,24 @@
 <!--Page Header-->
 <div id="container">
     <section id="video_all"  class="padding-bottom-half padding-top-half col-md-10">
-        <div id="menu-wrapper" class="margin_left bottom20_clear">
-            <div class="bottom20"></div>
-            <div class="panel-group bottom20" id="menu">
-                <div>
-                    <div class="panel panel-default ">
-                        <div class="panel-heading ">
-                            <h4 class="panel-title">
-                                <a data-parent="#menu"
-                                   href="#video-index" class="">
-                                    <div>视频目录</div>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="video-index" class="panel-collapse ">
-                            <div class="panel-body">
-                                <dl>
-                                    <dt></dt>
-                                    <dt>
-                                        <div class="video-progress">进度</div>
-                                        <div class="video-title">标题</div>
-                                        <div class="video-length">时长</div>
-                                    </dt>
-                                    <dd class="video-item here" data-vno="1">
-                                        <div class="video-progress">0%</div>
-                                        <div class="video-title" title="1.1计算机概述">1.1 计算机概述</div>
-                                        <div class="video-length">17:15</div>
-                                    </dd>
-                                    <dd class="video-item" data-vno="1">
-                                        <div class="video-progress">65%</div>
-                                        <div class="video-title">1.2 计算机的发展与xx</div>
-                                        <div class="video-length">17:15</div>
-                                    </dd>
-                                    <dd class="video-item" data-vno="1">
-                                        <div class="video-progress">65%</div>
-                                        <div class="video-title">1.3 计算机的硬件和软件</div>
-                                        <div class="video-length">17:15</div>
-                                    </dd>
-                                    <dd class="video-item" data-vno="1">
-                                        <i class="icon-abacus"></i>&nbsp;第一章测试
-                                    </dd>
-                                    <dd class="video-item" data-vno="1">
-                                        <div class="video-progress">65%</div>
-                                        <div class="video-title" title="1.1计算机概述">2.1 计算机概述</div>
-                                        <div class="video-length">17:15</div>
-                                    </dd>
-                                    <dd class="video-item" data-vno="1">
-                                        <div class="video-progress">65%</div>
-                                        <div class="video-title">2.2 计算机的发展与xx</div>
-                                        <div class="video-length">17:15</div>
-                                    </dd>
-                                    <dd class="video-item" data-vno="1">
-                                        <div class="video-progress">65%</div>
-                                        <div class="video-title">2.3 计算机的硬件和软件</div>
-                                        <div class="video-length">17:15</div>
-                                    </dd>
-                                    <dd class="video-item" data-vno="1">
-                                        <i class="icon-abacus"></i>&nbsp;第二章测试</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
+        <div class="row">
+
+            <div id="menu-wrapper" class=" bottom20_clear">
+                <div class="bottom20"></div>
+                <legend>视频目录</legend>
+                <div class="panel-group bottom20" id="menu">
                 </div>
+                <div class="clearfix"></div>
+            </div>
+            <div id="video-wrapper" class=" margin_right" style="padding-top:40px">
+                <video id="video" class="video-js vjs-default-skin" controls preload="auto"
+                       width="720" height="540" data-setup="{}">
+                    <source src="" type="video/mp4">
+                    　　</video>
             </div>
         </div>
-        <div id="video-wrapper" class=" margin_right">
-            <video id="video" class="video-js vjs-default-skin" controls preload="auto"
-                   width="720" height="540"
-                   poster="/get/avatar/5" data-setup="{}">
-                    <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
-                　　</video>
-        </div>
     </section>
-    <section class="padding col-md-12">
+    <section class="padding col-md-12 wow fadeInDown">
         <div class="col-md-10 col-md-offset-1">
             <legend>讨论区</legend>
         </div>
@@ -267,182 +259,22 @@
                     <textarea id="my-comment" placeholder="输入评论" style="width: 80%;margin-left:10%;height:100px;"></textarea>
                 </div>
                 <div class="right row margin_right">
-                    <span class="btn btn-default">发表评论</span>
+                    <span class="btn btn-info comment-btn">发表评论</span>
                 </div>
             </div>
+            <div id="sign"></div>
             <div class="bottom20_clear"></div>
             <hr>
             <div class="body">
                 <ul class="comment-list">
-                    <li class="comment-item col-md-12">
-                        <div class="comment-header col-md-2">
-                            <img src="/get/avatar/4" alt="头像" width="90" height="90" class="img-circle">
-                        </div>
-                        <div class="comment-body col-md-10">
-                            <div class="user">
-                                张xx<input type="hidden" value="33">
-                            </div>
-                            <p class="comment-text">
-                                评论评论
-                            </p>
-                            <div class="comment-info">
-                                <input type="hidden" value="111" class="comment-id">
-                                <span class="comment-layer">1</span>
-                                <span class="comment-time">2019-01-14 16:01</span>
-                            </div>
-                            <div class="reply-box">
-                                <span class="show-reply">显示评论</span><span class="reply-num">3</span>
-                                <div class="reply" hidden>
-                                    <ul class="reply-list">
-                                        <li class="reply-item col-md-12">
-                                            <div class="reply-wrapper col-md-12">
-                                                <div class="reply-header col-md-1">
-                                                    <img src="/get/avatar/3" alt="头像" width="50" height="50" class="img-circle">
-                                                </div>
-                                                <div class="reply-body col-md-11">
-                                                    <span class="reply-nickname">李xx</span>
-                                                    <input type="hidden" value="10" class="reply-uid">
-                                                    <span class="reply-to">回复 张xx</span>
-                                                    <p class="col-md-12">回复的回复进行测试一下啦啦啦啦啦</p>
-                                                    <div class="reply-info ">
-                                                        <span class="reply-time ">2019-01-14 16:08</span>
-                                                        <span class="reply-btn">回复</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="reply-item col-md-12">
-                                            <div class="reply-wrapper col-md-12">
-                                                <div class="reply-header col-md-1">
-                                                    <img src="/get/avatar/5" alt="头像" width="50" height="50" class="img-circle">
-                                                </div>
-                                                <div class="reply-body col-md-11">
-                                                    <span class="reply-nickname">李xx</span>
-                                                    <input type="hidden" value="10" class="reply-uid">
-                                                    <span class="reply-to"></span>
-                                                    <p class="col-md-12">回复的回复进行测试一下啦啦啦啦啦</p>
-                                                    <div class="reply-info ">
-                                                        <span class="reply-time ">2019-01-14 16:08</span>
-                                                        <span class="reply-btn">回复</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="reply-item col-md-12">
-                                            <div class="reply-wrapper col-md-12">
-                                                <div class="reply-header col-md-1">
-                                                    <img src="/get/avatar/5" alt="头像" width="50" height="50" class="img-circle">
-                                                </div>
-                                                <div class="reply-body col-md-11">
-                                                    <span class="reply-nickname">李xx</span>
-                                                    <input type="hidden" value="10" class="reply-uid">
-                                                    <span class="reply-to"></span>
-                                                    <p class="col-md-12">回复的回复进行测试一下啦啦啦啦啦</p>
-                                                    <div class="reply-info ">
-                                                        <span class="reply-time ">2019-01-14 16:08</span>
-                                                        <span class="reply-btn">回复</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="paging-box">
-                                        <span class="total-page">55</span>
-                                    </div>
-                                    <div class="comment-send col-md-10 col-md-offset-1">
-                                        <input type="hidden" class="send-to" value="">
-                                        <textarea style="width: 100%;"></textarea>
-                                        <span class="btn btn-info send-comment">发送评论</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="comment-item col-md-12">
-                        <div class="comment-header col-md-2">
-                            <img src="/get/avatar/5" alt="头像" width="90" height="90" class="img-circle">
-                        </div>
-                        <div class="comment-body col-md-10">
-                            <div class="user">
-                                张xx<input type="hidden" value="33">
-                            </div>
-                            <p class="comment-text">
-                                评论评论
-                            </p>
-                            <div class="comment-info">
-                                <input type="hidden" value="111" class="comment-id">
-                                <span class="comment-layer">1</span>
-                                <span class="comment-time">2019-01-14 16:01</span>
-                            </div>
-                            <div class="reply-box">
-                                <span class="show-reply">显示评论</span><span class="reply-num">3</span>
-                                <div class="reply" hidden>
-                                    <ul class="reply-list">
-                                        <li class="reply-item col-md-12">
-                                            <div class="reply-wrapper col-md-12">
-                                                <div class="reply-header col-md-1">
-                                                    <img src="images/about.jpg" alt="头像" width="50" height="50" class="img-circle">
-                                                </div>
-                                                <div class="reply-body col-md-11">
-                                                    <span class="reply-nickname">李xx</span>
-                                                    <input type="hidden" value="10" class="reply-uid">
-                                                    <span class="reply-to">回复 张xx</span>
-                                                    <p class="col-md-12">回复的回复进行测试一下啦啦啦啦啦</p>
-                                                    <div class="reply-info ">
-                                                        <span class="reply-time ">2019-01-14 16:08</span>
-                                                        <span class="reply-btn">回复</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="reply-item col-md-12">
-                                            <div class="reply-wrapper col-md-12">
-                                                <div class="reply-header col-md-1">
-                                                    <img src="images/about.jpg" alt="头像" width="50" height="50" class="img-circle">
-                                                </div>
-                                                <div class="reply-body col-md-11">
-                                                    <span class="reply-nickname">李xx</span>
-                                                    <input type="hidden" value="10" class="reply-uid">
-                                                    <span class="reply-to"></span>
-                                                    <p class="col-md-12">回复的回复进行测试一下啦啦啦啦啦</p>
-                                                    <div class="reply-info ">
-                                                        <span class="reply-time ">2019-01-14 16:08</span>
-                                                        <span class="reply-btn">回复</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="reply-item col-md-12">
-                                            <div class="reply-wrapper col-md-12">
-                                                <div class="reply-header col-md-1">
-                                                    <img src="images/about.jpg" alt="头像" width="50" height="50" class="img-circle">
-                                                </div>
-                                                <div class="reply-body col-md-11">
-                                                    <span class="reply-nickname">李xx</span>
-                                                    <input type="hidden" value="10" class="reply-uid">
-                                                    <span class="reply-to"></span>
-                                                    <p class="col-md-12">回复的回复进行测试一下啦啦啦啦啦</p>
-                                                    <div class="reply-info ">
-                                                        <span class="reply-time ">2019-01-14 16:08</span>
-                                                        <span class="reply-btn">回复</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="paging-box">
-                                        <span class="total-page">55</span>
-                                    </div>
-                                    <div class="comment-send col-md-10 col-md-offset-1">
-                                        <input type="hidden" class="send-to" value="">
-                                        <textarea style="width: 100%;"></textarea>
-                                        <span class="btn btn-info send-comment">发送评论</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+
                 </ul>
+
+                <div class="total-page-wrapper">
+                    <div class="paging-box">
+                        <span class="total-page">20</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -450,41 +282,44 @@
 <i class="clearfix"></i>
 <script type="text/javascript" src="/js/footer.js"></script>
 <script src="/js/jquery-2.2.3.js"></script>
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 <script src="/video.js/dist/video.js"></script>
 <script>
+    var href = window.location.href;
+    var vid = href.split('#')[1];//视频id
+    var targetInner = 0;
+    href = href.substring(0,href.lastIndexOf("\/"));//删掉一个斜杠
+    href = href.substring(0,href.lastIndexOf("\/"));//删掉第二个个斜杠
+    var cid = parseInt(href.substring(href.lastIndexOf("\/")+1,href.length));
     let duration = 1;
     let $prog = $('.here .video-progress');
     let maxP = parseInt($prog.text());//记录当前视频的最大播放进度
-    let player = videojs('video',{
-        playbackRates: [0.5, 1, 1.25, 1.5, 2, 3]
-    },function () {
-        duration = this.duration();
-    });
-    player.on('timeupdate',function () {
-        let tmp = Math.ceil(100*this.currentTime()/duration);
-        if(isNaN(tmp))
-            duration = this.duration();
-        if(tmp>maxP){
-            $('.here .video-progress').text(tmp+'%');
-            //ajax发送给后台进度
+    let player;
+    var pager = {
+        _curPage:1,
+        set curPage(v){
+            this._curPage = v;
+            changeTotalPageBox();
+        },
+        get curPage(){
+            return this._curPage;
         }
+    };
+    //发表评论按钮
+    $('.comment-btn').on('click',function (object) {
+        $.post('/video/'+vid+'/comment',{content:$('#my-comment').val()},function (data) {
+            data = JSON.parse(data);
+            if(data.errorCode==='00'){
+                toastr.success('评论成功');
+                $('#my-comment').val('');
+                $('body,html').animate({scrollTop:$('#sign').offset().top},500);
+                pager.curPage = 1;
+            }else{
+                toastr.error("未知错误，评论失败");
+            }
+
+        })
     });
-    //加载完所有评论之后再对按钮进行操作 important
-    function initBtn(){
-        $('.show-reply').on('click',function () {
-            if($(this).html()==='显示评论'){
-                $(this).html('隐藏评论');
-                $(this).siblings('div.reply').slideDown();
-            }
-            else{
-                $(this).html('显示评论');
-                $(this).siblings('div.reply').slideUp();
-            }
-        });
-        changeReplyBtn();
-        changePageBox();
-    }
-    initBtn();
     //点击span页码改变reply的page，以及分页情况
     //分页情况的改变要考虑当前页
     function changeReplyPage($span) {
@@ -494,73 +329,207 @@
         let thisUserId = $span.parents('div.comment-body').find('div.user input[type="hidden"]').val();
         let $div = $span.parents('div.paging-box');
         let questionId = $span.parents('.comment-body').find('input.comment-id').val();
-        //之后要记得改变当前页
+        console.log('questionId:'+questionId);
         console.log('页面跳转：'+$cur.val()+'->'+page);
         $.ajax({
-            url:'/get/replies?page='+page+'&questionId='+questionId,
-            //此处error要改成success ! important
-            error:function (data) {
-                let list = [{
-                    replyId:'3',//这个回复本身的id
-                    userId:'41',//回复者的id
-                    //replyTo:'1',//回复对象的id，可以不用
-                    replyToUserId:'33',//回复对象的回复者id
-                    content:'测试回复1',//回复内容
-                    replyTime:'2019-04-30 11:23',//回复时间
-                    nickname:'张三',//回复者的昵称
-                    replyToNickname:'李四'//回复的对象的昵称
-                },{
-                    replyId:'3',//这个回复本身的id
-                    userId:'41',//回复者的id
-                    //replyTo:'1',//回复对象的id，可以不用
-                    replyToUserId:'33',//回复对象的回复者id
-                    content:'测试回复1',//回复内容
-                    replyTime:'2019-04-30 11:23',//回复时间
-                    nickname:'张三',//回复者的昵称
-                    replyToNickname:'李四'//回复的对象的昵称
-                },{
-                    replyId:'3',//这个回复本身的id
-                    userId:'41',//回复者的id
-                    //replyTo:'1',//回复对象的id，可以不用
-                    replyToUserId:'21',//回复对象的回复者id
-                    content:'测试回复1',//回复内容
-                    replyTime:'2019-04-30 11:23',//回复时间
-                    nickname:'张三',//回复者的昵称
-                    replyToNickname:'李四'//回复的对象的昵称
-                }];
-                $ul.empty();
-                for(let i = 0; i < list.length; i++){
-                    let item = list[i];
-                    let needToShowReply = '<span class="reply-to">回复 <span class="user">'+item.replyToNickname
-                        +'<input type="hidden" value="'+item.replyToUserId+'"></span></span>\n';
-                    if(item.replyToUserId===thisUserId)
-                        needToShowReply = '';//如果回复的对象就是楼主本身，就不显示
-                    let $li = $('\n' +
-'                                        <li class="reply-item col-md-12">\n' +
-'                                            <div class="reply-wrapper col-md-12">\n' +
-'                                                <div class="reply-header col-md-1">\n' +
+            url:'/get/replies/'+questionId+'?page='+page,
+            success:function (data) {
+                data = JSON.parse(data);
+                if(data.errorCode==='00'){
+                    let pager = data.returnObject;
+                    $span.parent().siblings('span.total-page').html(parseInt(pager.pages));//更新最大页面
+                    let list = pager.records;
+                    $ul.empty();
+                    for(let i = 0; i < list.length; i++){
+                        let item = list[i];
+                        let needToShowReply = '<span class="reply-to">回复 <span class="user">'+item.replyToNickname
+                            +'<input type="hidden" value="'+item.replyToUserId+'"></span></span>\n';
+                        if(item.replyToUserId===thisUserId)
+                            needToShowReply = '';//如果回复的对象就是楼主本身，就不显示
+                        let $li = $('\n' +
+                            '                                        <li class="reply-item col-md-12">\n' +
+                            '                                            <div class="reply-wrapper col-md-12">\n' +
+                            '                                                <div class="reply-header col-md-1">\n' +
                             //此处是获取头像的路径！！
-'                                                    <img src="/get/avatar/'+item.userId+'" alt="" width="50" height="50" class="img-circle">\n' +
-'                                                </div>\n' +
-'                                                <div class="reply-body col-md-11">\n' +
-'                                           <span class="user"><span class="reply-nickname">'+item.nickname+'</span>'+
-                        '<input type="hidden" value="'+item.userId+'"></span>\n' +
+                            '                                                    <img src="/get/avatar/'+item.userId+'" alt="" width="50" height="50" class="img-circle">\n' +
+                            '                                                </div>\n' +
+                            '                                                <div class="reply-body col-md-11">\n' +
+                            '                                           <span class="user"><span class="reply-nickname">'+item.nickname+'</span>'+
+                            '<input class="reply-uid" type="hidden" value="'+item.userId+'"></span>\n' +
                             needToShowReply+
-'                                                    <p class="col-md-12">'+item.content+'</p>\n' +
-'                                                    <div class="reply-info ">\n' +
-'                                                        <span class="reply-time ">'+item.replyTime+'</span>\n' +
-                            '<input type="hidden" class="reply-id" value="'+item.replyId+'">'+//回复本身的id
-'                                                        <span class="reply-btn">回复</span>\n' +
-'                                                    </div>\n' +
-'                                                </div>\n' +
-'                                            </div>\n' +
-'                                        </li>');
-                    $ul.append($li);
+                            '                                                    <p class="col-md-12">'+item.content+'</p>\n' +
+                            '                                                    <div class="reply-info ">\n' +
+                            '                                                        <span class="reply-time ">'+item.replyTime+'</span>\n' +
+                            '<input type="hidden" class="reply-id" value="'+item.commentId+'">'+//回复本身的id
+                            '                                                        <span class="reply-btn">回复</span>\n' +
+                            '                                                    </div>\n' +
+                            '                                                </div>\n' +
+                            '                                            </div>\n' +
+                            '                                        </li>');
+                        $ul.append($li);
+                    }
+                    changeReplyBtn($ul);
+                    //修改页码box
+                    changePageBox($div,page);
                 }
-                changeReplyBtn($ul);
-                //修改页码box
-                changePageBox($div,page);
             }
+        });
+    }
+
+    function changeTotalPageBox() {
+        let curPage = pager.curPage;
+        if(curPage === undefined)
+            curPage = 1;
+        else curPage = parseInt(curPage);
+        $.get('/get/video/'+vid+'/comment',{page:curPage},function (data) {
+           data = JSON.parse(data);
+           if(data.errorCode==='00'){
+               let pager2 = data.returnObject;
+               let maxPage = pager2.pages;
+               $('.total-page-wrapper .total-page').html(maxPage);
+               $('.total-page-wrapper .total-page').each(function () {
+                   let tot = $(this).html();
+                   $(this).siblings().remove();
+                   let $span = $('<span class="page-off"></span>');
+                   $span.append('<input type="hidden" class="cur-page" value="'+curPage+'">');
+                   if(tot>10){//要根据当前页来划分
+                       for(let i = 1; i <= 6; i++){
+                           if(i===curPage)
+                               $span.append('<span class="this-page">'+i+'</span>');
+                           else
+                               $span.append('<span class="page-item">'+i+'</span>');
+                       }
+                       if(curPage<=8){
+                           for(let i = 7; i <= 9; i++){
+                               if(i===curPage)
+                                   $span.append('<span class="this-page">'+i+'</span>');
+                               else
+                                   $span.append('<span class="page-item">'+i+'</span>');
+                           }
+                           $span.append('<span class="page-ellipsis"></span>');
+                           $span.append('<span class="page-item">'+tot+'</span>');
+                       }else if(curPage<=tot-1){
+                           $span.append('<span class="page-ellipsis"></span>');
+                           $span.append('<span class="page-item">'+(curPage-1)+'</span>');
+                           $span.append('<span class="this-page">'+(curPage)+'</span>');
+                           $span.append('<span class="page-item">'+(curPage+1)+'</span>');
+                           if(curPage+1<tot-1)
+                               $span.append('<span class="page-ellipsis"></span>');
+                           if(curPage+1<tot)
+                               $span.append('<span class="page-item">'+tot+'</span>');
+                       }else{
+                           $span.append('<span class="page-item">'+7+'</span>');
+                           $span.append('<span class="page-item">'+8+'</span>');
+                           $span.append('<span class="page-ellipsis"></span>');
+                           $span.append('<span class="page-item">'+(tot-1)+'</span>');
+                           $span.append('<span class="this-page">'+tot+'</span>');
+                       }
+                   }else{
+                       for(let i = 1; i <= tot; i++){
+                           if(i===curPage)
+                               $span.append('<span class="this-page">'+i+'</span>');
+                           else
+                               $span.append('<span class="page-item">'+i+'</span>');
+                       }
+                   }
+                   $span.find('.page-item').on('click',function () {
+                       let targetPage = parseInt($(this).html());
+                       pager.curPage = targetPage;
+                       $('body,html').animate({scrollTop:$('#sign').offset().top},500);
+                   });//完成初始化，点击就ajax获取
+                   $(this).after($span);//添加节点
+               });//生成页码
+               let list = pager2.records;
+               let $ul = $('.body .comment-list');
+               $ul.empty();
+               for(let i = 0; i <list.length; i++){
+                   let item = list[i];
+                   let $li = $('\n' +
+                       '                    <li class="comment-item col-md-12">\n' +
+                       '                        <div class="comment-header col-md-2">\n' +
+                       '                            <img src="/get/avatar/'+item.uid+'" alt="头像" width="90" height="90" class="img-circle">\n' +
+                       '                        </div>\n' +
+                       '                        <div class="comment-body col-md-10">\n' +
+                       '                            <div class="user">\n' +
+                       '                                '+item.nickname+'<input type="hidden" value="'+item.uid+'">\n' +
+                       '                            </div>\n' +
+                       '                            <p class="comment-text">' +
+                                                    item.content+
+                       '                            </p>\n' +
+                       '                            <div class="comment-info">\n' +
+                       '                                <input type="hidden" value="'+item.commentId+'" class="comment-id">\n' +
+                       '                                <span class="comment-time">'+item.commentTime+'</span>\n' +
+                       '                            </div>\n' +
+                       '                            <div class="reply-box">\n' +
+                       '                                <span class="show-reply">显示评论</span><span class="reply-num">'+item.replyNum+'</span>\n' +
+                       '                                 <span class="reply-to-question" data-to-id="'+item.commentId+'" data-to-uid="'+item.uid+'">回复</span> ' +
+                       '<div class="reply" hidden>\n' +
+                       '                                    <ul class="reply-list">\n' +
+                       '                                    </ul>\n' +
+                       '                                    <div class="paging-box">\n' +
+                       '                                        <span class="total-page"></span>' +
+                           '                                  <span class="page-off">' +
+                       '<input type="hidden" class="cur-page" value="1" /><span class="this-page">1</span> </span>'+
+                       '                                    </div>\n' +
+                       '                                    <div class="comment-send col-md-10 col-md-offset-1">\n' +
+                       '                                        <input type="hidden" class="send-to" value="'+item.uid+'">\n' +
+                       '                                        <input type="hidden" class="reply-to-id" value="'+item.commentId+'">\n' +
+                       '                                        <textarea style="width: 100%;"></textarea>\n' +
+                       '                                        <span class="btn btn-info send-comment">发送评论</span>\n' +
+                       '                                    </div>\n' +
+                       '                                </div>\n' +
+                       '                            </div>\n' +
+                       '                        </div>\n' +
+                       '                    </li>');
+                   $ul.append($li);
+               }
+               $('.show-reply').on('click',function () {
+                   if($(this).html()==='显示评论'){
+                       $(this).html('隐藏评论');
+                       $(this).siblings('div.reply').slideDown();
+                       changeReplyPage($(this).siblings('div.reply').find('div.paging-box .this-page'));
+                   }
+                   else{
+                       $(this).html('显示评论');
+                       $(this).siblings('div.reply').slideUp();
+                   }
+               });
+               $('.reply-to-question').on('click',function (object) {
+                   let uid = $(this).attr('data-to-uid');
+                   let rid = $(this).attr('data-to-id');
+                   let $btn = $(this).siblings('.show-reply');
+                   if($btn.html()==='显示评论'){
+                       $btn.click();
+                   }
+                   $(this).siblings('.reply').find('input.send-to').val(uid);//设置uid
+                   $(this).siblings('.reply').find('input.reply-to-id').val(rid);//设置uid
+                   $(this).siblings('.reply').find('textarea').focus();
+               });
+               $('.send-comment').on('click',function (object) {
+                   let dd = {};
+                   dd.replyToUserId = $(this).siblings('input.send-to').val();
+                   dd.replyToId = $(this).siblings('input.reply-to-id').val();
+                   let $txt = $(this).siblings('textarea');
+                   dd.content = $txt.val();
+                   if(dd.content === undefined || dd.content===''){
+                       toastr.warning('内容为空');
+                   }else{
+                       $.post('/video/replyTo/'+dd.replyToId+'/'+dd.replyToUserId,dd,function (data) {
+                           data = JSON.parse(data);
+                           if(data.errorCode==='00'){
+                               toastr.success('回复成功');
+                               $txt.val('');
+                               let $$div = $txt.parents('div.reply');
+                               let $$span = $$div.find('span.this-page');
+                               $('body,html').animate({scrollTop:$$div.offset().top-100},500);
+                               changeReplyPage($$span);//刷新该页面
+                           }else{
+                               toastr.error('未知错误，回复失败');
+                           }
+                       })
+                   }
+               });
+           }
         });
     }
     function changePageBox($div,curPage) {
@@ -642,13 +611,104 @@
             let $$div = $div.find('div.comment-send');
             let nickname = $(this).parents('div.reply-body').find('span.reply-nickname').html();
             let uid = $(this).parents('div.reply-body').find('input.reply-uid').val();//获取uid
+            let rid = $(this).parents('div.reply-body').find('input.reply-id').val();//获取uid
             let $txt = $$div.find('textarea');
             $txt.empty();
             $txt.attr('placeholder','回复 '+nickname);//出现回复字样
             $txt.focus();
-            $$div.find('input.send-to').val(uid);//记录uid
+            $txt.siblings('input.send-to').val(uid);
+            $txt.siblings('input.reply-to-id').val(rid);
         });
     }
+    $(document).ready(function () {
+        //根据vid解析视频地址，赋值给video即可
+        // /get/video/{vid}
+        $('#video source').attr('src','/get/video/'+vid);
+        player = videojs('video',{
+            playbackRates: [0.5, 1, 1.25, 1.5, 2, 3]
+        },function () {
+            duration = this.duration();
+        });
+        player.on('timeupdate',function () {
+            let tmp = Math.ceil(100*this.currentTime()/duration);
+            if(isNaN(tmp)){
+                duration = this.duration();
+                tmp = Math.ceil(100*this.currentTime()/duration);
+            }
+            if(tmp>maxP){
+                $('.here .video-progress').text(tmp+'%');
+                $.get('/video/'+vid+'/update-progress',{percent:tmp+'%'},function () {
+
+                });
+            }
+        });
+        $.get('/get/video/menu/'+cid,{},function (data) {
+            data = JSON.parse(data);
+            let $div = $('#menu');
+            $div.empty();
+            if(data.errorCode==='00'){
+                let obj = data.returnObject;//obj应该是一个list，每一项带有
+                // console.log(obj);
+                for(let i = 0; i < obj.length; i++){
+                    let item = obj[i];
+                    let $$div = $('<div class="panel panel-default">\n' +
+                        '                            <div class="panel-heading">\n' +
+                        '                                <h4 class="panel-title">\n' +
+                        '                                    '+item.title+'\n' +
+                        '                                    <a data-toggle="collapse" data-parent="#menu"\n' +
+                        '                                       href="#collapse_'+i+'" class="margin_left">\n' +
+                        '                                          查看\n' +
+                        '                                    </a>\n' +
+                        '                                </h4>\n' +
+                        '                            </div>\n' +
+                        '                            <div id="collapse_'+i+'" class="panel-collapse collapse ">\n' +
+                        '                            </div>\n' +
+                        '                        </div>\n' +
+                        '                        <div class="bottom5"></div>');
+                    let smenu = item.subMenu;
+                    let $$$div = $('<div class="panel-body"></div>');
+                    let $dl = $('<dl></dl>');
+                    $dl.append('\n' +
+                        '                                    <dt>\n' +
+                        '                                        <div class="video-progress">进度</div>\n' +
+                        '                                        <div class="video-title">标题</div>\n' +
+                        '                                        <div class="video-length">时长</div>\n' +
+                        '                                    </dt>');
+                    for(let j = 0; j < smenu.length; j++){
+                        let item = smenu[j];
+                        let here = '';
+                        if(item.vid===vid){
+                            here = ' here';
+                            $$div.find('#collapse_'+i).addClass('in');
+                            targetInner = i*40;
+                        }
+                        $dl.append('\n' +
+                            '                                    <dd class="video-item '+here+'" data-vid="'+item.vid+'">\n' +
+                            '                                        <div class="video-progress">'+item.progress+'</div>\n' +
+                            '                                        <div class="video-title" title="'+item.title+'">'+item.title+'</div>\n' +
+                            '                                        <div class="video-length" title="'+item.length+'">'+item.length+'</div>\n' +
+                            '                                    </dd>');
+                    }
+                    $$$div.append($dl);
+                    $$div.find('#collapse_'+i).append($$$div);
+                    $div.append($$div);
+                    // console.log(targetInner);
+                    $('#menu').scrollTop(targetInner);
+                }
+                $prog = $('.here .video-progress');
+                maxP = parseInt($prog.text());
+                $('dd.video-item').on('click',function (object) {
+                    let url = window.location.href;
+                    url = url.split('#')[0];
+                    url = url + '#' + $(this).attr('data-vid');
+                    window.location.href = url;
+                    window.location.reload();//刷新页面，所以视频的src只需要ready的时候解析一次即可
+                })
+            }
+        });
+        //加载评论
+        pager.curPage = 1;
+    });
 </script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/bootsnav.js"></script>

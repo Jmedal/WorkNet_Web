@@ -1,7 +1,7 @@
 package com.example.worknet.common.persistence.affair.user.serviceImpl;
 
-import com.example.worknet.common.persistence.template.modal.TeacherInfo;
 import com.example.worknet.common.persistence.template.dao.TeacherInfoMapper;
+import com.example.worknet.common.persistence.template.modal.TeacherInfo;
 import com.example.worknet.common.persistence.affair.user.serivce.TeacherInfoService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

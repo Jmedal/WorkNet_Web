@@ -57,9 +57,24 @@ public interface Const {
      String FILE_PATH = Const.os.toLowerCase().indexOf("win")!=-1?Const.IMAGE_SAVE_PATH_Windows:Const.IMAGE_SAVE_PATH_LINUX;
 
     /**
-     * 问题图片文件夹
+     * 学习者头像文件夹
      */
     String HEAD_PATH = "avatar";
+
+    /**
+     * 课程预览图片文件夹
+     */
+    String COURSE_PICTURE_PATH = "course_picture";
+
+    /**
+     * 课程视频文件夹
+     */
+    String COURSE_VIEW_PATH = "course_view";
+
+    /**
+     * 问题图片文件夹
+     */
+    String PICTURE_PATH = "picture";
 
     /**
      * 回答图片文件夹

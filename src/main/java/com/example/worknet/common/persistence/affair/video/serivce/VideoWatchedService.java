@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface VideoWatchedService extends IService<VideoWatched> {
 
+    boolean insertWatched(long uid, long vid, String percent);
 }

@@ -148,13 +148,16 @@
     set maxPage(v){
       this._maxPage = v;
       setWidth();
+        $pwrapper.attr('data-content',this._curPage+"/"+v);
+        $pwrapper.popover('show');
     },
     set curPage(v){
       this._curPage = v;
       $.get('/personal/get/myCourse',{page:this._curPage},function (data) {
           data = JSON.parse(data);
           if(data.errorCode==='00'){
-              let obj = data.returnObject;
+              let obj = data.returnObject.list;
+              pager.maxPage = data.returnObject.maxPage;
               $ul.fadeOut(function () {
                   $ul.empty();
                   for(let i = 0; i < obj.length; i++){
@@ -294,7 +297,7 @@
     },300);
   }
   $(document).ready(function () {
-    pager.curPage = 1;
+      pager.curPage = 1;
     refreshJoinedExam();
     setWidth();
     $pwrapper.popover('show');

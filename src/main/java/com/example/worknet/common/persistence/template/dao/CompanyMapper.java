@@ -1,7 +1,7 @@
 package com.example.worknet.common.persistence.template.dao;
 
-import com.example.worknet.common.persistence.template.modal.Company;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.example.worknet.common.persistence.template.modal.Company;
 
 /**
  * <p>

@@ -17,7 +17,45 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="/css/loader.css">
     <link rel="stylesheet" type="text/css" href="/css/button.css">
-
+    <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.css" rel="stylesheet">
+<style>
+    .total-page{
+        font-size: .8em;
+    }
+    .total-page::before{
+        content: '共 ';
+    }
+    .total-page::after{
+        content: ' 页';
+    }
+    .page-off{
+        margin-left: 30px;
+    }
+    .page-item{
+        font-size: .8em;
+        padding: 2px 5px;
+        margin:10px;
+        transition: all .2s;
+        cursor: pointer;
+        color:black;
+    }
+    .page-item:hover{
+        color: #1ec9ff;
+    }
+    .page-ellipsis::after{
+        content: '...';
+    }
+    .this-page{
+        font-size: .8em;
+        margin:10px;
+        color: #c2ebf0;
+        padding: 2px 5px;
+        background: #51514f;
+    }
+    .paging-box{
+        margin: 80px 30px;
+    }
+</style>
 
 </head>
 
@@ -63,93 +101,20 @@
 <section id="course_all" class="padding-bottom-half padding-top-half">
     <div class="container">
         <div class="row overflow">
-            <h3 class=" bottom20">Accounting Technologies</h3>
+            <h3 class=" bottom20 course-title" ></h3>
             <div class="bottom40_border"></div>
-            <p class="bottom25">Maecenas cursus mauris libero, a imperdiet enim pellentesque id. Aliquam erat
-                volutpat. Suspendisse sit amet sapien at risus efficitur
-                sagittis Pellentesque.
-            </p>
+            <div id="course-abstract"></div>
 
             <a href="#write-comment" class="btn btn-default right ">我要评论</a>
             <div class="bottom20_clear"></div>
-            <div class="profile_border">
-                <div class="profile top20 bottom20">
-                    <div class="p_pic"><img src="images/profile2.png" alt="Course"></div>
-                    <div class="profile_text">
-                        <h5><strong>JOHN PARKER</strong> - <span> date</span></h5>
-                        <form class="star_rating bottom5">
-                            <div class="stars">
-                                <input type="radio" name="star" class="star-1" id="star-21"/>
-                                <label class="star-1" for="star-21">1</label>
-                                <input type="radio" name="star" class="star-2" id="star-22"/>
-                                <label class="star-2" for="star-22">2</label>
-                                <input type="radio" name="star" class="star-3" id="star-23"/>
-                                <label class="star-3" for="star-23">3</label>
-                                <input type="radio" name="star" class="star-4" id="star-24"/>
-                                <label class="star-4" for="star-24">4</label>
-                                <input type="radio" name="star" class="star-5" id="star-25" checked/>
-                                <label class="star-5" for="star-25">5</label>
-                                <span></span>
-                            </div>
-                        </form>
-                        <p class="margin10">Vivamus bibendum nibh in dolor pharetra, a euismod nulla dignissim.
-                            Aenean viverra tincidunt nibh, in imperdiet nunc. Suspendisse eu ante pretium.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="profile_border">
-                <div class="profile top20 bottom20">
-                    <div class="p_pic"><img src="images/profile3.png" alt="Course"></div>
-                    <div class="profile_text">
-                        <h5><strong>JOHN PARKER</strong> - <span>date</span></h5>
-                        <form class="star_rating bottom5">
-                            <div class="stars">
-                                <input type="radio" name="star" class="star-1" id="star-31"/>
-                                <label class="star-1" for="star-31">1</label>
-                                <input type="radio" name="star" class="star-2" id="star-32" checked/>
-                                <label class="star-2" for="star-32">2</label>
-                                <input type="radio" name="star" class="star-3" id="star-33"/>
-                                <label class="star-3" for="star-33">3</label>
-                                <input type="radio" name="star" class="star-4" id="star-34" checked/>
-                                <label class="star-4" for="star-34">4</label>
-                                <input type="radio" name="star" class="star-5" id="star-35"/>
-                                <label class="star-5" for="star-35">5</label>
-                                <span></span>
-                            </div>
-                        </form>
-                        <p class="margin10">Vivamus bibendum nibh in dolor pharetra, a euismod nulla dignissim.
-                            Aenean viverra tincidunt nibh, in imperdiet nunc. Suspendisse eu ante pretium.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="profile_border heading_space">
-                <div class="profile top20 bottom20">
-                    <div class="p_pic"><img src="images/profile4.png" alt="Course"></div>
-                    <div class="profile_text">
-                        <h5><strong>JOHN PARKER</strong> - <span>date</span></h5>
-                        <form class="star_rating bottom5">
-                            <div class="stars">
-                                <input type="radio" name="star" class="star-1" id="star-41"/>
-                                <label class="star-1" for="star-41">1</label>
-                                <input type="radio" name="star" class="star-2" id="star-42"/>
-                                <label class="star-2" for="star-42">2</label>
-                                <input type="radio" name="star" class="star-3" id="star-43"/>
-                                <label class="star-3" for="star-43">3</label>
-                                <input type="radio" name="star" class="star-4" id="star-44" checked/>
-                                <label class="star-4" for="star-44">4</label>
-                                <input type="radio" name="star" class="star-5" id="star-45"/>
-                                <label class="star-5" for="star-45">5</label>
-                                <span></span>
-                            </div>
-                        </form>
-                        <p class="margin10">Vivamus bibendum nibh in dolor pharetra, a euismod nulla dignissim.
-                            Aenean viverra tincidunt nibh, in imperdiet nunc. Suspendisse eu ante pretium.</p>
-                    </div>
-                </div>
-            </div>
+            <div id="comment-box">
 
+            </div>
         </div>
         <div class="bottom70_border_white"></div>
+        <div class="paging-box">
+            <span class="total-page">20</span>
+        </div>
         <div id="write-comment" class="row">
             <div class="bottom70_border_white"></div>
             <div class="col-sm-2"></div>
@@ -157,16 +122,16 @@
                 <div class="comment_box">
                     <form class="star_rating bottom5">
                         <div class="stars">
-                            <input type="radio" name="star" class="star-1" id="star-1"/>
-                            <label class="star-1" for="star-41">1</label>
-                            <input type="radio" name="star" class="star-2" id="star-2"/>
-                            <label class="star-2" for="star-42">2</label>
-                            <input type="radio" name="star" class="star-3" id="star-3"/>
-                            <label class="star-3" for="star-43">3</label>
-                            <input type="radio" name="star" class="star-4" id="star-4"/>
-                            <label class="star-4" for="star-44">4</label>
-                            <input type="radio" name="star" class="star-5" id="star-5"/>
-                            <label class="star-5" for="star-45">5</label>
+                            <input type="radio" name="star" class="star-1" id="star-1" value="1"/>
+                            <label class="star-1" for="star-1">1</label>
+                            <input type="radio" name="star" class="star-2" id="star-2" value="2"/>
+                            <label class="star-2" for="star-2">2</label>
+                            <input type="radio" name="star" class="star-3" id="star-3" value="3"/>
+                            <label class="star-3" for="star-3">3</label>
+                            <input type="radio" name="star" class="star-4" id="star-4" value="4"/>
+                            <label class="star-4" for="star-4">4</label>
+                            <input type="radio" name="star" class="star-5" id="star-5" value="5"/>
+                            <label class="star-5" for="star-5">5</label>
                             <span></span>
                         </div>
                     </form>
@@ -175,7 +140,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <textarea placeholder="Comment"  name="comment" id="comment"></textarea>
-                                <button class="btn btn-info" type="submit">提交</button>
+                                <span class="btn btn-info submit-comment">提交</span>
                                 <button class="btn btn-info" type="reset">取消</button>
                             </div>
                         </div>
@@ -196,6 +161,7 @@
 
 
 <script src="/js/jquery-2.2.3.js"></script>
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/bootsnav.js"></script>
 <script src="/js/jquery.appear.js"></script>
@@ -212,6 +178,139 @@
 <script src="/js/revolution.extension.video.min.js"></script>
 <script src="/js/wow.min.js"></script>
 <script src="/js/functions.js"></script>
-
+<script>
+    var href = window.location.href;
+    href = href.substring(0,href.lastIndexOf("\/"));
+    var cid = parseInt(href.substring(href.lastIndexOf("\/")+1,href.length));
+    let pager = {
+        _curPage:1,
+        set curPage(v){
+            this._curPage = v;
+            $.get('/get/course/comments/'+cid,{page:pager.curPage},function (data) {
+                data = JSON.parse(data);
+                if(data.errorCode==='00'){
+                    let obj = data.returnObject;
+                    let list = obj.records;
+                    let maxPage = obj.pages;
+                    $('.total-page').html(maxPage);
+                    let $com = $('#comment-box');
+                    $com.empty();
+                    for(let i = 0; i < list.length; i++){
+                        let item = list[i];
+                        let fst = '                <div class="profile_border">\n';
+                        if(i===list.length-1)
+                            fst = '                <div class="profile_border heading_space">\n';
+                        let tmp = '';
+                        for(let j = 1; j <= 5; j++){
+                            if(j===item.stars)
+                                tmp += '                                    <input type="radio" name="star" class="star-'+j+'" checked />\n';
+                            else
+                                tmp += '                                    <input type="radio" name="star" class="star-'+j+'"/>\n';
+                        }
+                        $com.append('\n' +
+                            fst +
+                            '                    <div class="profile top20 bottom20">\n' +
+                            '                        <div class="p_pic"><img src="/get/avatar/'+item.uid+'" alt="avatar" width="92" height="92"></div>\n' +
+                            '                        <div class="profile_text" style="width: 100%;padding-left: 30px;">\n' +
+                            '                            <h5><strong>'+item.nickname+'</strong></h5>\n' +
+                            '                            <form class="star_rating bottom5">\n' +
+                            '                                <div class="stars">\n' +tmp+
+                            '                                    <span></span>\n' +
+                            '                                </div>\n' +
+                            '                            </form>\n' +
+                            '                            <p class="margin10">'+item.content+'</p>\n' +
+                            '                        </div>\n' +
+                            '                    </div>\n' +
+                            '                </div>');
+                    }
+                    changePageBox(v);
+                }else
+                    alert("未知错误");
+            });
+        },
+        get curPage(){return this._curPage}
+    };
+    function changePageBox(curPage) {
+        if(curPage === undefined)
+            curPage = 1;
+        else curPage = parseInt(curPage);
+        $('.total-page').each(function () {
+            let tot = $(this).html();
+            $(this).siblings().remove();
+            let $span = $('<span class="page-off"></span>');
+            $span.append('<input type="hidden" class="cur-page" value="'+curPage+'">');
+            if(tot>10){//要根据当前页来划分
+                for(let i = 1; i <= 6; i++){
+                    if(i===curPage)
+                        $span.append('<span class="this-page">'+i+'</span>');
+                    else
+                        $span.append('<span class="page-item">'+i+'</span>');
+                }
+                if(curPage<=8){
+                    for(let i = 7; i <= 9; i++){
+                        if(i===curPage)
+                            $span.append('<span class="this-page">'+i+'</span>');
+                        else
+                            $span.append('<span class="page-item">'+i+'</span>');
+                    }
+                    $span.append('<span class="page-ellipsis"></span>');
+                    $span.append('<span class="page-item">'+tot+'</span>');
+                }else if(curPage<=tot-1){
+                    $span.append('<span class="page-ellipsis"></span>');
+                    $span.append('<span class="page-item">'+(curPage-1)+'</span>');
+                    $span.append('<span class="this-page">'+(curPage)+'</span>');
+                    $span.append('<span class="page-item">'+(curPage+1)+'</span>');
+                    if(curPage+1<tot-1)
+                        $span.append('<span class="page-ellipsis"></span>');
+                    if(curPage+1<tot)
+                        $span.append('<span class="page-item">'+tot+'</span>');
+                }else{
+                    $span.append('<span class="page-item">'+7+'</span>');
+                    $span.append('<span class="page-item">'+8+'</span>');
+                    $span.append('<span class="page-ellipsis"></span>');
+                    $span.append('<span class="page-item">'+(tot-1)+'</span>');
+                    $span.append('<span class="this-page">'+tot+'</span>');
+                }
+            }else{
+                for(let i = 1; i <= tot; i++){
+                    if(i===curPage)
+                        $span.append('<span class="this-page">'+i+'</span>');
+                    else
+                        $span.append('<span class="page-item">'+i+'</span>');
+                }
+            }
+            $span.find('.page-item').on('click',function () {
+                let targetPage = parseInt($(this).html());
+                pager.curPage = targetPage;
+            });//完成初始化，点击就ajax获取
+            $(this).after($span);//添加节点
+        });
+    }
+    $(document).ready(function () {
+        $.get('/get/course/basicInfo/'+cid,{},function (data) {
+            data = JSON.parse(data);
+            if(data.errorCode==='00'){
+                let obj = data.returnObject;
+                $('.course-title').html(obj.title);
+                $('#course-abstract').html(obj.abstract);//是直接的html代码
+            }
+        });//基本信息
+        pager.curPage = 1;
+        $('.submit-comment').on('click',function (object) {
+            let star = parseInt($('div.comment_box input[name="star"]:checked').val());
+            let comment = $('#comment').val();
+            $.post('/course/comment/'+cid,{star:star,comment:comment},function (data) {
+                data = JSON.parse(data);
+                if(data.errorCode==='00'){
+                    toastr.success('发表成功');
+                    setTimeout(function () {
+                        window.location.reload();
+                    },1000) ;
+                }else
+                    toastr.error('发表失败');
+            });
+        })
+    });
+</script>
 </body>
 </html>

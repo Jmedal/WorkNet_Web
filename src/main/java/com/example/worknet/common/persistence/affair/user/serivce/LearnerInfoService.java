@@ -1,7 +1,7 @@
 package com.example.worknet.common.persistence.affair.user.serivce;
 
-import com.example.worknet.common.persistence.template.modal.LearnerInfo;
 import com.baomidou.mybatisplus.service.IService;
+import com.example.worknet.common.persistence.template.modal.LearnerInfo;
 
 /**
  * <p>

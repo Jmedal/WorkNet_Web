@@ -97,7 +97,7 @@
 			    let username = $('#username').val();
 			    okUserName = 0;
                 $('#divuser').html('正在检测用户名是否可用...');
-			    $.get('/user/checkUserName',{username:username},function (data) {
+			    $.get('/checkUserName',{username:username},function (data) {
 			        data = JSON.parse(data);
                     // console.log(data);
 					if(data.errorCode!=='00'){
@@ -148,7 +148,7 @@
 			jigsaw.init(document.getElementById('captcha'), function () {
 			    let jigsaw = this;
 				if(okPass*okRepass*okUserName===1){
-				    $.post('/user/register',{
+				    $.post('/register',{
 				        username:$('#username').val(),
 						password:$('#password').val(),
 						rePassword:$('#re-password').val()

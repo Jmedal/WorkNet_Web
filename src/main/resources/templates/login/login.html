@@ -101,7 +101,7 @@
 			// 滑动验证
             jigsaw.init(document.getElementById('captcha'), function () {
                 console.log($('#remember').attr('checked'));
-				$.post('/user/login',{
+				$.post('/login',{
 					username:$('#username').val(),
 					password:$('#password').val(),
 					remember:$('#remember')[0].checked

@@ -27,7 +27,7 @@ document.writeln("\n" +
     "<script>\n" +
     "var uid; var nickname;   " +
     "$(document).ready(function () {\n" +
-    "       $.get('/user/getUserInfo',function (data) {\n" +
+    "       $.get('/getUserInfo',function (data) {\n" +
     "           //console.log(data);\n" +
     "           data = JSON.parse(data);//如果已经登录了\n" +
     "           if(data.errorCode==='00'){\n" +

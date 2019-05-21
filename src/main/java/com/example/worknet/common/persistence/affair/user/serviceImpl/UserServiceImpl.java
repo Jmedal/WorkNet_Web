@@ -68,12 +68,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     /**
      * 获取用户所有信息
-     * @param id
+     * @param user
      * @return
      */
     @Override
-    public HashMap<String,Object> getUserInfo(Long id){
-        return userMapper.getUserInfo(id);
+    public HashMap<String,Object> getUserInfo(User user) {
+        int role=user.getRole();
+        switch (role){
+            case 3:
+                return userMapper.getLearnerInfo(user.getId());
+            case 2:
+                return userMapper.getTeacherInfo(user.getId());
+            case 1:
+                return userMapper.getCompanyInfo(user.getId());
+            default:
+                return null;
+        }
     }
 
     /**
@@ -157,6 +167,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public boolean updateUserInfo(User user) {
+        if(user.getId()==null)
+            return false;
         return userService.updateById(user);
     }
 
@@ -177,6 +189,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public boolean updateLearnerInfo(LearnerInfo learnerInfo) {
+        if(learnerInfo.getUserId()==null)
+            return false;
+        learnerInfo.setId(learnerInfoService.selectOne(new EntityWrapper<LearnerInfo>().eq("user_id",learnerInfo.getUserId())).getId());
         return learnerInfoService.updateById(learnerInfo);
     }
 
@@ -211,7 +226,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //保存路径
         String file_path = Const.FILE_PATH+Const.FILE_SEPARATOR+Const.HEAD_PATH+ Const.FILE_SEPARATOR+ Calendar.getInstance().get(Calendar.YEAR);
         //保存头像
-        String file_path_full = FileToolsUtil.fileUpload(request.getFile("first_image"),FileToolsUtil.createDiretory(file_path));
+        String file_path_full = FileToolsUtil.fileUpload(request.getFile("avatar"),FileToolsUtil.createDiretory(file_path));
         //更新数据库路径信息
         user.setHeadPath(file_path_full);
         userService.updateById(user);

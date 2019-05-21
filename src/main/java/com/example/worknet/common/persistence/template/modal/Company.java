@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author YunJieJiang123
- * @since 2019-05-06
+ * @since 2019-05-07
  */
 @TableName("sys_company")
 public class Company implements Serializable {
@@ -42,8 +42,8 @@ public class Company implements Serializable {
     /**
      * 注册时间
      */
-    @TableField("registe_time")
-    private Date registeTime;
+    @TableField("register_time")
+    private Date registerTime;
 
 
     public Long getId() {
@@ -86,12 +86,12 @@ public class Company implements Serializable {
         this.address = address;
     }
 
-    public Date getRegisteTime() {
-        return registeTime;
+    public Date getRegisterTime() {
+        return registerTime;
     }
 
-    public void setRegisteTime(Date registeTime) {
-        this.registeTime = registeTime;
+    public void setRegisterTime(Date registerTime) {
+        this.registerTime = registerTime;
     }
 
     @Override
@@ -102,7 +102,7 @@ public class Company implements Serializable {
         ", name=" + name +
         ", introduction=" + introduction +
         ", address=" + address +
-        ", registeTime=" + registeTime +
+        ", registerTime=" + registerTime +
         "}";
     }
 }

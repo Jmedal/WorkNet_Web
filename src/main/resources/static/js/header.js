@@ -41,7 +41,7 @@ document.writeln("\n" +
     "<script>\n" +
     "var uid; var nickname;   " +
     "$(document).ready(function () {\n" +
-    "       $.get('/user/getUserInfo',function (data) {\n" +
+    "       $.get('/getUserInfo',function (data) {\n" +
     "           //console.log(data);\n" +
     "           data = JSON.parse(data);//如果已经登录了\n" +
     "           if(data.errorCode==='00'){\n" +
@@ -50,7 +50,7 @@ document.writeln("\n" +
     "               let $ul = $('div.topbar').find('ul.social_top,pull-right');" +
     "$ul.empty();" +
     "       $ul.append(\"<li>欢迎您，\"+nickname+\"</li>\");" +
-    "       $ul.append(\"<li><a href='/user/logout'>退出</a></li>\");" +
+    "       $ul.append(\"<li><a href='/logout'>退出</a></li>\");" +
     "           }\n" +
     "       }) ;\n" +
     "    });\n" +

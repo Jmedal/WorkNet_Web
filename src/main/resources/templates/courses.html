@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 <link rel="stylesheet" type="text/css" href="/css/loader.css">
 
+  <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.css" rel="stylesheet">
 <link rel="icon" href="/images/favicon.png">
 <link rel="stylesheet" type="text/css" href="/css/condition/style.css">
   <style>
@@ -151,140 +152,9 @@
   </div>
 </section>
 <script type="text/javascript" src="/js/footer.js"></script>
-<script>
-  var $div = $('#course_all').find('div.container');
-  var courseFilter = {page:1};//点击上方的筛选框需要改变本变量
-  //opt.cid:课程的id
-  //opt.title:课程标题
-  //opt.abstract:课程简介
-  //opt.teacherName:教师名称
-  //opt.teacherId:教师id
-  //opt.startTime:课程开设时间
-  function getDiv(opt) {
-      return $('\n' +
-          '      <div class="col-sm-6 col-md-4">\n' +
-          '        <div class="course margin_top wow fadeIn" data-wow-delay="400ms">\n' +
-          '          <div class="image bottom25" style="height: 235px;width: 360px;">\n' +
-          '            <img src="/get/course/view/'+opt.cid+'" alt="Course" width="360" height="235" class="border_radius">\n' +
-          '          </div>\n' +
-          '          <h3 class="bottom10"><a href="/course/'+opt.cid+'/">'+opt.title+'</a></h3>\n' +
-          '          <ul class="comment margin10">\n' +
-          '            <li><a href="/info/teacher/'+opt.teacherId+'"><i class="icon-user5"></i>'+opt.teacherName+'</a></li>\n' +
-          '            <li>'+opt.startTime+'</li>\n' +
-          '          </ul>\n' +
-          '          <p class="bottom20 course-abstract">'+opt.abstract+'</p>\n' +
-          '          <a class="btn_common yellow border_radius" href="/course/'+opt.cid+'/">了解详情</a>\n' +
-          '        </div>\n' +
-          '      </div>');
-  }
-  //data是list
-  function showResult(data) {
-      $div.empty();
-      for(let i = 0; i < data.length; i+=3){
-          let $$div = $('<div class="row"></div>');
-          for(let j = 0; j+i < data.length && j<3; j++){
-              let item = data[i+j];
-              let $$$div = getDiv({
-                  cid:item.cid,
-                  title:item.title,
-                  abstract:item.abstract,
-                  teacherName:item.teacherName,
-                  teacherId:item.teacherId,
-                  startTime:item.startTime
-              });
-              $$div.append($$$div);
-          }
-          $div.append($$div);
-      }
-  }
-  function changePageBox(curPage) {
-      if(curPage === undefined)
-          curPage = 1;
-      else curPage = parseInt(curPage);
-      $('.total-page').each(function () {
-          let tot = $(this).html();
-          $(this).siblings().remove();
-          let $span = $('<span class="page-off"></span>');
-          $span.append('<input type="hidden" class="cur-page" value="'+curPage+'">');
-          if(tot>10){//要根据当前页来划分
-              for(let i = 1; i <= 6; i++){
-                  if(i===curPage)
-                      $span.append('<span class="this-page">'+i+'</span>');
-                  else
-                      $span.append('<span class="page-item">'+i+'</span>');
-              }
-              if(curPage<=8){
-                  for(let i = 7; i <= 9; i++){
-                      if(i===curPage)
-                          $span.append('<span class="this-page">'+i+'</span>');
-                      else
-                          $span.append('<span class="page-item">'+i+'</span>');
-                  }
-                  $span.append('<span class="page-ellipsis"></span>');
-                  $span.append('<span class="page-item">'+tot+'</span>');
-              }else if(curPage<=tot-1){
-                  $span.append('<span class="page-ellipsis"></span>');
-                  $span.append('<span class="page-item">'+(curPage-1)+'</span>');
-                  $span.append('<span class="this-page">'+(curPage)+'</span>');
-                  $span.append('<span class="page-item">'+(curPage+1)+'</span>');
-                  if(curPage+1<tot-1)
-                      $span.append('<span class="page-ellipsis"></span>');
-                  if(curPage+1<tot)
-                      $span.append('<span class="page-item">'+tot+'</span>');
-              }else{
-                  $span.append('<span class="page-item">'+7+'</span>');
-                  $span.append('<span class="page-item">'+8+'</span>');
-                  $span.append('<span class="page-ellipsis"></span>');
-                  $span.append('<span class="page-item">'+(tot-1)+'</span>');
-                  $span.append('<span class="this-page">'+tot+'</span>');
-              }
-          }else{
-              for(let i = 1; i <= tot; i++){
-                  if(i===curPage)
-                      $span.append('<span class="this-page">'+i+'</span>');
-                  else
-                      $span.append('<span class="page-item">'+i+'</span>');
-              }
-          }
-          $span.find('.page-item').on('click',function () {
-              let targetPage = parseInt($(this).html());
-              courseFilter.page = targetPage;//其余参数不变
-              getCourseByFilter(courseFilter);
-              console.log("courseFilter:");
-              console.log(courseFilter);
-          });//完成初始化，点击就ajax获取
-          $(this).after($span);//添加节点
-      });
-  }
-  //opt.page:页码
-  //opt.order:排序方式
-  //opt.field:领域
-  function getCourseByFilter(opt) {
-      $.get('/get/courses',opt,function (data) {
-          data = JSON.parse(data);
-          if(data.errorCode==='00'){
-              let pager = data.returnObject;
-              //需要针对pager返回的总页码来分页
-              //返回总条数
-              let totalPage = Math.ceil(pager.total/9);//一页9条
-              $('.total-page').html(totalPage);
-              showResult(pager.list);
-          }else{
-              toastr.warning('未知错误');
-          }
-          changePageBox(opt.page);
-      }).error(function () {
-          toastr.warning('未知错误');
-      });
-  }
-  $('.search-keyword').on('click',function (object) {
-      courseFilter.keyword = $('#keyword').val();
-      getCourseByFilter(courseFilter);
-  });
-</script>
-
 
 <script src="/js/jquery-2.2.3.js"></script>
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/bootsnav.js"></script>
 <script src="/js/jquery.appear.js"></script>
@@ -304,6 +174,141 @@
 
 <script type="text/javascript" src="/js/condition/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/js/condition/script.js"></script>
+
+<script>
+    var $div = $('#course_all').find('div.container');
+    var courseFilter = {page:1};//点击上方的筛选框需要改变本变量
+    //opt.cid:课程的id
+    //opt.title:课程标题
+    //opt.abstract:课程简介
+    //opt.teacherName:教师名称
+    //opt.teacherId:教师id
+    //opt.startTime:课程开设时间
+    function getDiv(opt) {
+        return $('\n' +
+            '      <div class="col-sm-6 col-md-4">\n' +
+            '        <div class="course margin_top wow fadeIn" data-wow-delay="400ms">\n' +
+            '          <div class="image bottom25" style="height: 235px;width: 360px;">\n' +
+            '            <img src="/get/course/view/'+opt.cid+'" alt="Course" width="360" height="235" class="border_radius">\n' +
+            '          </div>\n' +
+            '          <h3 class="bottom10"><a href="/course/'+opt.cid+'/">'+opt.title+'</a></h3>\n' +
+            '          <ul class="comment margin10">\n' +
+            '            <li><a href="/info/teacher/'+opt.teacherId+'"><i class="icon-user5"></i>'+opt.teacherName+'</a></li>\n' +
+            '            <li>'+opt.startTime+'</li>\n' +
+            '          </ul>\n' +
+            '          <p class="bottom20 course-abstract">'+opt.abstract+'</p>\n' +
+            '          <a class="btn_common yellow border_radius" href="/course/'+opt.cid+'/">了解详情</a>\n' +
+            '        </div>\n' +
+            '      </div>');
+    }
+    //data是list
+    function showResult(data) {
+        $div.empty();
+        for(let i = 0; i < data.length; i+=3){
+            let $$div = $('<div class="row"></div>');
+            for(let j = 0; j+i < data.length && j<3; j++){
+                let item = data[i+j];
+                let $$$div = getDiv({
+                    cid:item.cid,
+                    title:item.title,
+                    abstract:item.abstract,
+                    teacherName:item.teacherName,
+                    teacherId:item.teacherId,
+                    startTime:item.startTime
+                });
+                $$div.append($$$div);
+            }
+            $div.append($$div);
+        }
+    }
+    function changePageBox(curPage) {
+        if(curPage === undefined)
+            curPage = 1;
+        else curPage = parseInt(curPage);
+        $('.total-page').each(function () {
+            let tot = $(this).html();
+            $(this).siblings().remove();
+            let $span = $('<span class="page-off"></span>');
+            $span.append('<input type="hidden" class="cur-page" value="'+curPage+'">');
+            if(tot>10){//要根据当前页来划分
+                for(let i = 1; i <= 6; i++){
+                    if(i===curPage)
+                        $span.append('<span class="this-page">'+i+'</span>');
+                    else
+                        $span.append('<span class="page-item">'+i+'</span>');
+                }
+                if(curPage<=8){
+                    for(let i = 7; i <= 9; i++){
+                        if(i===curPage)
+                            $span.append('<span class="this-page">'+i+'</span>');
+                        else
+                            $span.append('<span class="page-item">'+i+'</span>');
+                    }
+                    $span.append('<span class="page-ellipsis"></span>');
+                    $span.append('<span class="page-item">'+tot+'</span>');
+                }else if(curPage<=tot-1){
+                    $span.append('<span class="page-ellipsis"></span>');
+                    $span.append('<span class="page-item">'+(curPage-1)+'</span>');
+                    $span.append('<span class="this-page">'+(curPage)+'</span>');
+                    $span.append('<span class="page-item">'+(curPage+1)+'</span>');
+                    if(curPage+1<tot-1)
+                        $span.append('<span class="page-ellipsis"></span>');
+                    if(curPage+1<tot)
+                        $span.append('<span class="page-item">'+tot+'</span>');
+                }else{
+                    $span.append('<span class="page-item">'+7+'</span>');
+                    $span.append('<span class="page-item">'+8+'</span>');
+                    $span.append('<span class="page-ellipsis"></span>');
+                    $span.append('<span class="page-item">'+(tot-1)+'</span>');
+                    $span.append('<span class="this-page">'+tot+'</span>');
+                }
+            }else{
+                for(let i = 1; i <= tot; i++){
+                    if(i===curPage)
+                        $span.append('<span class="this-page">'+i+'</span>');
+                    else
+                        $span.append('<span class="page-item">'+i+'</span>');
+                }
+            }
+            $span.find('.page-item').on('click',function () {
+                let targetPage = parseInt($(this).html());
+                courseFilter.page = targetPage;//其余参数不变
+                getCourseByFilter(courseFilter);
+                console.log("courseFilter:");
+                console.log(courseFilter);
+            });//完成初始化，点击就ajax获取
+            $(this).after($span);//添加节点
+        });
+    }
+    //opt.page:页码
+    //opt.order:排序方式
+    //opt.field:领域
+    function getCourseByFilter(opt) {
+        console.log(opt);
+        $.get('/get/courses',opt,function (data) {
+            data = JSON.parse(data);
+            console.log(data);
+            if(data.errorCode==='00'){
+                let pager = data.returnObject;
+                //需要针对pager返回的总页码来分页
+                //返回总条数
+                let totalPage = Math.ceil(pager.pages);//一页9条
+                $('.total-page').html(totalPage);
+                showResult(pager.records);
+            }else{
+                toastr.warning('未知错误');
+            }
+            changePageBox(opt.page);
+        }).error(function () {
+            toastr.warning('未知错误');
+        });
+    }
+    $('.search-keyword').on('click',function (object) {
+        courseFilter.keyword = $('#keyword').val();
+        getCourseByFilter(courseFilter);
+    });
+</script>
+
 <script type="text/javascript">
 $(document).ready(function(){
 

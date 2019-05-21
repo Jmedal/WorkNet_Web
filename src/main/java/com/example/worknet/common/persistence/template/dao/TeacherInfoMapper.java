@@ -1,7 +1,8 @@
 package com.example.worknet.common.persistence.template.dao;
 
-import com.example.worknet.common.persistence.template.modal.TeacherInfo;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.example.worknet.common.persistence.template.modal.TeacherInfo;
 
 /**
  * <p>
@@ -9,7 +10,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * </p>
  *
  * @author YunJieJiang123
- * @since 2019-04-27
+ * @since 2019-05-07
  */
 public interface TeacherInfoMapper extends BaseMapper<TeacherInfo> {
 

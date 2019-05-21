@@ -9,7 +9,7 @@
         <result column="name" property="name" />
         <result column="introduction" property="introduction" />
         <result column="address" property="address" />
-        <result column="registe_time" property="registeTime" />
+        <result column="register_time" property="registerTime" />
     </resultMap>
 
 </mapper>

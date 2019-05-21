@@ -12,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author YunJieJiang123
- * @since 2019-04-27
+ * @since 2019-05-07
  */
 @TableName("sys_learner_info")
 public class LearnerInfo implements Serializable {
@@ -42,9 +42,17 @@ public class LearnerInfo implements Serializable {
      */
     private String sex;
     /**
+     * 年龄
+     */
+    private Integer age;
+    /**
      * 个性签名
      */
     private String signature;
+    /**
+     * 学历
+     */
+    private String vacation;
     /**
      * github帐号
      */
@@ -107,12 +115,28 @@ public class LearnerInfo implements Serializable {
         this.sex = sex;
     }
 
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
     public String getSignature() {
         return signature;
     }
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    public String getVacation() {
+        return vacation;
+    }
+
+    public void setVacation(String vacation) {
+        this.vacation = vacation;
     }
 
     public String getGithub() {
@@ -163,7 +187,9 @@ public class LearnerInfo implements Serializable {
         ", nickname=" + nickname +
         ", realname=" + realname +
         ", sex=" + sex +
+        ", age=" + age +
         ", signature=" + signature +
+        ", vacation=" + vacation +
         ", github=" + github +
         ", email=" + email +
         ", phone=" + phone +

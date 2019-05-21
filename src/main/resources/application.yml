@@ -1,3 +1,7 @@
+#端口号
+server:
+  port: 8080
+  connection-timeout: 72000000ms
 spring:
   profiles:
     active: dev
@@ -10,6 +14,19 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  servlet:
+    multipart:
+      # 文件传输大小最大值设置
+      max-file-size: 1000Mb
+      max-request-size: 1000Mb
+
+  #thymeleaf配置
+  thymeleaf:
+    encoding: UTF-8
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
 
 
   #Redis配置
@@ -27,24 +44,36 @@ spring:
         max-idle: 500
         max-wait: 1ms
 
-  #thymeleaf配置
-  thymeleaf:
-    encoding: UTF-8
-    mode: HTML5
-    prefix: classpath:/templates/
-    suffix: .html
-    cache: false
-
+tomcat:
+  port: 8080
+  #和CPU参数
+  acceptorThreadCount: 4
+  minSpareThreads: 50
+  maxSpareThreads: 50
+  #最大线程数
+  maxThreads: 3000
+  #最大连接数
+  maxConnections: 10000
+  #7200秒超时
+  connectionTimeout: 72000000
+  protocol: org.apache.coyote.http11.Http11Nio2Protocol
+  redirectPort: 443
+  compression: on
+  #文件请求大小
+  MaxFileSize: 1000MB
+  MaxRequestSize: 1500MB
+  content: "port: ${tomcat.port} , acceptorThreadCount: ${tomcat.acceptorThreadCount} , minSpareThreads: ${tomcat.minSpareThreads} , maxSpareThreads: ${tomcat.maxSpareThreads} , maxThreads: ${tomcat.maxThreads} , maxConnections: ${tomcat.maxConnections} , connectionTimeout: ${tomcat.connectionTimeout} , protocol: ${tomcat.protocol} , redirectPort: ${tomcat.redirectPort} , compression: ${tomcat.compression} , MaxFileSize: ${tomcat.MaxFileSize} , MaxRequestSize: ${tomcat.MaxRequestSize}"
 
 # 配置mybatis-plus
 mybatis-plus:
+
   # 配置扫描xml
   # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
   # 如果是放在resource目录 classpath:/mapper/*Mapper.xml
-  mapper-locations: classpath*:com/example/worknet/common/persistence/mapping/*Mapper.xml
+  mapper-locations: classpath:com/example/worknet/common/persistence/template/mapping/*Mapper.xml
 
   # 实体扫描，多个package用逗号或者分号分隔
-  type-aliases-package: com.example.worknet.common.persistence.model
+  type-aliases-package: com.example.worknet.common.persistence.template.modal
 
   global-config:
     id-type: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
@@ -77,3 +106,4 @@ mybatis-plus:
     multipleResultSetsEnabled: true
     #打印sql语句,调试用
     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

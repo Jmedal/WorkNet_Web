@@ -253,7 +253,7 @@
                     let smenu = item.subMenu;
                     for(let j = 0; j < smenu.length; j++){
                         let $$$div = $('<div class="panel-body">\n' +
-                            '                                    '+smenu[j]+'<a href="video/#'+item.vid+'" class="Button_1">查看视频</a>\n' +
+                            '                                    '+smenu[j].title+'<a href="video/#'+smenu[j].vid+'" class="Button_1">查看视频</a>\n' +
                             '                                </div>\n');
                         $$div.find('#collapse_'+i).append($$$div);//应该可以
                     }

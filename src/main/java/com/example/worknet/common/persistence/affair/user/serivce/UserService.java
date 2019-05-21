@@ -23,7 +23,7 @@ public interface UserService extends IService<User>{
 
     boolean checkAccount(String account);
 
-    HashMap<String,Object> getUserInfo(Long id);
+    HashMap<String,Object> getUserInfo(User user);
 
     String getNickname(Long id);
 

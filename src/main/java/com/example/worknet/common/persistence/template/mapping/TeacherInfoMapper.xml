@@ -3,10 +3,12 @@
 <mapper namespace="com.example.worknet.common.persistence.template.dao.TeacherInfoMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.example.worknet.common.persistence.template.modal.TeacherInfo">
+    <resultMap id="BaseResultMap" type="com.example.worknet.common.persistence.modal.TeacherInfo">
         <id column="id" property="id" />
         <result column="user_id" property="userId" />
         <result column="realname" property="realname" />
+        <result column="sex" property="sex" />
+        <result column="age" property="age" />
         <result column="identity" property="identity" />
         <result column="phone" property="phone" />
         <result column="email" property="email" />

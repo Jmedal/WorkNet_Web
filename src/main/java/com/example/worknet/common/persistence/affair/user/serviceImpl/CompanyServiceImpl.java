@@ -1,9 +1,9 @@
 package com.example.worknet.common.persistence.affair.user.serviceImpl;
 
-import com.example.worknet.common.persistence.template.modal.Company;
 import com.example.worknet.common.persistence.template.dao.CompanyMapper;
 import com.example.worknet.common.persistence.affair.user.serivce.CompanyService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.example.worknet.common.persistence.template.modal.Company;
 import org.springframework.stereotype.Service;
 
 /**

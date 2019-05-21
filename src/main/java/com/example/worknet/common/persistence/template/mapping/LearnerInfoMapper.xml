@@ -9,7 +9,9 @@
         <result column="nickname" property="nickname" />
         <result column="realname" property="realname" />
         <result column="sex" property="sex" />
+        <result column="age" property="age" />
         <result column="signature" property="signature" />
+        <result column="vacation" property="vacation" />
         <result column="github" property="github" />
         <result column="email" property="email" />
         <result column="phone" property="phone" />
