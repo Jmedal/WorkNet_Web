@@ -2,6 +2,7 @@ package com.example.worknet.common.persistence.affair.user.serivce;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.example.worknet.common.persistence.template.modal.Company;
+import org.springframework.core.io.Resource;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.example.worknet.common.persistence.template.modal.Company;
  */
 public interface CompanyService extends IService<Company> {
 
+    Resource getCompanyAvatar(long companyId, String strDirPath);
 }

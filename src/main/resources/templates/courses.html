@@ -103,7 +103,7 @@
         <h1>课程检索</h1>
         <p>搜索你最需要的课程</p>
         <div class="page_nav">
-      <span>你的位置:</span> <a href="index.html">首页</a> <span><i class="fa fa-angle-double-right"></i>课程检索</span>
+      <span>你的位置:</span> <a href="/index">首页</a> <span><i class="fa fa-angle-double-right"></i>课程检索</span>
       </div>
       </div>
     </div>
@@ -142,7 +142,6 @@
   <div class="container">
 
     </div>
-  </div>
 </section>
 <!-- Courses ends -->
 
@@ -284,10 +283,8 @@
     //opt.order:排序方式
     //opt.field:领域
     function getCourseByFilter(opt) {
-        console.log(opt);
         $.get('/get/courses',opt,function (data) {
             data = JSON.parse(data);
-            console.log(data);
             if(data.errorCode==='00'){
                 let pager = data.returnObject;
                 //需要针对pager返回的总页码来分页

@@ -1,0 +1,495 @@
+﻿<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>职业选择</title>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/css/edua-icons.css">
+<link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/css/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="/css/owl.transitions.css">
+<link rel="stylesheet" type="text/css" href="/css/cubeportfolio.min.css">
+<link rel="stylesheet" type="text/css" href="/css/settings.css">
+<link rel="stylesheet" type="text/css" href="/css/bootsnav.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<link rel="stylesheet" type="text/css" href="/css/loader.css">
+
+  <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.css" rel="stylesheet">
+<link rel="icon" href="/images/favicon.png">
+<link rel="stylesheet" type="text/css" href="/css/condition/style.css">
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+  <style>
+    .shaky {
+      display: inline-block;
+      padding: 1px;
+      font-size: 12px;
+      -webkit-transform-origin: center center;
+      -ms-transform-origin: center center;
+      transform-origin: center center;
+      -webkit-animation-name: shaky-slow;
+      -ms-animation-name: shaky-slow;
+      animation-name: shaky-slow;
+      -webkit-animation-duration: 4s;
+      -ms-animation-duration: 4s;
+      animation-duration: 4s;
+      -webkit-animation-iteration-count: infinite;
+      -ms-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+      -webkit-animation-timing-function: ease-in-out;
+      -ms-animation-timing-function: ease-in-out;
+      animation-timing-function: ease-in-out;
+      -webkit-animation-delay: 0s;
+      -ms-animation-delay: 0s;
+      animation-delay: 0s;
+      -webkit-animation-play-state: running;
+      -ms-animation-play-state: running;
+      animation-play-state: running;
+    }
+    @-webkit-keyframes shaky-slow {
+      0% {
+        -webkit-transform: translate(0px, 0px) rotate(0deg);
+      }
+      2% {
+        -webkit-transform: translate(-1px, 1.5px) rotate(1.5deg);
+      }
+      4% {
+        -webkit-transform: translate(1.3px, 0px) rotate(-0.5deg);
+      }
+      6% {
+        -webkit-transform: translate(1.4px, 1.4px) rotate(-2deg);
+      }
+      8% {
+        -webkit-transform: translate(-1.3px, -1px) rotate(-1.5deg);
+      }
+      10% {
+        -webkit-transform: translate(1.4px, 0px) rotate(-2deg);
+      }
+      12% {
+        -webkit-transform: translate(-1.3px, -1px) rotate(-2deg);
+      }
+      14% {
+        -webkit-transform: translate(1.5px, 1.3px) rotate(1.5deg);
+      }
+      16% {
+        -webkit-transform: translate(1.5px, -1.5px) rotate(-1.5deg);
+      }
+      18% {
+        -webkit-transform: translate(1.3px, -1.3px) rotate(-2deg);
+      }
+      20% {
+        -webkit-transform: translate(1px, 1px) rotate(-0.5deg);
+      }
+      22% {
+        -webkit-transform: translate(1.3px, 1.5px) rotate(-2deg);
+      }
+      24% {
+        -webkit-transform: translate(-1.4px, -1px) rotate(2deg);
+      }
+      26% {
+        -webkit-transform: translate(1.3px, -1.3px) rotate(0.5deg);
+      }
+      28% {
+        -webkit-transform: translate(1.6px, -1.6px) rotate(-2deg);
+      }
+      30% {
+        -webkit-transform: translate(-1.3px, -1.3px) rotate(-1.5deg);
+      }
+      32% {
+        -webkit-transform: translate(-1px, 0px) rotate(2deg);
+      }
+      34% {
+        -webkit-transform: translate(1.3px, 1.3px) rotate(-0.5deg);
+      }
+      36% {
+        -webkit-transform: translate(1.3px, 1.6px) rotate(1.5deg);
+      }
+      38% {
+        -webkit-transform: translate(1.3px, -1.6px) rotate(1.5deg);
+      }
+      40% {
+        -webkit-transform: translate(-1.4px, -1px) rotate(-0.5deg);
+      }
+      42% {
+        -webkit-transform: translate(-1.4px, 1.3px) rotate(-0.5deg);
+      }
+      44% {
+        -webkit-transform: translate(-1.6px, 1.4px) rotate(0.5deg);
+      }
+      46% {
+        -webkit-transform: translate(-2.1px, -1.3px) rotate(-0.5deg);
+      }
+      48% {
+        -webkit-transform: translate(1px, 1.6px) rotate(1.5deg);
+      }
+      50% {
+        -webkit-transform: translate(1.6px, 1.6px) rotate(1.5deg);
+      }
+      52% {
+        -webkit-transform: translate(-1.4px, 1.6px) rotate(0.5deg);
+      }
+      54% {
+        -webkit-transform: translate(1.6px, -1px) rotate(-2deg);
+      }
+      56% {
+        -webkit-transform: translate(1.3px, -1.6px) rotate(-2deg);
+      }
+      58% {
+        -webkit-transform: translate(-1.3px, -1.6px) rotate(0.5deg);
+      }
+      60% {
+        -webkit-transform: translate(1.3px, 1.6px) rotate(-0.5deg);
+      }
+      62% {
+        -webkit-transform: translate(0px, 0px) rotate(-1.5deg);
+      }
+      64% {
+        -webkit-transform: translate(-1.6px, -1.6px) rotate(-2deg);
+      }
+      66% {
+        -webkit-transform: translate(1.6px, -1.6px) rotate(0.5deg);
+      }
+      68% {
+        -webkit-transform: translate(0px, -1.6px) rotate(-2deg);
+      }
+      70% {
+        -webkit-transform: translate(-1.6px, 1px) rotate(1.5deg);
+      }
+      72% {
+        -webkit-transform: translate(-1.6px, 1.6px) rotate(2deg);
+      }
+      74% {
+        -webkit-transform: translate(1.3px, -1.6px) rotate(-0.5deg);
+      }
+      76% {
+        -webkit-transform: translate(1.4px, 1px) rotate(-0.5deg);
+      }
+      78% {
+        -webkit-transform: translate(-1px, 1.4px) rotate(2deg);
+      }
+      80% {
+        -webkit-transform: translate(1.4px, 1.6px) rotate(2deg);
+      }
+      82% {
+        -webkit-transform: translate(-1.6px, -1.6px) rotate(-0.5deg);
+      }
+      84% {
+        -webkit-transform: translate(-1.4px, 1.4px) rotate(-2deg);
+      }
+      86% {
+        -webkit-transform: translate(1px, 1.4px) rotate(-2deg);
+      }
+      88% {
+        -webkit-transform: translate(-1.4px, 1.4px) rotate(-1.5deg);
+      }
+      90% {
+        -webkit-transform: translate(-1.6px, -1.6px) rotate(-2deg);
+      }
+      92% {
+        -webkit-transform: translate(-1.6px, 1.6px) rotate(2deg);
+      }
+      94% {
+        -webkit-transform: translate(-1.6px, -1.6px) rotate(-2deg);
+      }
+      96% {
+        -webkit-transform: translate(-1.4px, 1.3px) rotate(-2deg);
+      }
+      98% {
+        -webkit-transform: translate(1.3px, 1px) rotate(-0.5deg);
+      }
+    }
+    @keyframes shaky-slow {
+      0% {
+        transform: translate(0px, 0px) rotate(0deg);
+      }
+      2% {
+        transform: translate(-1px, 1.5px) rotate(1.5deg);
+      }
+      4% {
+        transform: translate(1.3px, 0px) rotate(-0.5deg);
+      }
+      6% {
+        transform: translate(1.4px, 1.4px) rotate(-2deg);
+      }
+      8% {
+        transform: translate(-1.3px, -1px) rotate(-1.5deg);
+      }
+      10% {
+        transform: translate(1.4px, 0px) rotate(-2deg);
+      }
+      12% {
+        transform: translate(-1.3px, -1px) rotate(-2deg);
+      }
+      14% {
+        transform: translate(1.5px, 1.3px) rotate(1.5deg);
+      }
+      16% {
+        transform: translate(1.5px, -1.5px) rotate(-1.5deg);
+      }
+      18% {
+        transform: translate(1.3px, -1.3px) rotate(-2deg);
+      }
+      20% {
+        transform: translate(1px, 1px) rotate(-0.5deg);
+      }
+      22% {
+        transform: translate(1.3px, 1.5px) rotate(-2deg);
+      }
+      24% {
+        transform: translate(-1.4px, -1px) rotate(2deg);
+      }
+      26% {
+        transform: translate(1.3px, -1.3px) rotate(0.5deg);
+      }
+      28% {
+        transform: translate(1.6px, -1.6px) rotate(-1.5deg);
+      }
+      30% {
+        transform: translate(-1.3px, -1.3px) rotate(-1.5deg);
+      }
+      32% {
+        transform: translate(-1px, 0px) rotate(2deg);
+      }
+      34% {
+        transform: translate(1.3px, 1.3px) rotate(-0.5deg);
+      }
+      36% {
+        transform: translate(1.3px, 1.6px) rotate(1.5deg);
+      }
+      38% {
+        transform: translate(1.3px, -1.6px) rotate(1.5deg);
+      }
+      40% {
+        transform: translate(-1.4px, -1px) rotate(-0.5deg);
+      }
+      42% {
+        transform: translate(-1.4px, 1.3px) rotate(-0.5deg);
+      }
+      44% {
+        transform: translate(-1.6px, 1.4px) rotate(0.5deg);
+      }
+      46% {
+        transform: translate(-2.1px, -1.3px) rotate(-0.5deg);
+      }
+      48% {
+        transform: translate(1px, 1.6px) rotate(1.5deg);
+      }
+      50% {
+        transform: translate(1.6px, 1.6px) rotate(1.5deg);
+      }
+      52% {
+        transform: translate(-1.4px, 1.6px) rotate(0.5deg);
+      }
+      54% {
+        transform: translate(1.6px, -1px) rotate(-2deg);
+      }
+      56% {
+        transform: translate(1.3px, -1.6px) rotate(-2deg);
+      }
+      58% {
+        transform: translate(-1.3px, -1.6px) rotate(0.5deg);
+      }
+      60% {
+        transform: translate(1.3px, 1.6px) rotate(-0.5deg);
+      }
+      62% {
+        transform: translate(0px, 0px) rotate(-1.5deg);
+      }
+      64% {
+        transform: translate(-1.6px, -1.6px) rotate(-2deg);
+      }
+      66% {
+        transform: translate(1.6px, -1.6px) rotate(0.5deg);
+      }
+      68% {
+        transform: translate(0px, -1.6px) rotate(-2deg);
+      }
+      70% {
+        transform: translate(-1.6px, 1px) rotate(1.5deg);
+      }
+      72% {
+        transform: translate(-1.6px, 1.6px) rotate(2deg);
+      }
+      74% {
+        transform: translate(1.3px, -1.6px) rotate(-0.5deg);
+      }
+      76% {
+        transform: translate(1.4px, 1px) rotate(-0.5deg);
+      }
+      78% {
+        transform: translate(-1px, 1.4px) rotate(2deg);
+      }
+      80% {
+        transform: translate(1.4px, 1.6px) rotate(2deg);
+      }
+      82% {
+        transform: translate(-1.6px, -1.6px) rotate(-0.5deg);
+      }
+      84% {
+        transform: translate(-1.4px, 1.4px) rotate(-2deg);
+      }
+      86% {
+        transform: translate(1px, 1.4px) rotate(-2deg);
+      }
+      88% {
+        transform: translate(-1.4px, 1.4px) rotate(-1.5deg);
+      }
+      90% {
+        transform: translate(-1.6px, -1.6px) rotate(-2deg);
+      }
+      92% {
+        transform: translate(-1.4px, 1.6px) rotate(2deg);
+      }
+      94% {
+        transform: translate(-1.6px, -1.6px) rotate(-2deg);
+      }
+      96% {
+        transform: translate(-1.4px, 1.3px) rotate(-2deg);
+      }
+      98% {
+        transform: translate(1.3px, 1px) rotate(-0.5deg);
+      }
+    }
+  </style>
+  <style>
+    body{
+      background: #f7faf5;
+    }
+    #main{
+      width:100%;
+      height: 100%;
+      min-height: 600px;
+    }
+    div.choice-block{
+      height: 480px;
+      margin:60px 30px;
+      text-align: center;
+      padding:40px 30px;
+      border: 1px solid #e2ffe3;
+      transition: all .3s;
+      cursor: pointer;
+      border-radius: 20px;
+      background: #fbfef9;
+    }
+    div.choice-block:hover{
+      border: 2px solid #80fff8;
+      box-shadow: 2px 2px 10px rgba(208, 222, 255, 0.54);
+      color: #6cd6ff;
+      text-shadow: #252525 3px 3px 3px;
+      background: white;
+    }
+    i.glyphicon{
+      font-size: 100px;
+    }
+    div.choice-block i{
+      margin-top:30px;
+      margin-bottom: 100px;
+    }
+  </style>
+</head>
+
+<body>
+<a href="#" class="scrollToTop"><i class="fa fa-angle-up"></i></a>
+<!--Loader-->
+<div class="loader">
+  <div class="bouncybox">
+      <div class="bouncy"></div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript" src="/js/header.js"></script>
+
+<!--Search-->
+<div id="search">
+  <button type="button" class="close">×</button>
+  <form>
+    <input type="search" value="" placeholder="Search here...."  required/>
+    <button type="submit" class="btn btn_common blue">Search</button>
+  </form>
+</div>
+
+
+
+<!--Page Header-->
+<section class="page_header padding-top">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 page-content">
+        <h1>职业选择</h1>
+        <p>选择你的职业方向</p>
+        <div class="page_nav">
+      <span>你的位置:</span> <a href="/index">首页</a> <span><i class="fa fa-angle-double-right"></i>职业选择</span>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Page Header-->
+
+<section id="main" class="col-md-12">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-5 choice-block choice-paper ">
+      <div class="row">
+        <i class="glyphicon glyphicon-edit"></i>
+      </div>
+      <h1>问卷调查</h1>
+    </div>
+    <div class="col-md-5 choice-block select-vacation">
+      <div class="row">
+        <i class="glyphicon glyphicon-hand-up"></i>
+      </div>
+      <h1>直接选择</h1>
+    </div>
+  </div>
+</section>
+
+<div class="clearfix"></div>
+<script type="text/javascript" src="/js/footer.js"></script>
+
+<script src="/js/jquery-2.2.3.js"></script>
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootsnav.js"></script>
+<script src="/js/jquery.appear.js"></script>
+<script src="/js/jquery-countTo.js"></script>
+<script src="/js/jquery.parallax-1.1.3.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.cubeportfolio.min.js"></script>
+<script src="/js/jquery.themepunch.tools.min.js"></script>
+<script src="/js/jquery.themepunch.revolution.min.js"></script>
+<script src="/js/revolution.extension.layeranimation.min.js"></script>
+<script src="/js/revolution.extension.navigation.min.js"></script>
+<script src="/js/revolution.extension.parallax.min.js"></script>
+<script src="/js/revolution.extension.slideanims.min.js"></script>
+<script src="/js/revolution.extension.video.min.js"></script>
+<script src="/js/wow.min.js"></script>
+<script src="/js/functions.js"></script>
+<script>
+    let $icon = $('div.choice-block');
+    let $a = $('.choice-paper');
+    let $b = $('.select-vacation');
+    $icon.mouseenter(function () {
+        $(this).find('i').addClass('shaky');
+    });
+    $icon.mouseleave(function () {
+        $(this).find('i').removeClass('shaky');
+    });
+    $a.on('click',function (object) {
+        window.location.href += '/paper/';//问卷调查
+    });
+    $b.on('click',function (object) {
+        window.location.href += '/select/';//直接选择
+    });
+</script>
+<script type="text/javascript" src="/js/condition/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/js/condition/script.js"></script>
+
+</body>
+</html>

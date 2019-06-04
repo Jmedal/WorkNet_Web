@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<link rel="stylesheet" type="text/css" href="/css/bootsnav.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<style>
+    g.type-current > rect {
+        fill: #1E9FFF;
+    }
+    g.type-success > rect {
+        fill: green;
+    }
+    g.type-fail > rect {
+        fill: red;
+    }
+    text {
+        font-weight: 300;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+        font-size: 14px;
+    }
+
+    .node rect {
+        stroke: #999;
+        fill: #fff;
+        stroke-width: 1.5px;
+    }
+
+    .edgePath path {
+        stroke: #333;
+        stroke-width: 1.5px;
+    }
+    li span{
+        margin-right: 4px;
+    }
+</style>
+<div class='main'>
+    <select>
+        <option selected>计算机科学</option>
+        <option >计算机科学</option>
+        <option >计算机科学</option>
+        <option >计算机科学</option>
+        <option >计算机科学</option>
+        <option >计算机科学</option>
+        <option >计算机科学</option>
+        <option >计算机科学</option>
+    </select>
+    <br>
+    <label>课程名：<input id="course-naming" type="text" /></label>
+    <span class="btn btn-default add-course">添加课程</span>
+    <br>
+    <label>前置课程编号：<input id="pre-id" type="number" /></label>
+    <label>后置课程编号：<input id="post-id" type="number" /></label>
+    <span class="btn btn-default add-course-order">添加课程顺序</span>
+    <br>
+    <span class="btn btn-info show-view">显示预览</span>
+    <div class="col-md-12">
+        <ul id="view-list" class="col-md-6">
+            <li><span class="course-order">课程编号</span>
+                <span class="course-id">课程id</span>
+                <span class="course-name">课程名称</span>
+                <span class="course-operate">课程操作</span></li>
+        </ul>
+        <ul id="edge-list" class="col-md-6">
+            <li><span class="start-id">初始结点</span>
+                <span class="end-id">目标节点</span>
+                <span class="course-operate">课程操作</span></li>
+        </ul>
+    </div>
+    <svg id="svg-canvas" width=700 height=300 class="col-md-12"></svg>
+
+</div><script src="http://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+<script src="https://cdn.bootcss.com/dagre-d3/0.6.3/dagre-d3.js"></script>
+<script>
+    //从后端获取数据，然后添加到g之中，完成显示预览
+    $(document).ready(function () {
+        // Create the input graph
+        var $inputN = $('#course-naming');
+        var $inputD = $('#course-id');
+        var cnt = 0;
+        var g = new dagreD3.graphlib.Graph()
+            .setGraph({})
+            .setDefaultEdgeLabel(function () {
+                return {};
+            });
+        $('.add-course').on('click',function (object) {
+            console.log(g);
+            //往后台添加，并获取新增加的课程id
+            $.get('/admin/add/vocation/course',{},function (data) {
+                data = JSON.parse(data);
+            }).error(function () {
+                g.setNode(cnt, {
+                    label: $inputN.val(),
+                    class: "type-no",
+                    id: $inputD.val()
+                });
+                let vcid = 1;
+                $('#view-list').append('<li><span class="course-order">'+cnt+'</span>' +
+                    '<span class="course-id">'+vcid+'</span>\n' +
+                    '            <span class="course-name">'+$inputN.val()+'</span>\n' +
+                    '            <span class="course-operate">删除</span></li>');
+                cnt++;
+            });
+        });
+        $('.add-course-order').on('click',function (object) {
+            g.setEdge($('#pre-id').val(), $('#post-id').val(), {label: ''});
+            $('#edge-list').append('<li><span class="start-id">'+$('#pre-id').val()+'</span>\n' +
+                '            <span class="end-id">'+$('#post-id').val()+'</span><span class="course-operate">删除</span></li>');
+        });
+        $('.show-view').on('click',function (object) {
+            // Create the renderer
+            var render = new dagreD3.render();
+            var svg = d3.select("svg"),
+                svgGroup = svg.append("g");
+
+            // Run the renderer. This is what draws the final graph.
+            render(d3.select("svg g"), g);
+
+            var xCenterOffset = (svg.attr("width") - g.graph().width) / 2;
+            svgGroup.attr("transform", "translate(" + xCenterOffset + ", 20)");
+            svg.attr("height", g.graph().height + 40);
+        });
+    });
+
+    // g.nodes().forEach(function (v) {
+    //     var node = g.node(v);
+    //     // Round the corners of the nodes
+    //     node.rx = node.ry = 5;
+    // });
+
+    // Set up edges, no special attributes.
+
+
+</script>
+</body>
+</html>

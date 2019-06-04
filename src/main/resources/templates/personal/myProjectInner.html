@@ -156,8 +156,8 @@
       $.get('/personal/get/myCourse',{page:this._curPage},function (data) {
           data = JSON.parse(data);
           if(data.errorCode==='00'){
-              let obj = data.returnObject.list;
-              pager.maxPage = data.returnObject.maxPage;
+              let obj = data.returnObject.records;
+              pager.maxPage = data.returnObject.total;
               $ul.fadeOut(function () {
                   $ul.empty();
                   for(let i = 0; i < obj.length; i++){
@@ -288,10 +288,10 @@
           data = JSON.parse(data);
           if(data.errorCode==='00'){
               let obj = data.returnObject;
-              maxWpage = obj.maxPage;
+              maxWpage = obj.total;
               $('#curPage').html(wpage);
               $('#maxPage').html(maxWpage);
-              tmp(0,obj.list);
+              tmp(0,obj.records);
           }
       });
     },300);

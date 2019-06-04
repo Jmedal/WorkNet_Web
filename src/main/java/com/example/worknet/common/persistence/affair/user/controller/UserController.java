@@ -1,9 +1,8 @@
 package com.example.worknet.common.persistence.affair.user.controller;
 
-
-
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.example.worknet.common.persistence.affair.user.serivce.UserService;
 import com.example.worknet.common.persistence.template.modal.LearnerInfo;
 import com.example.worknet.common.persistence.template.modal.User;
@@ -19,9 +18,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
 
 /**
  * <p>
@@ -38,7 +36,7 @@ public class UserController {
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     /**
      * 注册页面（检查帐号是否存在）
@@ -46,7 +44,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/checkUserName",method = RequestMethod.GET)
-    public String checkUserName(@RequestParam("username") String username){
+    public String checkUserName(@RequestParam(value = "username") String username){
         HashMap<String,String> map = new HashMap<>();
         if(userService.checkAccount(username)) //帐号存在返回true/帐号不存在返回false
             map.put("errorCode","error");
@@ -63,9 +61,9 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public String register(@RequestParam("username") String username,
-                           @RequestParam("password") String password,
-                           @RequestParam("rePassword") String rePassword){
+    public String register(@RequestParam(value = "username") String username,
+                           @RequestParam(value = "password") String password,
+                           @RequestParam(value = "rePassword") String rePassword){
         HashMap<String,String> map = new HashMap<>();
         if(!userService.checkAccount(username) && password.equals(rePassword)){
             User user = new User();
@@ -92,9 +90,9 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        @RequestParam("remember") boolean remember,
+    public String login(@RequestParam(value = "username") String username,
+                        @RequestParam(value = "password") String password,
+                        @RequestParam(value = "remember") boolean remember,
                         HttpServletRequest request){
         HashMap<String,String> map = new HashMap<>();
         if(userService.verify(username,password)){
@@ -282,7 +280,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/get/avatar/{id}",method = RequestMethod.GET)
-    public ResponseEntity downLoadPicture(@PathVariable("id") long userId ,
+    public ResponseEntity downLoadPicture(@PathVariable(value = "id") long userId ,
                                           HttpServletRequest request){
         String strDirPath = request.getSession().getServletContext().getRealPath("/");
         logger.info(strDirPath);
@@ -308,9 +306,9 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/personal/change/password",method = RequestMethod.POST)
-    public String changePass(@RequestParam("old_pass") String oldPassword,
-                             @RequestParam("new_pass") String newPassword,
-                             @RequestParam("confirm_pass") String confirmPassword,
+    public String changePass(@RequestParam(value = "old_pass") String oldPassword,
+                             @RequestParam(value = "new_pass") String newPassword,
+                             @RequestParam(value = "confirm_pass") String confirmPassword,
                              HttpServletRequest request){
         HashMap<String,Object> map = new HashMap<>();
         if(newPassword.equals(confirmPassword)
@@ -330,66 +328,45 @@ public class UserController {
         return JSON.toJSONString(map);
     }
 
-    //分页获取我学过的课程
-    @RequestMapping(value = "/personal/get/myCourse")
-    public String getMyCourse(HttpServletRequest request){
-        //param:page,默认一页两个
-        int page = Integer.parseInt(request.getParameter("page"));
-//        System.out.println(page);
-//        int uid = (Integer)request.getSession().getAttribute("uid");
+    /**
+     * 分页获取我学过的课程
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/personal/get/myCourse", method = RequestMethod.GET)
+    public String getMyCourse(@RequestParam(value = "page") Integer page,
+                              HttpServletRequest request){
         HashMap<String,Object> map = new HashMap<>();
-        map.put("errorCode","00");
-        List<HashMap<String,Object>> list = new ArrayList<>();
-        for(int i = 0; i < 2; i++){
-            HashMap<String,Object> map1 = new HashMap<>();
-            map1.put("cid",i);//课程id
-            map1.put("title","计算机原理"+i);//标题
-            map1.put("startTime","2019-06-12");//报名参加课程的时间!!!不是课程开设时间！！！
-            map1.put("avgStar",4.5);//课程平均打分
-            map1.put("abstract","课程简介按时大大大阿萨德撒的撒的s ");//课程简介
-            list.add(map1);
+        if(request.getSession(true).getAttribute("userId") != null){
+            Long userId = (long)request.getSession(true).getAttribute("userId");
+            Page<HashMap<String,Object>> pager = userService.getUserStudiedPage(new Page<>(page,2), userId);//param:page,默认一页两个
+            map.put("returnObject", pager);
+            map.put("errorCode","00");
         }
-        HashMap<String,Object> map1 = new HashMap<>();//pager对象
-        map1.put("maxPage",15);
-        map1.put("list",list);
-        map.put("returnObject",map1);
+        else
+            map.put("errorCode","error");
         return JSON.toJSONString(map);
     }
 
-    //分页获取笔试记录
-    @RequestMapping(value = "/personal/get/myContest")
-    public String getMyContest(HttpServletRequest request){
-        //param:page,默认一页八个
-        int page = Integer.parseInt(request.getParameter("page"));
+    /**
+     * 分页获取我笔试记录
+     * @param page
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/personal/get/myContest", method = RequestMethod.GET)
+    public String getMyContest(@RequestParam(value = "page") Integer page,
+                               HttpServletRequest request){
         HashMap<String,Object> map = new HashMap<>();
-        map.put("errorCode","00");
-        List<HashMap<String,Object>> list = new ArrayList<>();
-        for(int i = 0; i < 8; i++){
-            HashMap<String,Object> map1 = new HashMap<>();
-            map1.put("cid",i);//笔试id
-            map1.put("title","网易校招"+i);//标题
-            map1.put("startTime","2019-06-12");//校招的时间
-            map1.put("questionNum",10+i);//笔试题量
-            map1.put("joinNum",62+i);//参加人数
-            map1.put("companyId",124+i);
-            list.add(map1);
+        if(request.getSession(true).getAttribute("userId") != null){
+            Long userId = (long)request.getSession(true).getAttribute("userId");
+            Page<HashMap<String,Object>> pager = userService.getUserContestPage(new Page<>(page,8), userId); //param:page,默认一页八个
+            map.put("returnObject", pager);
+            map.put("errorCode","00");
         }
-        HashMap<String,Object> map1 = new HashMap<>();
-        map1.put("list",list);//pager分页对象
-        map1.put("maxPage",31);//一共几页
-        map.put("returnObject",map1);
+        else
+            map.put("errorCode","error");
         return JSON.toJSONString(map);
     }
-
-//    //获取笔试公司的头像（作为笔试logo)
-//    @RequestMapping(value = "/get/company/logo/{cid}",produces = MediaType.IMAGE_JPEG_VALUE)
-//    public byte[] getCompanyLogo(@PathVariable Integer cid,
-//                                 HttpServletResponse response) throws IOException {
-//        File file = new File("D:\\SoftwareXieTong\\src\\main\\resources\\static\\images\\news1.jpg");
-//        FileInputStream inputStream = new FileInputStream(file);
-//        byte[] bytes = new byte[(int)file.length()];
-//        inputStream.read(bytes, 0, inputStream.available());
-//        return bytes;
-//    }
 }
 

@@ -1,6 +1,7 @@
 package com.example.worknet.common.persistence.affair.course.serivce;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.example.worknet.common.constant.CourseConst;
 import com.example.worknet.common.persistence.template.modal.Course;
 import com.baomidou.mybatisplus.service.IService;
 import org.springframework.core.io.Resource;
@@ -25,7 +26,7 @@ public interface CourseService extends IService<Course> {
 
     HashMap<String,Object> getCourseInfo(long cid);
 
-    Page<HashMap<String,Object>> getCoursePage(Page<HashMap<String, Object>> page, Integer type, String keyword);
+    Page<HashMap<String,Object>> getCoursePage(Page<HashMap<String, Object>> page, CourseConst type, String keyword);
 
     List<HashMap<String,Object>> getCourseMenu(long cid);
 

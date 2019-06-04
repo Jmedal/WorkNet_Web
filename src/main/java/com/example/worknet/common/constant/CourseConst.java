@@ -2,23 +2,23 @@ package com.example.worknet.common.constant;
 
 /**
  * @Author: YunJieJiang
- * @Date: Created in 11:23 2019/5/9 0009
+ * @Date: Created in 22:30 2019/5/26 0026
  */
-public interface CourseConst {
+public enum CourseConst {
     /**
      * 最新发布
      */
-    Integer COURSE_NEW = 0;
+    COURSE_NEW,
     /**
      * 评分最高
      */
-    Integer COURSE_STAR = 1;
+    COURSE_STAR,
     /**
      * 最多人学
      */
-    Integer COURSE_MOST = 2;
+    COURSE_MOST,
     /**
      * 默认排序
      */
-    Integer COURSE_DEfAULT = 3;
+    COURSE_DEFAULT
 }

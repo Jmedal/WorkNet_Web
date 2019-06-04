@@ -14,6 +14,7 @@ import java.util.UUID;
  * @since 2018-12-03
  */
 public class FileToolsUtil {
+
     public static String fileUpload(MultipartFile mpf, String targetPath){
         String fName = UUID.randomUUID().toString() + mpf.getOriginalFilename().substring(mpf.getOriginalFilename().lastIndexOf("."));
         createDiretory(targetPath);
@@ -30,7 +31,7 @@ public class FileToolsUtil {
             e.printStackTrace();
             return null;
         }
-        return filePath;
+        return fName;
     }
 
     public static void fileToUpload(String strDirPath,String file) {
@@ -63,12 +64,14 @@ public class FileToolsUtil {
         }
         return path;
     }
+
     /**
             * 复制单个文件
      * @param oldPath String 原文件路径 如：c:/fqf.txt
      * @param newPath String 复制后路径 如：f:/fqf.txt
      * @return boolean
      */
+
     public static void copyFile(String oldPath, String newPath) {
         try {
             int bytesum = 0;

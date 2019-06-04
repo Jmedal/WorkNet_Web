@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ import java.util.List;
  * @since 2019-04-30
  */
 @Service
+@Transactional
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements CourseService {
 
     /**
@@ -69,18 +71,18 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
      * @return
      */
     @Override
-    public Page<HashMap<String,Object>> getCoursePage(Page<HashMap<String, Object>> page, Integer type, String keyword){
-        if(type.equals(CourseConst.COURSE_NEW)){
-            return page.setRecords(courseMapper.getNewCoursePage(page,keyword));
-        }
-        else if (type.equals(CourseConst.COURSE_STAR)){
-            return page.setRecords(courseMapper.getStarCoursePage(page,keyword));
-        }
-        else if (type.equals(CourseConst.COURSE_MOST)){
-            return page.setRecords(courseMapper.getStudiedCoursePage(page,keyword));
-        }
-        else{
-            return page.setRecords(courseMapper.getDefaultCoursePage(page,keyword));
+    public Page<HashMap<String,Object>> getCoursePage(Page<HashMap<String, Object>> page, CourseConst type, String keyword){
+        switch(type){
+            case COURSE_NEW:
+                return page.setRecords(courseMapper.getNewCoursePage(page,keyword));
+            case COURSE_STAR:
+                return page.setRecords(courseMapper.getStarCoursePage(page,keyword));
+            case COURSE_MOST:
+                return page.setRecords(courseMapper.getStudiedCoursePage(page,keyword));
+            case COURSE_DEFAULT:
+                return page.setRecords(courseMapper.getDefaultCoursePage(page,keyword));
+            default:
+                return page.setRecords(new ArrayList<HashMap<String,Object>>());
         }
     }
 
@@ -134,8 +136,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         Course course = super.selectById(cid);
         if(course==null)
             throw new RuntimeException();
-        String filePath = course.getPicturePath();
-        strDirPath = strDirPath+"WEB-INF"+ Const.FILE_SEPARATOR+"classes"+Const.FILE_SEPARATOR+"static"+Const.FILE_SEPARATOR+"upload";
+        String filePath = Const.FILE_PATH + course.getPicturePath();
+        strDirPath = strDirPath+"WEB-INF" + Const.FILE_SEPARATOR + "classes" + Const.FILE_SEPARATOR + "static" + Const.FILE_SEPARATOR + "upload";
         FileToolsUtil.fileToUpload(strDirPath,filePath);
         return resourceLoader.getResource("file:" + strDirPath + Const.FILE_SEPARATOR + filePath.substring(filePath.lastIndexOf(Const.FILE_SEPARATOR)+1));
     }

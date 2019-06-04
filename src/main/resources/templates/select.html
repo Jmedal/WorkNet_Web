@@ -1,0 +1,173 @@
+﻿<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>职业选择</title>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/css/edua-icons.css">
+<link rel="stylesheet" type="text/css" href="/css/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/css/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="/css/owl.transitions.css">
+<link rel="stylesheet" type="text/css" href="/css/cubeportfolio.min.css">
+<link rel="stylesheet" type="text/css" href="/css/settings.css">
+<link rel="stylesheet" type="text/css" href="/css/bootsnav.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/loader.css">
+  <link rel="stylesheet" type="text/css" href="/css/vis.css">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap-select.css">
+
+  <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.css" rel="stylesheet">
+<link rel="icon" href="/images/favicon.png">
+<link rel="stylesheet" type="text/css" href="/css/condition/style.css">
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+  <style>
+    #main{
+      min-height: 600px;
+    }
+    #mygraph {
+      margin-top:50px;
+      width: 90%;
+      margin-left: 5%;
+      height: 800px;
+      border: 1px solid lightgray;
+    }
+  </style>
+</head>
+
+<body>
+<a href="#" class="scrollToTop"><i class="fa fa-angle-up"></i></a>
+<!--Loader-->
+<div class="loader">
+  <div class="bouncybox">
+      <div class="bouncy"></div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript" src="/js/header.js"></script>
+
+<!--Search-->
+<div id="search">
+  <button type="button" class="close">×</button>
+  <form>
+    <input type="search" value="" placeholder="Search here...."  required/>
+    <button type="submit" class="btn btn_common blue">Search</button>
+  </form>
+</div>
+
+
+
+<!--Page Header-->
+<section class="page_header padding-top">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 page-content">
+        <h1>职业选择</h1>
+        <p>选择你的职业方向</p>
+        <div class="page_nav">
+      <span>你的位置:</span> <a href="/index">首页</a><i class="fa fa-angle-double-right"></i><a href="/vocation">职业选择</a> <span><i class="fa fa-angle-double-right"></i>直接选择</span>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Page Header-->
+<section id="main">
+  <div class="bottom50"></div>
+  <div class="row col-md-offset-1 margin_top">
+    <select id="vocation-selector" class="selectpicker" data-live-search="true" title="请输入搜索关键字">
+
+    </select>
+    <span class="btn btn-info" id="choose-vocation" disabled="">请选择职业</span>
+  </div>
+  <div id="mygraph"></div>
+  <div class="bottom50"></div>
+</section>
+<div class="clearfix"></div>
+<script type="text/javascript" src="/js/footer.js"></script>
+
+<script src="/js/jquery-2.2.3.js"></script>
+<script src="/js/bootstrap-select.js"></script>
+<script src="/js/vis.js"></script>
+<script type="text/javascript">
+    // create an array with nodes
+    var $sel = $('#vocation-selector');
+        $.get('/get/vocations/graph',{},function (data) {
+            data = JSON.parse(data);
+            if(data.errorCode==='00'){
+                let obj = data.returnObject;
+                var nodes = [
+                    {id:-1,group:'N',label:'职业选择'}//根节点
+                ];
+                var edges = [
+                    // {from: 'y'+1412, to: 3},
+                ];
+                let rN = obj.nodes;
+                let rE = obj.edges;
+                let i;
+                for(i = 0; i < rN.length; i++){//添加节点
+                    if(rN[i].isLeaf){//如果是叶子节点
+                        nodes.push({id:rN[i].jobId,label:rN[i].name,color:'#608cc3',group:'Y',fontColor:'white'});
+                        let $op = $('<option id="'+rN[i].jobId+'" value="'+rN[i].jobId+'">'
+                            +rN[i].name+'</option>');
+                        $sel.append($op);
+                    }else{//否则全都添加到根上
+                        edges.push({from:-1,to:rN[i].jobId});
+                        nodes.push({id:rN[i].jobId,label:rN[i].name,group:'N',color:'black',fontColor:'white'});
+                    }
+                }
+                // 边
+                for(i = 0; i < rE.length; i++){
+                    edges.push({from:rE[i].fromId,to:rE[i].toId});
+                }
+
+                // create a graph
+                var container = document.getElementById('mygraph');
+                var graphData = {
+                    nodes: nodes,
+                    edges: edges
+                };
+                var options = {};
+                var graph = new vis.Graph(container, graphData, options);
+                $sel.selectpicker('refresh');
+                $sel.selectpicker('render');
+            }
+        });
+  $("#choose-vocation").on('click',function (object) {
+      $.post('/join/vocation/'+$sel.selectpicker('val'),{},function (data) {
+          data = JSON.parse(data);
+          if(data.errorCode==='00'){
+              toastr.success('选择成功');
+          }else{
+              toastr.error('选择失败');
+          }
+      });
+  });
+</script>
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootsnav.js"></script>
+<script src="/js/jquery.appear.js"></script>
+<script src="/js/jquery-countTo.js"></script>
+<script src="/js/jquery.parallax-1.1.3.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.cubeportfolio.min.js"></script>
+<script src="/js/jquery.themepunch.tools.min.js"></script>
+<script src="/js/jquery.themepunch.revolution.min.js"></script>
+<script src="/js/revolution.extension.layeranimation.min.js"></script>
+<script src="/js/revolution.extension.navigation.min.js"></script>
+<script src="/js/revolution.extension.parallax.min.js"></script>
+<script src="/js/revolution.extension.slideanims.min.js"></script>
+<script src="/js/revolution.extension.video.min.js"></script>
+<script src="/js/wow.min.js"></script>
+<script src="/js/functions.js"></script>
+
+</body>
+</html>

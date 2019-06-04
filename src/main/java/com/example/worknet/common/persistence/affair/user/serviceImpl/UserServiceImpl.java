@@ -1,15 +1,15 @@
 package com.example.worknet.common.persistence.affair.user.serviceImpl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.example.worknet.common.constant.Const;
+import com.example.worknet.common.persistence.affair.company.serivce.CompanyContestApplyService;
+import com.example.worknet.common.persistence.affair.course.serivce.CourseStudiedService;
 import com.example.worknet.common.persistence.affair.user.serivce.CompanyService;
 import com.example.worknet.common.persistence.affair.user.serivce.LearnerInfoService;
 import com.example.worknet.common.persistence.affair.user.serivce.TeacherInfoService;
 import com.example.worknet.common.persistence.affair.user.serivce.UserService;
-import com.example.worknet.common.persistence.template.modal.Company;
-import com.example.worknet.common.persistence.template.modal.LearnerInfo;
-import com.example.worknet.common.persistence.template.modal.TeacherInfo;
-import com.example.worknet.common.persistence.template.modal.User;
+import com.example.worknet.common.persistence.template.modal.*;
 import com.example.worknet.common.persistence.template.dao.UserMapper;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.Calendar;
@@ -35,6 +36,7 @@ import java.util.List;
  * @since 2019-04-27
  */
 @Service
+@Transactional
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     /**
@@ -205,10 +207,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = userService.selectById(userId);
         if(user==null)
             throw new RuntimeException();
-        String filePath = user.getHeadPath();
-        strDirPath = strDirPath+"WEB-INF"+Const.FILE_SEPARATOR+"classes"+Const.FILE_SEPARATOR+"static"+Const.FILE_SEPARATOR+"upload";
-        FileToolsUtil.fileToUpload(strDirPath,filePath);
-        return resourceLoader.getResource("file:" + strDirPath + Const.FILE_SEPARATOR + filePath.substring(filePath.lastIndexOf(Const.FILE_SEPARATOR)+1));
+        //绝对保存路径
+        String filePath = Const.FILE_PATH + user.getHeadPath();
+        strDirPath = strDirPath + "WEB-INF" + Const.FILE_SEPARATOR + "classes" + Const.FILE_SEPARATOR + "static" + Const.FILE_SEPARATOR + "upload";
+        FileToolsUtil.fileToUpload(strDirPath, filePath);
+        return resourceLoader.getResource("file:" + strDirPath + Const.FILE_SEPARATOR + filePath.substring(filePath.lastIndexOf(Const.FILE_SEPARATOR) + 1));
     }
 
     /**
@@ -222,15 +225,39 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if(user==null)
             return false;
         if(user.getHeadPath()!=null&&!user.getHeadPath().equals("")&&!user.getHeadPath().equals(userService.selectById(1).getHeadPath()))
-            FileToolsUtil.deleteFile(user.getHeadPath());//删除旧图片
-        //保存路径
-        String file_path = Const.FILE_PATH+Const.FILE_SEPARATOR+Const.HEAD_PATH+ Const.FILE_SEPARATOR+ Calendar.getInstance().get(Calendar.YEAR);
+            FileToolsUtil.deleteFile(Const.FILE_PATH + user.getHeadPath());//删除旧图片
+        //相对保存路径
+        String file_path = Const.FILE_SEPARATOR + Const.HEAD_PATH + Const.FILE_SEPARATOR + Calendar.getInstance().get(Calendar.YEAR);
+        //绝对保存路径
+        String file_full_path = Const.FILE_PATH + file_path;
         //保存头像
-        String file_path_full = FileToolsUtil.fileUpload(request.getFile("avatar"),FileToolsUtil.createDiretory(file_path));
+        String file_name = FileToolsUtil.fileUpload(request.getFile("avatar"),FileToolsUtil.createDiretory(file_full_path));
         //更新数据库路径信息
-        user.setHeadPath(file_path_full);
+        user.setHeadPath(file_path + Const.FILE_SEPARATOR + file_name);
         userService.updateById(user);
         return true;
+    }
+
+    /**
+     * 获取用户参加的所有课程
+     * @param page
+     * @param uid
+     * @return
+     */
+    @Override
+    public Page<HashMap<String, Object>> getUserStudiedPage(Page<HashMap<String, Object>> page, long uid) {
+        return courseStudiedService.getUserStudiedPage(page,uid);
+    }
+
+    /**
+     * 获取用户笔试报名记录
+     * @param page
+     * @param uid
+     * @return
+     */
+    @Override
+    public Page<HashMap<String, Object>> getUserContestPage(Page<HashMap<String, Object>> page, Long uid) {
+        return companyContestApplyService.getUserContestPage(page, uid);
     }
 
     @Autowired
@@ -247,6 +274,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private CompanyContestApplyService companyContestApplyService;
+
+    @Autowired
+    private CourseStudiedService courseStudiedService;
 
     @Autowired
     private final ResourceLoader resourceLoader;

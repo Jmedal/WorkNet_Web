@@ -1,6 +1,5 @@
 package com.example.worknet.common.persistence.affair.course.controller;
 
-
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.example.worknet.common.constant.CourseConst;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+
 
 /**
  * <p>
@@ -49,14 +49,20 @@ public class CourseController {
         if(order == null) order = "";
         if(page == null) page = 1;
         Page<HashMap<String,Object>> questionPage = null;
-        if(order.equals("new"))
-            questionPage = courseService.getCoursePage(new Page<>(page, 9), CourseConst.COURSE_NEW,keyword);
-        else if(order.equals("star"))
-            questionPage = courseService.getCoursePage(new Page<>(page, 9), CourseConst.COURSE_STAR,keyword);
-        else if(order.equals("most"))
-            questionPage = courseService.getCoursePage(new Page<>(page, 9), CourseConst.COURSE_MOST,keyword);
-        else
-            questionPage = courseService.getCoursePage(new Page<>(page, 9), CourseConst.COURSE_DEfAULT,keyword);
+        switch (order){
+            case "new":
+                questionPage = courseService.getCoursePage(new Page<>(page, 9), CourseConst.COURSE_NEW,keyword);
+                break;
+            case "star":
+                questionPage = courseService.getCoursePage(new Page<>(page, 9), CourseConst.COURSE_STAR,keyword);
+                break;
+            case "most":
+                questionPage = courseService.getCoursePage(new Page<>(page, 9), CourseConst.COURSE_MOST,keyword);
+                break;
+            default:
+                questionPage = courseService.getCoursePage(new Page<>(page, 9), CourseConst.COURSE_DEFAULT,keyword);
+                break;
+        }
         HashMap<String,Object> map = new HashMap<>();
         map.put("errorCode","00");
         map.put("returnObject",questionPage);
@@ -70,7 +76,7 @@ public class CourseController {
      * @return
      */
     @RequestMapping(value = "/get/course/view/{cid}", method =  RequestMethod.GET)
-    public ResponseEntity getCoursePicture(@PathVariable("cid") Long cid ,
+    public ResponseEntity getCoursePicture(@PathVariable(value = "cid") Long cid ,
                                           HttpServletRequest request){
         String strDirPath = request.getSession().getServletContext().getRealPath("/");
         logger.info(strDirPath);
@@ -93,7 +99,7 @@ public class CourseController {
      * @return
      */
     @RequestMapping(value = "/get/course/basicInfo/{cid}", method = RequestMethod.GET)
-    public String getCourseBasicInfo(@PathVariable("cid") Long cid){
+    public String getCourseBasicInfo(@PathVariable(value = "cid") Long cid){
         HashMap<String,Object> map = new HashMap<>();
         map.put("errorCode","00");
         HashMap<String,Object> obj = courseService.getCourseInfo(cid);
@@ -107,7 +113,7 @@ public class CourseController {
      * @return
      */
     @RequestMapping(value = "/get/course/menu/{cid}", method =  RequestMethod.GET)
-    public String getCourseMenu(@PathVariable("cid") Long cid){
+    public String getCourseMenu(@PathVariable(value = "cid") Long cid){
         HashMap<String,Object> map = new HashMap<>();
         if(cid==null){
             map.put("errorCode","error");

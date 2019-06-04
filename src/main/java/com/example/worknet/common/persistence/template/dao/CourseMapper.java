@@ -41,7 +41,7 @@ public interface CourseMapper extends BaseMapper<Course> {
             @Result(property = "stars",column = "stars"),
             @Result(property = "teacherName",column = "realname"),
             @Result(property = "teacherId",column = "teacher_id"),
-            @Result(property = "startTime",column = "upload_time"),
+            @Result(property = "startTime",column = "upload_time", javaType = String.class),
             @Result(property = "clickNum",column = "click_num"),
     })
     List<HashMap<String,Object>> getDefaultCoursePage(Pagination pagination, @Param("keyword")String keyword);
@@ -64,7 +64,7 @@ public interface CourseMapper extends BaseMapper<Course> {
             @Result(property = "stars",column = "stars"),
             @Result(property = "teacherName",column = "realname"),
             @Result(property = "teacherId",column = "teacher_id"),
-            @Result(property = "startTime",column = "upload_time"),
+            @Result(property = "startTime",column = "upload_time", javaType = String.class),
     })
     List<HashMap<String,Object>> getNewCoursePage(Pagination pagination, @Param("keyword")String keyword);
 
@@ -89,7 +89,7 @@ public interface CourseMapper extends BaseMapper<Course> {
             @Result(property = "stars",column = "stars"),
             @Result(property = "teacherName",column = "realname"),
             @Result(property = "teacherId",column = "teacher_id"),
-            @Result(property = "startTime",column = "upload_time"),
+            @Result(property = "startTime",column = "upload_time", javaType = String.class),
             @Result(property = "studiedNum",column = "studied_num"),
     })
     List<HashMap<String,Object>> getStudiedCoursePage(Pagination pagination, @Param("keyword")String keyword);
@@ -112,7 +112,7 @@ public interface CourseMapper extends BaseMapper<Course> {
             @Result(property = "stars",column = "stars"),
             @Result(property = "teacherName",column = "realname"),
             @Result(property = "teacherId",column = "teacher_id"),
-            @Result(property = "startTime",column = "upload_time"),
+            @Result(property = "startTime",column = "upload_time", javaType = String.class),
     })
     List<HashMap<String,Object>> getStarCoursePage(Pagination pagination, @Param("keyword")String keyword);
 
@@ -145,7 +145,7 @@ public interface CourseMapper extends BaseMapper<Course> {
             @Result(property = "teacherId",column = "user_id"),
             @Result(property = "stars",column = "stars"),
             @Result(property = "field",column = "curriculum_name"),
-            @Result(property = "startTime",column = "upload_time"),
+            @Result(property = "startTime",column = "upload_time", javaType = String.class),
             @Result(property = "teacherTitle",column = "tag"),
             @Result(property = "teacherInfo",column = "introduction2"),
     })

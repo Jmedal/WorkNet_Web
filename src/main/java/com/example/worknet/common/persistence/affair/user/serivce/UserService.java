@@ -1,5 +1,6 @@
 package com.example.worknet.common.persistence.affair.user.serivce;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.example.worknet.common.persistence.template.modal.LearnerInfo;
 import com.example.worknet.common.persistence.template.modal.TeacherInfo;
 import com.example.worknet.common.persistence.template.modal.User;
@@ -43,4 +44,7 @@ public interface UserService extends IService<User>{
 
     boolean updateAvatar(long userId, MultipartHttpServletRequest request);
 
+    Page<HashMap<String, Object>> getUserStudiedPage(Page<HashMap<String, Object>> page, long uid);
+
+    Page<HashMap<String, Object>> getUserContestPage(Page<HashMap<String, Object>> page, Long uid);
 }

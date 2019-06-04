@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link href="/personal/fonts/icomoon/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/personal/css/bootstrap.min.css">
+    <link href="/personal/css/slider.css" rel="stylesheet">
+    <link rel="stylesheet" href="/personal/css/gear.css">
+    <script type="text/javascript" src="/personal/js/jquery-2.2.3.js"></script>
+    <script type="text/javascript" src="/personal/js/bootstrap.min.js"></script>
+    <script src="/personal/js/lc_switch.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/personal/css/lc_switch.css">
+</head>
+<body>
+
+<section class="ace-icon ace-icon-book">&nbsp;职业课程</section>
+<section class="section brd-btm" id="personal-info">
+    <div class="container">
+        <div id="occupation_course"></div>
+
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        //初始化页面数据
+        $.ajax({
+            type:"GET",
+            async:"true",
+            url:"/personal/get/occupation-course", //传送userID，后端获取课程列表
+            success:function(data){
+                var node=$('#occupation_course');
+                $(node).empty();
+                //console.log(data);
+                datas=JSON.parse(data);
+                errorCode=datas.errorCode;
+                errorMessage=datas.errorMessage;
+                returnObject=datas.returnObject;
+                html="";
+                records="";
+                joined = returnObject.joined;
+
+                if(errorCode==='00'){
+                    if (returnObject==null || returnObject.length<=0){ //未进行职业选择
+                        var con;
+                        con=confirm("您未选择职业，请先选择职业"); //在页面上弹出对话框
+                        if(con==true)top.location="/vocation/select";//选择课程页面
+                    }
+                    else{
+                        html+='<table class="table table-hover table-bordered">';
+                        html+='<thead>';
+                        html+='<tr>';
+                        html+='<th>前置课程</th>';
+                        html+='<th>课程</th>';
+                        html+='</tr>';
+                        html+='</thead>';
+                        html+='<tbody>';
+                        for (let i=0;i<returnObject.length;i++){
+                            html+='<tr>';
+                            html+='<td>'+returnObject[i].preCourseName+'</td>';
+                            html+='<td>'+returnObject[i].courseName+'</td>';
+                            html+='</tr>';
+                        }
+                        html+='</tbody>';
+                        html+='</table>';
+
+                    }
+
+                    $('#occupation_course').append(html);
+
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

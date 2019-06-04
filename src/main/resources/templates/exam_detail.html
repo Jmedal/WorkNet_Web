@@ -7,6 +7,7 @@
     <title>笔试详情</title>
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+    <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/edua-icons.css">
     <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
     <link rel="stylesheet" type="text/css" href="/css/owl.carousel.css">
@@ -49,7 +50,7 @@
         <div class="row">
             <div class="col-md-12 page-content">
                 <div class="page_nav">
-                    <span>你的位置:</span> <a href="index.html">首页</a> <span><i
+                    <span>你的位置:</span> <a href="#" onClick= "javascript :history.back(1)">首页</a> <span><i
                         class="fa fa-angle-double-right"></i>笔试详情</span>
                 </div>
             </div>
@@ -64,23 +65,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2"></div>
-            <div class="comment_box col-md-8">
-                <h3>笔试标题</h3>
-                <div class="bottom15"></div>
-                <h4>笔试日期：0000年00月00日</h4>
-                <div class="bottom15"></div>
-                <h4>开始时间：00：00：00</h4>
-                <div class="bottom15"></div>
-                <h4>结束时间：00：00：00</h4>
-                <div class="bottom15"></div>
-                <h4>题量：10道</h4>
-                <div class="bottom15"></div>
-                <h4>总分：100分</h4>
-                <div class="bottom15"></div>
-                <h4>距离开始时间：<div id="counting_time"></div></h4>
-                <div class="bottom15"></div>
-                <button class="btn btn-info" >报名笔试</button>
-            </div>
+            <div id="showPanel"></div>
             <div class="col-md-2"></div>
         </div>
     </div>
@@ -106,20 +91,48 @@
 <script src="/js/revolution.extension.parallax.min.js"></script>
 <script src="/js/revolution.extension.slideanims.min.js"></script>
 <script src="/js/revolution.extension.video.min.js"></script>
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 <script src="/js/wow.min.js"></script>
 <script src="/js/functions.js"></script>
 
 <script type="text/javascript">
-    window.onload=clock;
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "H+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    };
+    var datas="";//json数据
+    var html="";
+    var records="";
+    var errorCode;
+    var errorMessage;
+    var returnObject;
+    var start ="";
+    var end ="";
+    var href = window.location.href;
+    href = href.substring(0,href.lastIndexOf("\/"));
+    var examId = parseInt(href.substring(href.lastIndexOf("\/")+1,href.length));
+    var startTime,endTime;
+    var $btn;
+    var joined;
+    var cT;
     function clock(){
-        var today=new Date(),//当前时间
-            h=today.getHours(),
-            m=today.getMinutes(),
-            s=today.getSeconds();
-        var stopTime=new Date("Feb 9 2020 00:00:00"),//结束时间
-            stopH=stopTime.getHours(),
-            stopM=stopTime.getMinutes(),
-            stopS=stopTime.getSeconds();
+        if(typeof $btn === "undefined")
+            $btn = $('#join-exam');
+        if(typeof cT !=='undefined')
+            clearTimeout(cT);
+        var today=new Date();//当前时间
+        var stopTime=new Date(startTime);//结束时间
         var rest_time=stopTime.getTime()-today.getTime(),//倒计时毫秒数
             rest_day=parseInt(rest_time/(60*60*24*1000)),//转换为天
             day=parseInt(rest_time)-parseInt(rest_day*60*60*24*1000),//除去天的毫秒数
@@ -127,11 +140,119 @@
             hour=day-rest_hour*60*60*1000,//除去天、小时的毫秒数
             rest_min=parseInt(hour/(60*1000)),//除去天的毫秒数转换成分钟
             min=hour-rest_min*60*1000;//除去天、小时、分的毫秒数
-        sec=parseInt((rest_time-rest_day*60*60*24*1000-rest_hour*60*60*1000-rest_min*60*1000)/1000)//除去天、小时、分的毫秒数转化为秒
-        document.getElementById("counting_time").innerHTML=(rest_day+"天"+rest_hour+"小时"+rest_min+"分"+sec+"秒"+"<br>");
+        //sec=parseInt((rest_time-rest_day*60*60*24*1000-rest_hour*60*60*1000-rest_min*60*1000)/1000);//除去天、小时、分的毫秒数转化为秒
+        sec = parseInt(min/1000);
+        if(sec<=0 && today.getTime()<=endTime && today.getTime()>startTime){//开始了还没结束
+            if($btn.html()!=='进入笔试' && $btn.html()!=='报名截止' ){
+                if(joined){//已报名
+                    $btn.removeClass('btn-default');
+                    $btn.addClass('btn-info');
+                    $btn.removeAttr('disabled');
+                    $btn.html('进入笔试');
+                    $btn.off('click');
+                    $btn.on('click',function () {
+                        window.location.href += 'do-exam';
+                    });
+                }else{
+                    $btn.off('click');
+                    $btn.html('报名截止');
+                    $btn.attr('disabled','true');
+                }
+            }
+            $('#counting_time').parent().html("距离结束时间<div id='counting_time'></div>");
+            let T = endTime-today.getTime();
+            let HH = parseInt(T/(1000*60*60));
+            let MM = parseInt((T-HH*1000*60*60)/(1000*60));
+            let SS = parseInt((T-HH*1000*60*60-MM*1000*60)/(1000));
+            if(HH<10) HH = '0'+HH;
+            if(MM<10) MM = '0'+MM;
+            if(SS<10) SS = '0'+SS;
+            $('#counting_time').html(HH+":"+MM+":"+SS);
+        }else if(today.getTime()>endTime){//结束了
+            if($btn.html()!='已结束'){
+                $btn.html('已结束');
+                $btn.removeClass('btn-info');
+                $btn.addClass('btn-default');
+                $btn.attr('disabled','true');
+            }
+            $('#counting_time').parent().html('笔试已结束');
+            return;
+        }else{
+            if($btn.html()!=='报名笔试' && $btn.html()!=='已报名'){
+                $btn.html('报名笔试');
+                $btn.off('click');
+                $btn.on('click',function () {
+                    $.post('/exam/join/'+examId,function (data) {
+                        data = JSON.parse(data);
+                        if(data.errorCode==='00'){
+                            toastr.success('报名成功');
+                            setTimeout(function () {
+                                window.location.reload();
+                            },1000);
+                        }else{
+                            toastr.error('报名失败');
+                        }
+                    })
+                });
+            }
+            document.getElementById("counting_time").innerHTML=(rest_day+"天"+rest_hour+"小时"+rest_min+"分"+sec+"秒"+"<br>");
+        }
         // setTimeout("clock()",500);
-        setTimeout(clock,500);
+        cT = setTimeout(clock,500);
     }
-</script>
+
+$(document).ready(function(){
+	//初始化页面数据
+	$.ajax({
+			type:"GET",
+			async:"true",
+			url:"/get/exam-detail/"+examId,
+			success:function(data){
+                var node=$('#showPanel');
+                $(node).empty();
+                console.log(data);
+                datas=JSON.parse(data);
+				errorCode=datas.errorCode;
+				errorMessage=datas.errorMessage;
+				returnObject=datas.returnObject;
+				html="";
+				records="";
+                start = returnObject.Stime;
+                joined = returnObject.joined;
+                var start_time = new Date(start);
+                returnObject.date =start_time.Format("yyyy-MM-dd");
+                    end=returnObject.Etime;
+                var end_time = new Date(end);
+                if(errorCode==='00'){
+                    html+='<div class="comment_box col-md-8">';
+                    html+='<h3>'+returnObject.name+'</h3>';
+                    html+='<div class="bottom15"></div>';
+                    html+='<h4>笔试日期：'+returnObject.date+'</h4>';
+                    html+='<div class="bottom15"></div>';
+                    html+='<h4>开始时间：'+start_time.Format("yyyy-MM-dd HH:mm")+'</h4>';
+                    html+='<div class="bottom15"></div>';
+                    html+='<h4>结束时间：'+end_time.Format("yyyy-MM-dd HH:mm")+'</h4>';
+                    html+='<div class="bottom15"></div>';
+
+                    html+='<h4>题量：'+returnObject.Qnumber+'</h4>';
+                    html+='<div class="bottom15"></div>';
+                    html+='<h4>总分：'+returnObject.Ascore+'</h4>';
+                    html+='<div class="bottom15"></div>';
+                    html+='<h4>距离开始时间：<div id="counting_time"></div></h4>';
+                    html+='<div class="bottom15"></div>';
+                    if(joined)
+                        html+='<span class="btn btn-default" disabled="true" id="join-exam">已报名</span>';
+                    else
+                        html+='<span class="btn btn-info" id="join-exam"></span>';
+                    html+='</div>';
+                    $('#showPanel').append(html);
+                    startTime = returnObject.Stime;
+                    endTime = returnObject.Etime;
+                    clock();
+                }
+            }
+        });
+    });
+  </script>
 </body>
 </html>

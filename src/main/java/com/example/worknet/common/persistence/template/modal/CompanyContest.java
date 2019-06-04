@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author YunJieJiang123
- * @since 2019-04-27
+ * @since 2019-05-25
  */
 @TableName("sys_company_contest")
 public class CompanyContest implements Serializable {
@@ -30,6 +30,10 @@ public class CompanyContest implements Serializable {
      */
     @TableField("company_id")
     private Long companyId;
+    /**
+     * 笔试标题
+     */
+    private String title;
     /**
      * 笔试开始时间
      */
@@ -62,6 +66,14 @@ public class CompanyContest implements Serializable {
         this.companyId = companyId;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Date getStartTime() {
         return startTime;
     }
@@ -91,6 +103,7 @@ public class CompanyContest implements Serializable {
         return "CompanyContest{" +
         ", id=" + id +
         ", companyId=" + companyId +
+        ", title=" + title +
         ", startTime=" + startTime +
         ", endTime=" + endTime +
         ", activity=" + activity +

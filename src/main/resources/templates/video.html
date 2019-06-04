@@ -220,7 +220,7 @@
         <div class="row">
             <div class="col-md-12 page-content">
                 <div class="page_nav">
-                    <span>你的位置:</span> <a href="index.html">首页</a> <span><i
+                    <span>你的位置:</span> <a href="/index">首页</a> <span><i
                         class="fa fa-angle-double-right"></i><a href="course_detail.html">课程详情</a></span><span><i
                         class="fa fa-angle-double-right"></i>视频</span>
                 </div>
@@ -329,7 +329,6 @@
         let thisUserId = $span.parents('div.comment-body').find('div.user input[type="hidden"]').val();
         let $div = $span.parents('div.paging-box');
         let questionId = $span.parents('.comment-body').find('input.comment-id').val();
-        console.log('questionId:'+questionId);
         console.log('页面跳转：'+$cur.val()+'->'+page);
         $.ajax({
             url:'/get/replies/'+questionId+'?page='+page,
@@ -360,7 +359,7 @@
                             '                                                    <p class="col-md-12">'+item.content+'</p>\n' +
                             '                                                    <div class="reply-info ">\n' +
                             '                                                        <span class="reply-time ">'+item.replyTime+'</span>\n' +
-                            '<input type="hidden" class="reply-id" value="'+item.commentId+'">'+//回复本身的id
+                            '<input type="hidden" class="reply-id" value="'+item.replyId+'">'+//回复本身的id
                             '                                                        <span class="reply-btn">回复</span>\n' +
                             '                                                    </div>\n' +
                             '                                                </div>\n' +

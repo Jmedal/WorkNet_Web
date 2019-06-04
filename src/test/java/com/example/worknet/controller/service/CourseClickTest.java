@@ -1,24 +1,21 @@
 package com.example.worknet.controller.service;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.example.worknet.common.constant.CourseConst;
+import com.example.worknet.common.persistence.affair.course.controller.CourseStudiedController;
 import com.example.worknet.common.persistence.affair.course.serivce.CourseService;
 import com.example.worknet.common.persistence.affair.user.serivce.UserService;
+import com.example.worknet.common.persistence.template.dao.CompanyContestApplyMapper;
 import com.example.worknet.common.persistence.template.dao.CourseMapper;
-import com.example.worknet.common.persistence.template.modal.TeacherInfo;
-import com.example.worknet.common.persistence.template.modal.User;
 import com.example.worknet.common.persistence.affair.user.serivce.AdministratorService;
 import com.example.worknet.common.persistence.affair.course.serivce.CourseClickService;
 import com.example.worknet.common.persistence.affair.user.serivce.TeacherInfoService;
+import com.example.worknet.common.persistence.template.dao.CourseStudiedMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.HashMap;
 
 /**
  * 测试API
@@ -46,8 +43,12 @@ public class CourseClickTest {
 
     @Autowired
     private CourseService courseService;
+
     @Autowired
-    private CourseMapper courseMapper;
+    private CompanyContestApplyMapper companyContestApplyMapper;
+
+    @Autowired
+    private CourseStudiedController courseStudiedController;
 
     @Test
     public void test() throws Exception {
@@ -70,11 +71,13 @@ public class CourseClickTest {
 //        System.out.println(userService.getUserInfo(user));
 
 
-        Page<HashMap<String,Object>> questionPage = courseService.getCoursePage(new Page<>(0 ,9), CourseConst.COURSE_DEfAULT,"");
+        //Page<HashMap<String,Object>> questionPage = courseService.getCoursePage(new Page<>(0 ,9), CourseConst.COURSE_DEfAULT,"");
         //HashMap<String,Object> map = new HashMap<>();
         //map.put("errorCode","00");
         //map.put("returnObject",questionPage);
 
-        System.out.println(courseMapper.getCourseInfo((long)3));
+        System.out.println(companyContestApplyMapper.getUserCompanyContestPage(new Page<>(1,8),(long)3));
+
+
     }
 }

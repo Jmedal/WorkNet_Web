@@ -17,8 +17,36 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="/css/loader.css">
     <link rel="stylesheet" type="text/css" href="/css/button.css">
+    <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.css" rel="stylesheet">
 
+    <style>
+        div.join-btn{
+            padding:20px 10px;
+            border-radius:10px;
+            background:radial-gradient(#ffffff, #ffe59ca8);
+            box-shadow:5px 5px 15px #00000054;
+            cursor:pointer;
+            transition:all 0.3s;
+            text-align: center;
+        }
+        div.join-btn:hover{
+            transform:scale(1.04);
+            box-shadow:5px 5px 35px #00000054;
+            opacity:.84;
+        }
+        div.join-btn:active{
+            transform:scale(0.97);
+            box-shadow:5px 5px 15px #00000054;
+            opacity:1;
+        }
+        div.joined-course{
+            text-align: center;
+            background: white;
+            padding:20px 20px;
+            border-radius:10px;
 
+        }
+    </style>
 </head>
 
 <body data-spy="scroll" data-target="#myScrollspy">
@@ -49,7 +77,7 @@
         <div class="row">
             <div class="col-md-12 page-content">
                 <div class="page_nav">
-                    <span>你的位置:</span> <a href="index.html">首页</a> <span><i
+                    <span>你的位置:</span> <a href="#" onClick= "javascript :history.back(1)">首页</a> <span><i
                         class="fa fa-angle-double-right"></i>课程详情</span>
                 </div>
             </div>
@@ -57,7 +85,6 @@
     </div>
 </section>
 <!--Page Header-->
-
 
 <!-- Courses -->
 <section id="course_all" class="padding-bottom-half padding-top-half">
@@ -86,13 +113,15 @@
                             <p>分类</p>
                             <h5><span class="course-field"></span> / <span class="course-title"></span></h5>
                         </div>
-                        <div class="info_label hidden-xs"></div>
                         <div class="info_label">
                             <form class="star_rating bottom5">
                                 <p>平均评分</p>
                                 <p class="no_bottom text-right avg-star"></p>
                             </form>
-
+                        </div>
+                        <div class="info_label join-btn margin_left">
+                            <h3>报名参加</h3>
+                            <p>0000年00月00日</p>
                         </div>
                     </div>
                 </div>
@@ -179,7 +208,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="moreComment" class="Button_1">查看更多评论</a>
+                <a id="moreComment" class="Button_1">查看更多评论</a>
             </div>
             <div class="col-sm-2"></div>
         </div>
@@ -192,6 +221,7 @@
 
 
 <script src="/js/jquery-2.2.3.js"></script>
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/bootsnav.js"></script>
 <script src="/js/jquery.appear.js"></script>
@@ -209,10 +239,70 @@
 <script src="/js/wow.min.js"></script>
 <script src="/js/functions.js"></script>
 <script>
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "H+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    };
+    var isJoined = 0;
+    $('#moreComment').on('click',function (object) {
+        if(isJoined===0){
+            toastr.warning('请先报名参加该课程');
+            $('body,html').animate({scrollTop:$('.join-btn').offset().top-100},500);
+        }else{
+            let url = window.location.href;
+            let ut= url.split("#");
+            let u=ut[0];
+            window.location.href=u+'moreComment';
+        }
+    });
     $(document).ready(function () {
         var href = window.location.href;
         href = href.substring(0,href.lastIndexOf("\/"));
         var cid = parseInt(href.substring(href.lastIndexOf("\/")+1,href.length));
+        $.get('/personal/get/joinedCourse/'+cid,{},function (data) {
+            data = JSON.parse(data);
+            if(data.errorCode==='00'){
+                let obj = data.returnObject;
+                if(obj.isJoined){
+                    $('.join-btn h3').html('已报名');
+                    $('.join-btn p').html(obj.joinTime);
+                    $('.join-btn').addClass('joined-course');
+                    $('.join-btn').removeClass('join-btn');
+                    isJoined = 1;
+                }else{
+                    $('.join-btn p').html(new Date().Format("yyyy-MM-dd"));
+                    $('.join-btn').on('click',function (object) {
+                        if(uid !== undefined){
+                            $.get('/personal/study/course/'+cid,{joinTime:new Date().Format("yyyy-MM-dd")},function (data) {
+                                data = JSON.parse(data);
+                                if(data.errorCode==='00'){
+                                    toastr.success('报名成功');
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    },300);
+                                }else{
+                                    toastr.warning('报名失败');
+                                }
+                            });
+                        }else {
+                            toastr.warning('请先登录');
+                            window.location.href = '/login';
+                        }
+                    });
+                }
+            }
+        });
         $('#about').find('img').attr('src','/get/course/view/'+cid);//图片预览
         $.get('/get/course/basicInfo/'+cid,{},function (data) {
             data = JSON.parse(data);
@@ -253,8 +343,19 @@
                     let smenu = item.subMenu;
                     for(let j = 0; j < smenu.length; j++){
                         let $$$div = $('<div class="panel-body">\n' +
-                            '                                    '+smenu[j].title+'<a href="video/#'+smenu[j].vid+'" class="Button_1">查看视频</a>\n' +
+                            '                                    '+smenu[j].title+'<a class="Button_1">查看视频</a>\n' +
                             '                                </div>\n');
+                        $$$div.find('a').on('click',function () {
+                            if(isJoined===0){
+                                toastr.warning('请先报名参加该课程');
+                                $('body,html').animate({scrollTop:$('.join-btn').offset().top-100},500);
+                            }else{
+                                let url = window.location.href;
+                                let ut= url.split("#");
+                                let u=ut[0];
+                                window.location.href=u+'video/#'+smenu[j].vid;
+                            }
+                        });
                         $$div.find('#collapse_'+i).append($$$div);//应该可以
                     }
                     $div.append($$div);
@@ -296,9 +397,9 @@
                     $com.append('\n' +
                         fst +
                         '                    <div class="profile top20 bottom20">\n' +
-                        '                        <div class="p_pic"><img src="/get/avatar/'+item.uid+'" alt="avatar" width="92" height="92"></div>\n' +
+                        '                        <div class="p_pic"><a href="/info/'+item.uid+'/"><img src="/get/avatar/'+item.uid+'" alt="avatar" width="92" height="92"></a></div>\n' +
                         '                        <div class="profile_text" style="width: 100%;padding-left: 30px;">\n' +
-                        '                            <h5><strong>'+item.nickname+'</strong></h5>\n' +
+                        '                            <h5><strong><a href="/info/'+item.uid+'/">'+item.nickname+'</a></strong></h5>\n' +
                         '                            <form class="star_rating bottom5">\n' +
                         '                                <div class="stars">\n' +tmp+
                         '                                    <span></span>\n' +

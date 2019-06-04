@@ -78,7 +78,6 @@ public class CourseVideoServiceImpl extends ServiceImpl<CourseVideoMapper, Cours
         return list;
     }
 
-
     /**
      * 获取课程视频
      * @param vId
@@ -89,7 +88,7 @@ public class CourseVideoServiceImpl extends ServiceImpl<CourseVideoMapper, Cours
         CourseVideo courseVideo = super.selectById(vId);
         if(courseVideo==null)
             throw new RuntimeException();
-        String filePath = courseVideo.getVideoPath();
+        String filePath = Const.FILE_PATH + courseVideo.getVideoPath();
         strDirPath = strDirPath+"WEB-INF"+ Const.FILE_SEPARATOR+"classes"+Const.FILE_SEPARATOR+"static"+Const.FILE_SEPARATOR+"upload";
         FileToolsUtil.fileToUpload(strDirPath,filePath);
         return resourceLoader.getResource("file:" + strDirPath + Const.FILE_SEPARATOR + filePath.substring(filePath.lastIndexOf(Const.FILE_SEPARATOR)+1));

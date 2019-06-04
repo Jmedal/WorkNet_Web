@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.example.worknet.common.persistence.template.modal.CourseRecommend">
         <id column="id" property="id" />
-        <result column="profession_type_id" property="professionTypeId" />
+        <result column="profession_id" property="professionId" />
         <result column="curriculum_id" property="curriculumId" />
     </resultMap>
 

@@ -1,6 +1,7 @@
 package com.example.worknet.common.persistence.pageController;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -42,5 +43,12 @@ public class PersonalController {
     public String myMsg_system(){
         return "/personal/myMsg_system.html";
     }
-
+    @RequestMapping(value = "/occupationInner")
+    public String myMsg_occupation(){
+        return "/personal/occupationInner.html";
+    }
+    @RequestMapping(value = "/info/{uid}")//获取用户个人页面
+    public String info(@PathVariable Integer uid){
+        return "personal/display_page.html";
+    }
 }

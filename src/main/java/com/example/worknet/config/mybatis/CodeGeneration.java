@@ -53,7 +53,7 @@ public class CodeGeneration {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setTablePrefix(new String[] { "sys_" });// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[] {"sys_company"}); // 需要生成的表
+        strategy.setInclude(new String[] {""}); // 需要生成的表
 //                 "sys_user",
 //                "sys_curriculum",
 //                "sys_course_video",
@@ -77,15 +77,15 @@ public class CodeGeneration {
 //                "sys_company_contest_choice_option",
 //                "sys_company_contest_question",
 //                "sys_company_contest_result",
-//                "sys_comany_contest_apply",
+//                "sys_company_contest_apply",
 //                "sys_course_contest",
 //                "sys_course_contest_result",
 //                "sys_learner_info",
-//                "sys_professtion",
+//                "sys_profession",
 //                "sys_profession_type",
 //                "sys_course_recommend",
 //                "sys_message"
-
+//                "sys_user_profession"
         strategy.setSuperServiceClass(null);
         strategy.setSuperServiceImplClass(null);
         strategy.setSuperMapperClass(null);
@@ -98,9 +98,9 @@ public class CodeGeneration {
         pc.setController("controller");
         pc.setService("service");
         pc.setServiceImpl("serviceImpl");
-        pc.setMapper("dao");
-        pc.setEntity("modal");
-        pc.setXml("mapping");
+        pc.setMapper("template.dao");
+        pc.setEntity("template.modal");
+        pc.setXml("template.mapping");
         mpg.setPackageInfo(pc);
 
         // 执行生成

@@ -12,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author YunJieJiang123
- * @since 2019-04-27
+ * @since 2019-06-04
  */
 @TableName("sys_course_recommend")
 public class CourseRecommend implements Serializable {
@@ -27,8 +27,8 @@ public class CourseRecommend implements Serializable {
     /**
      * 职业id
      */
-    @TableField("profession_type_id")
-    private Long professionTypeId;
+    @TableField("profession_id")
+    private Long professionId;
     /**
      * 科目分类id
      */
@@ -44,12 +44,12 @@ public class CourseRecommend implements Serializable {
         this.id = id;
     }
 
-    public Long getProfessionTypeId() {
-        return professionTypeId;
+    public Long getProfessionId() {
+        return professionId;
     }
 
-    public void setProfessionTypeId(Long professionTypeId) {
-        this.professionTypeId = professionTypeId;
+    public void setProfessionId(Long professionId) {
+        this.professionId = professionId;
     }
 
     public Long getCurriculumId() {
@@ -64,7 +64,7 @@ public class CourseRecommend implements Serializable {
     public String toString() {
         return "CourseRecommend{" +
         ", id=" + id +
-        ", professionTypeId=" + professionTypeId +
+        ", professionId=" + professionId +
         ", curriculumId=" + curriculumId +
         "}";
     }

@@ -3,13 +3,6 @@ package com.example.worknet.common.persistence.pageController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 
 @Controller
 /**
@@ -39,5 +32,9 @@ public class HomeController {
     @RequestMapping(value = "/course/{cid}/video/")
     public String video(@PathVariable Integer cid){
         return "video.html";
+    }
+    @RequestMapping(value = "/contact")
+    public String contact(){
+        return "contact.html";
     }
 }

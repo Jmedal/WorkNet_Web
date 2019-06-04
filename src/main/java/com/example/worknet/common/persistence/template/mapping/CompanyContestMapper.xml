@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.example.worknet.common.persistence.template.modal.CompanyContest">
         <id column="id" property="id" />
         <result column="company_id" property="companyId" />
+        <result column="title" property="title" />
         <result column="start_time" property="startTime" />
         <result column="end_time" property="endTime" />
         <result column="activity" property="activity" />
