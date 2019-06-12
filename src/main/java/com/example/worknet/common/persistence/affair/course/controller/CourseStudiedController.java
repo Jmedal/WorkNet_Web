@@ -73,11 +73,11 @@ public class CourseStudiedController {
             String joinTime = courseStudiedService.getStudiedTime(userId,cid);
             if(joinTime != null) {
                 res.put("isJoined", true);
-                res.put("joinTime",joinTime);
+                res.put("joinTime", joinTime);
             }
             else
-                res.put("isJoined",false);
-            map.put("returnObject",res);
+                res.put("isJoined", false);
+            map.put("returnObject", res);
             map.put("errorCode","00");
         }
         else

@@ -65,7 +65,10 @@ public class CompanyContestController {
         }
         HashMap<String,Object> map = new HashMap<>();
         map.put("returnObject",pager);
-        map.put("errorCode","00");
+        if (keyword.length()>255){
+            map.put("errorCode","too_long");
+        }
+        else map.put("errorCode","00");
         return JSON.toJSONString(map);
     }
 

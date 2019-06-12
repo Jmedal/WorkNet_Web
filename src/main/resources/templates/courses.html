@@ -292,7 +292,9 @@
                 let totalPage = Math.ceil(pager.pages);//一页9条
                 $('.total-page').html(totalPage);
                 showResult(pager.records);
-            }else{
+            }else if (data.errorCode==='too_long'){
+                toastr.error('内容过长，超过255个字符！');
+            } else{
                 toastr.warning('未知错误');
             }
             changePageBox(opt.page);

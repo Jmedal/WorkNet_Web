@@ -235,6 +235,15 @@
 		function showToastrMsg(code){
             if(code==='00')
                 toastr.success('修改成功');
+            else if (code==='too_long') {
+                toastr.error('内容过长，超过255个字符！');
+			}
+            else if (code==='confirm_error') {
+                toastr.error('两次输入的新密码不同！');
+            }
+            else if (code==='old_error') {
+                toastr.error('旧密码输入错误！');
+            }
             else
                 toastr.error('未知错误，修改失败');
 		}

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2019-06-04 18:43:28
+Date: 2019-06-12 17:24:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -429,7 +429,7 @@ CREATE TABLE `sys_course_studied` (
   KEY `fk_sys_course_studied_sys_course_1` (`course_id`),
   CONSTRAINT `fk_sys_course_studied_sys_course_1` FOREIGN KEY (`course_id`) REFERENCES `sys_course` (`id`),
   CONSTRAINT `fk_sys_course_studied_sys_user_1` FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='用户学习课程记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='用户学习课程记录表';
 
 -- ----------------------------
 -- Records of sys_course_studied
@@ -441,6 +441,7 @@ INSERT INTO `sys_course_studied` VALUES ('4', '6', '1', '30', '0', '2019-05-09 0
 INSERT INTO `sys_course_studied` VALUES ('5', '7', '2', '0', '0', '2019-05-09 09:31:50.000000');
 INSERT INTO `sys_course_studied` VALUES ('6', '3', '1', '0', '0', '2019-05-24 00:00:00.000000');
 INSERT INTO `sys_course_studied` VALUES ('6', '3', '2', '0', '0', '2019-05-25 20:20:17.000000');
+INSERT INTO `sys_course_studied` VALUES ('7', '10', '1', '0', '0', '2019-06-06 00:00:00.000000');
 
 -- ----------------------------
 -- Table structure for sys_course_video

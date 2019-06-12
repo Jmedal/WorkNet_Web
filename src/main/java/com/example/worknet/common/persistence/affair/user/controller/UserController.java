@@ -219,8 +219,7 @@ public class UserController {
                 map.put("errorCode","00");
             else
                 map.put("errorCode","error");
-        }
-        else
+        } else
             map.put("errorCode","error");
         return JSON.toJSONString(map);
     }
@@ -235,7 +234,9 @@ public class UserController {
     public String changeSignature(@RequestParam(value = "signature")String signature,
                                   HttpServletRequest request){
         HashMap<String,Object> map = new HashMap<>();
-        if(request.getSession(true).getAttribute("userId") != null){
+        if (signature.length() > 255){
+            map.put("errorCode","too_long");
+        } else if(request.getSession(true).getAttribute("userId") != null){
             Long userId = (long)request.getSession(true).getAttribute("userId");
             LearnerInfo learnerInfo = new LearnerInfo();
             learnerInfo.setUserId(userId);
@@ -244,8 +245,7 @@ public class UserController {
                 map.put("errorCode","00");
             else
                 map.put("errorCode","error");
-        }
-        else
+        } else
             map.put("errorCode","error");
         return JSON.toJSONString(map);
     }
@@ -267,8 +267,7 @@ public class UserController {
             } catch (Exception e) {
                 map.put("errorCode", "error");
             }
-        }
-        else
+        } else
             map.put("errorCode","error");
         return JSON.toJSONString(map);
     }
@@ -312,7 +311,7 @@ public class UserController {
                              HttpServletRequest request){
         HashMap<String,Object> map = new HashMap<>();
         if(newPassword.equals(confirmPassword)
-                && request.getSession(true).getAttribute("userId")!=null){
+                && request.getSession(true).getAttribute("userId")!=null) {
             Long userId = (long)request.getSession(true).getAttribute("userId");
             User user = userService.selectById(userId);
             if(user.getPassword().equals(oldPassword)
@@ -320,11 +319,15 @@ public class UserController {
                 user.setPassword(newPassword);
                 userService.updateUserInfo(user);
                 map.put("errorCode","00");
-            }else
+            } else if(!user.getPassword().equals(oldPassword)){
+                map.put("errorCode","old_error");
+            } else
                 map.put("errorCode","error");
-        }
-        else
+        } else if(!newPassword.equals(confirmPassword)){
+            map.put("errorCode","confirm_error");
+        } else
             map.put("errorCode","error");
+
         return JSON.toJSONString(map);
     }
 
@@ -337,13 +340,12 @@ public class UserController {
     public String getMyCourse(@RequestParam(value = "page") Integer page,
                               HttpServletRequest request){
         HashMap<String,Object> map = new HashMap<>();
-        if(request.getSession(true).getAttribute("userId") != null){
+        if(request.getSession(true).getAttribute("userId") != null) {
             Long userId = (long)request.getSession(true).getAttribute("userId");
             Page<HashMap<String,Object>> pager = userService.getUserStudiedPage(new Page<>(page,2), userId);//param:page,默认一页两个
             map.put("returnObject", pager);
             map.put("errorCode","00");
-        }
-        else
+        } else
             map.put("errorCode","error");
         return JSON.toJSONString(map);
     }
@@ -363,8 +365,7 @@ public class UserController {
             Page<HashMap<String,Object>> pager = userService.getUserContestPage(new Page<>(page,8), userId); //param:page,默认一页八个
             map.put("returnObject", pager);
             map.put("errorCode","00");
-        }
-        else
+        } else
             map.put("errorCode","error");
         return JSON.toJSONString(map);
     }

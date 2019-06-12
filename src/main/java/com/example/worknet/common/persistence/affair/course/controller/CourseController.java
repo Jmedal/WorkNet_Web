@@ -64,7 +64,10 @@ public class CourseController {
                 break;
         }
         HashMap<String,Object> map = new HashMap<>();
-        map.put("errorCode","00");
+        if (keyword.length()>255){
+            map.put("errorCode","too_long");
+        }
+        else map.put("errorCode","00");
         map.put("returnObject",questionPage);
         return JSON.toJSONString(map);
     }
